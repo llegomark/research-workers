@@ -341,7 +341,17 @@ export const ResearchDetails: FC = (props) => {
 					</div>
 				</div>
 
-				<h2 className="text-2xl font-bold text-neutral-900 mb-6">{props.research.query}</h2>
+				<div className="flex items-center gap-2 mb-6">
+					<h2 className="text-2xl font-bold text-neutral-900">{props.research.query}</h2>
+					{props.research.direct_search && (
+						<span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+							<svg className="mr-1 h-3 w-3 text-blue-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+								<path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd" />
+							</svg>
+							Direct Search
+						</span>
+					)}
+				</div>
 
 				<div className="space-y-6">
 					<div className="border border-neutral-200 rounded-lg overflow-hidden">
@@ -355,40 +365,51 @@ export const ResearchDetails: FC = (props) => {
 						</div>
 
 						<div className="p-4 bg-white">
-							<table className="w-full text-sm">
-								<tbody>
-									<tr className="border-b border-neutral-100">
-										<th className="py-2 pr-4 font-medium text-neutral-700 text-left">Depth</th>
-										<td className="py-2 text-neutral-900">{props.research.depth}</td>
-									</tr>
-									<tr>
-										<th className="py-2 pr-4 font-medium text-neutral-700 text-left">Breadth</th>
-										<td className="py-2 text-neutral-900">{props.research.breadth}</td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-					</div>
-
-					<div className="border border-neutral-200 rounded-lg overflow-hidden">
-						<div className="flex items-center px-4 py-3 bg-neutral-50 border-b border-neutral-200">
-							<button className="flex items-center justify-between w-full text-left">
-								<span className="font-medium text-neutral-800">Drill-Down Questions</span>
-								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-									<polyline points="6 9 12 15 18 9"></polyline>
-								</svg>
-							</button>
-						</div>
-
-						<div className="divide-y divide-neutral-100">
-							{props.research.questions.map((obj) => (
-								<div className="p-4 bg-white">
-									<div className="font-medium text-neutral-800 mb-1">{obj.question}</div>
-									<div className="text-sm text-neutral-600">{obj.answer}</div>
+							{props.research.direct_search ? (
+								<div className="flex items-center text-neutral-700">
+									<svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 text-blue-500" viewBox="0 0 20 20" fill="currentColor">
+										<path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd" />
+									</svg>
+									<span>Generated using Google Search Grounding for faster results</span>
 								</div>
-							))}
+							) : (
+								<table className="w-full text-sm">
+									<tbody>
+										<tr className="border-b border-neutral-100">
+											<th className="py-2 pr-4 font-medium text-neutral-700 text-left">Depth</th>
+											<td className="py-2 text-neutral-900">{props.research.depth}</td>
+										</tr>
+										<tr>
+											<th className="py-2 pr-4 font-medium text-neutral-700 text-left">Breadth</th>
+											<td className="py-2 text-neutral-900">{props.research.breadth}</td>
+										</tr>
+									</tbody>
+								</table>
+							)}
 						</div>
 					</div>
+
+					{!props.research.direct_search && (
+						<div className="border border-neutral-200 rounded-lg overflow-hidden">
+							<div className="flex items-center px-4 py-3 bg-neutral-50 border-b border-neutral-200">
+								<button className="flex items-center justify-between w-full text-left">
+									<span className="font-medium text-neutral-800">Drill-Down Questions</span>
+									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+										<polyline points="6 9 12 15 18 9"></polyline>
+									</svg>
+								</button>
+							</div>
+
+							<div className="divide-y divide-neutral-100">
+								{props.research.questions.map((obj) => (
+									<div className="p-4 bg-white">
+										<div className="font-medium text-neutral-800 mb-1">{obj.question}</div>
+										<div className="text-sm text-neutral-600">{obj.answer}</div>
+									</div>
+								))}
+							</div>
+						</div>
+					)}
 
 					<div className="border border-neutral-200 rounded-lg overflow-hidden">
 						<div className="flex items-center px-4 py-3 bg-neutral-50 border-b border-neutral-200">

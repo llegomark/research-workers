@@ -1,5 +1,6 @@
 import {
 	type GoogleGenerativeAIProvider,
+	type GoogleGenerativeAIProviderMetadata,
 	createGoogleGenerativeAI,
 } from "@ai-sdk/google";
 import type { Env } from "./bindings";
@@ -44,11 +45,10 @@ export function getFlashFast(env: Env) {
 export function getSearch(env: Env) {
 	const google = getGoogleProvider(env);
 
-	return google("gemini-2.0-flash", {
+	return google("gemini-2.0-flash-exp", {
 		useSearchGrounding: true,
 		dynamicRetrievalConfig: {
-			mode: 'MODE_DYNAMIC',
-			dynamicThreshold: 0.0,
+			mode: 'MODE_UNSPECIFIED'
 		}
 	});
 }
@@ -65,10 +65,18 @@ export function extractSearchMetadata(providerMetadata?: any): {
 
 	const metadata = providerMetadata.google;
 
+	// Type-safe extraction for properties known to exist in the type
+	const groundingMetadata = metadata.groundingMetadata;
+	const safetyRatings = metadata.safetyRatings;
+
+	// Extract sources using a type assertion or directly from the any-typed object
+	// This works around the TypeScript type definition limitations
+	const sources = (metadata as any).sources;
+
 	return {
-		groundingMetadata: metadata.groundingMetadata,
-		safetyRatings: metadata.safetyRatings,
-		sources: (metadata as any).sources
+		groundingMetadata,
+		safetyRatings,
+		sources
 	};
 }
 
