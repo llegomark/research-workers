@@ -52,6 +52,25 @@ export function getSearch(env: Env) {
 	});
 }
 
+// Helper function to extract search grounding metadata from the response
+export function extractSearchMetadata(providerMetadata?: any): {
+	groundingMetadata?: any;
+	safetyRatings?: any;
+	sources?: any;
+} {
+	if (!providerMetadata || !providerMetadata.google) {
+		return {};
+	}
+
+	const metadata = providerMetadata.google;
+
+	return {
+		groundingMetadata: metadata.groundingMetadata,
+		safetyRatings: metadata.safetyRatings,
+		sources: (metadata as any).sources
+	};
+}
+
 export function timeAgo(date: Date): string {
 	const now = new Date();
 	const seconds = Math.floor((now.getTime() - date.getTime()) / 1000);
