@@ -1,0 +1,141 @@
+/* Report styling with improved typography and spacing */
+
+.report {
+	font-family: var(--font-sans);
+	color: var(--color-neutral-800);
+	line-height: 1.6;
+	max-width: 60rem;
+	margin: 0 auto;
+  }
+  
+  .report h1, 
+  .report h2, 
+  .report h3, 
+  .report h4, 
+  .report h5, 
+  .report h6 {
+	margin-top: 1.5em;
+	margin-bottom: 0.5em;
+	font-weight: 700;
+	line-height: 1.2;
+	color: var(--color-neutral-900);
+  }
+  
+  .report h1 {
+	font-size: 2rem;
+	border-bottom: 1px solid var(--color-neutral-200);
+	padding-bottom: 0.5em;
+	margin-bottom: 1em;
+  }
+  
+  .report h2 {
+	font-size: 1.5rem;
+	border-bottom: 1px solid var(--color-neutral-200);
+	padding-bottom: 0.3em;
+  }
+  
+  .report h3 {
+	font-size: 1.25rem;
+  }
+  
+  .report h4 {
+	font-size: 1.1rem;
+  }
+  
+  .report p {
+	margin-bottom: 1.25em;
+	font-size: 1.05rem;
+  }
+  
+  .report a {
+	color: var(--color-primary-600);
+	text-decoration: none;
+	transition: color 0.2s var(--ease-out);
+  }
+  
+  .report a:hover {
+	text-decoration: underline;
+	color: var(--color-primary-700);
+  }
+  
+  .report a:visited {
+	color: var(--color-primary-800);
+  }
+  
+  .report code {
+	font-family: var(--font-mono);
+	font-size: 0.9em;
+	background-color: var(--color-neutral-100);
+	padding: 0.2em 0.4em;
+	border-radius: var(--radius-sm);
+  }
+  
+  .report pre {
+	background-color: var(--color-neutral-100);
+	padding: 1em;
+	border-radius: var(--radius-md);
+	overflow-x: auto;
+	font-family: var(--font-mono);
+	font-size: 0.9em;
+	margin: 1.5em 0;
+  }
+  
+  .report blockquote {
+	border-left: 4px solid var(--color-primary-300);
+	padding-left: 1em;
+	margin-left: 0;
+	margin-right: 0;
+	color: var(--color-neutral-600);
+	font-style: italic;
+  }
+  
+  .report ul, 
+  .report ol {
+	padding-left: 1.5em;
+	margin-bottom: 1.25em;
+  }
+  
+  .report li {
+	margin-bottom: 0.5em;
+  }
+  
+  .report ul li {
+	list-style-type: disc;
+  }
+  
+  .report ol li {
+	list-style-type: decimal;
+  }
+  
+  .report table {
+	width: 100%;
+	border-collapse: collapse;
+	margin: 1.5em 0;
+  }
+  
+  .report th {
+	background-color: var(--color-neutral-100);
+	font-weight: 600;
+	text-align: left;
+	padding: 0.75em;
+	border: 1px solid var(--color-neutral-300);
+  }
+  
+  .report td {
+	padding: 0.75em;
+	border: 1px solid var(--color-neutral-300);
+  }
+  
+  .report img {
+	max-width: 100%;
+	height: auto;
+	border-radius: var(--radius-md);
+	margin: 1.5em 0;
+  }
+  
+  .report hr {
+	height: 1px;
+	background-color: var(--color-neutral-200);
+	border: none;
+	margin: 2em 0;
+  }

@@ -1,0 +1,498 @@
+import { html } from "hono/html";
+import type { FC } from "hono/jsx";
+import type { ResearchType } from "../types";
+import { formatManilaTime } from "../utils";
+
+const TopBar: FC = (props) => {
+	return (
+		<header className="bg-neutral-50 border-b border-neutral-200 shadow-sm sticky top-0 z-10">
+			<div className="container mx-auto">
+				<div className="flex items-center justify-between h-16 px-4">
+					<div className="flex items-center">
+						<a href="/" className="flex items-center space-x-2 text-xl font-semibold text-primary-700">
+							<svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+								<path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M13.8 12H3" />
+							</svg>
+							<span>e-saliksik</span>
+						</a>
+					</div>
+					<div className="flex items-center">
+						<div className="relative">
+							<div
+								tabIndex={0}
+								role="button"
+								className="flex items-center space-x-2 bg-neutral-100 hover:bg-neutral-200 transition-colors duration-200 px-3 py-2 rounded-lg cursor-pointer"
+							>
+								{props.user !== "unknown" ? (
+									<div className="flex items-center space-x-2">
+										<div className="w-8 h-8 rounded-full bg-primary-100 text-primary-700 flex items-center justify-center">
+											{props.user.charAt(0).toUpperCase()}
+										</div>
+										<span className="font-medium">{props.user}</span>
+									</div>
+								) : (
+									<div className="flex items-center space-x-2">
+										<div className="w-8 h-8 rounded-full bg-neutral-200 flex items-center justify-center">
+											<svg
+												xmlns="http://www.w3.org/2000/svg"
+												width="16"
+												height="16"
+												fill="currentColor"
+												viewBox="0 0 16 16"
+											>
+												<path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
+												<path
+													fill-rule="evenodd"
+													d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"
+												/>
+											</svg>
+										</div>
+										<span className="font-medium">Guest</span>
+									</div>
+								)}
+								<svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+									<path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+								</svg>
+							</div>
+							<div className="absolute right-0 mt-1 w-56 bg-white rounded-lg shadow-lg border border-neutral-200 hidden group-focus:block">
+								<ul className="py-2">
+									<li>
+										<a href="/auth/logout" className="flex items-center px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-100">
+											<svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2" viewBox="0 0 20 20" fill="currentColor">
+												<path fillRule="evenodd" d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z" clipRule="evenodd" />
+											</svg>
+											Logout
+										</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</header>
+	);
+};
+
+const Footer: FC = () => {
+	const currentYear = new Date().getFullYear();
+
+	return (
+		<footer className="bg-neutral-100 border-t border-neutral-200">
+			<div className="container mx-auto py-6 px-4">
+				<div className="flex flex-col md:flex-row justify-between items-center">
+					<div className="mb-4 md:mb-0">
+						<p className="text-neutral-600 text-sm">
+							Copyright © {currentYear} Mark Anthony Llego. All rights reserved.
+						</p>
+					</div>
+					<div className="flex items-center space-x-4">
+						<a href="https://github.com/llegomark" className="text-neutral-600 hover:text-primary-700 transition-colors">
+							<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+								<path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z" />
+							</svg>
+						</a>
+					</div>
+				</div>
+			</div>
+		</footer>
+	);
+};
+
+export const Layout: FC = (props) => {
+	return (
+		<html lang="en">
+			<head>
+				<meta charset="UTF-8" />
+				<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+				<link href="/styles.css" rel="stylesheet" />
+				<link rel="preconnect" href="https://fonts.googleapis.com" />
+				<link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+				<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet" />
+				<title>{props.title || "Workers Research"}</title>
+			</head>
+			<body className="bg-neutral-50 min-h-screen flex flex-col">
+				<TopBar user={props.user} />
+				<main className="flex-grow">
+					<div className="container mx-auto p-4 md:p-6">{props.children}</div>
+				</main>
+				<Footer />
+			</body>
+		</html>
+	);
+};
+
+export const ResearchList: FC = (props) => {
+	return (
+		<div className="card bg-white shadow-md rounded-xl overflow-hidden">
+			<div className="p-6">
+				<div className="flex items-center justify-between mb-6">
+					<h2 className="text-2xl font-bold text-neutral-900">
+						My Researches
+					</h2>
+					<a href="/create" className="btn btn-success flex items-center space-x-2">
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							fill="none"
+							viewBox="0 0 24 24"
+							stroke="currentColor"
+							className="w-5 h-5"
+						>
+							<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+						</svg>
+						<span>New Research</span>
+					</a>
+				</div>
+
+				<div className="overflow-x-auto -mx-6">
+					<table className="w-full">
+						<thead>
+							<tr className="border-b border-neutral-200">
+								<th className="px-6 py-3 text-left font-medium text-neutral-500 text-sm tracking-wider">Query</th>
+								<th className="px-6 py-3 text-left font-medium text-neutral-500 text-sm tracking-wider">Status</th>
+								<th className="px-6 py-3 text-left font-medium text-neutral-500 text-sm tracking-wider">Date Created</th>
+								<th className="px-6 py-3 text-right font-medium text-neutral-500 text-sm tracking-wider">Actions</th>
+							</tr>
+						</thead>
+						<tbody className="divide-y divide-neutral-200">
+							{(props.researches.results as ResearchType[]).map((obj) => (
+								<tr className="hover:bg-neutral-50 transition-colors duration-150">
+									<td className="px-6 py-4">
+										<div className="text-sm text-neutral-800 line-clamp-2">{obj.query}</div>
+									</td>
+									<td className="px-6 py-4">
+										<span
+											className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${obj.status === 1 ? "bg-amber-100 text-amber-800" : "bg-emerald-100 text-emerald-800"}`}
+										>
+											{obj.status === 1 ? (
+												<>
+													<svg className="mr-1.5 h-2 w-2 text-amber-400 animate-pulse" fill="currentColor" viewBox="0 0 8 8">
+														<circle cx="4" cy="4" r="3" />
+													</svg>
+													Running
+												</>
+											) : (
+												<>
+													<svg className="mr-1.5 h-2 w-2 text-emerald-500" fill="currentColor" viewBox="0 0 8 8">
+														<circle cx="4" cy="4" r="3" />
+													</svg>
+													Complete
+												</>
+											)}
+										</span>
+									</td>
+									<td className="px-6 py-4">
+										<span className="text-sm text-neutral-500 whitespace-nowrap">
+											{formatManilaTime(new Date(obj.created_at))}
+										</span>
+									</td>
+									<td className="px-6 py-4 text-right">
+										<div className="flex items-center justify-end gap-2">
+											<form method="post" action="/re-run" className="inline-flex">
+												<input type="hidden" name="id" value={obj.id} />
+												<button className="inline-flex items-center justify-center p-1.5 bg-neutral-100 hover:bg-neutral-200 rounded-md transition-colors" title="Re-run research">
+													<svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-neutral-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+														<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+													</svg>
+												</button>
+											</form>
+											<a
+												href={"/details/" + obj.id}
+												className="inline-flex items-center justify-center px-3 py-1.5 bg-primary-600 hover:bg-primary-700 text-white rounded-md transition-colors text-sm font-medium"
+											>
+												{obj.status === 1 ? "View Progress" : "Read Report"}
+											</a>
+										</div>
+									</td>
+								</tr>
+							))}
+						</tbody>
+					</table>
+					{(props.researches.results as ResearchType[]).length === 0 && (
+						<div className="flex flex-col items-center justify-center py-12 px-6">
+							<div className="bg-neutral-100 rounded-full p-4 mb-4">
+								<svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-neutral-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+									<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+								</svg>
+							</div>
+							<h3 className="text-lg font-medium text-neutral-900 mb-1">No researches yet</h3>
+							<p className="text-neutral-500 text-center mb-6">Start your first research by clicking the button above</p>
+							<a href="/create" className="btn btn-primary">Create New Research</a>
+						</div>
+					)}
+				</div>
+			</div>
+		</div>
+	);
+};
+
+export const ResearchDetails: FC = (props) => {
+	return (
+		<div className="card bg-white shadow-md rounded-xl overflow-hidden">
+			<div className="p-6">
+				<div className="flex items-center justify-between mb-6">
+					<h3 className="text-lg font-medium text-neutral-500">
+						Reading Research
+					</h3>
+					<div className="flex items-center gap-2">
+						<a href="/" className="btn btn-secondary btn-sm flex items-center space-x-1">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								width="16"
+								height="16"
+								fill="currentColor"
+								viewBox="0 0 16 16"
+							>
+								<path
+									fill-rule="evenodd"
+									d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"
+								/>
+							</svg>
+							<span>Go back</span>
+						</a>
+					</div>
+				</div>
+
+				<h2 className="text-2xl font-bold text-neutral-900 mb-6">{props.research.query}</h2>
+
+				<div className="space-y-6">
+					<div className="border border-neutral-200 rounded-lg overflow-hidden">
+						<div className="flex items-center px-4 py-3 bg-neutral-50 border-b border-neutral-200">
+							<button className="flex items-center justify-between w-full text-left">
+								<span className="font-medium text-neutral-800">Research Parameters</span>
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+									<polyline points="6 9 12 15 18 9"></polyline>
+								</svg>
+							</button>
+						</div>
+
+						<div className="p-4 bg-white">
+							<table className="w-full text-sm">
+								<tbody>
+									<tr className="border-b border-neutral-100">
+										<th className="py-2 pr-4 font-medium text-neutral-700 text-left">Depth</th>
+										<td className="py-2 text-neutral-900">{props.research.depth}</td>
+									</tr>
+									<tr>
+										<th className="py-2 pr-4 font-medium text-neutral-700 text-left">Breadth</th>
+										<td className="py-2 text-neutral-900">{props.research.breadth}</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+
+					<div className="border border-neutral-200 rounded-lg overflow-hidden">
+						<div className="flex items-center px-4 py-3 bg-neutral-50 border-b border-neutral-200">
+							<button className="flex items-center justify-between w-full text-left">
+								<span className="font-medium text-neutral-800">Drill-Down Questions</span>
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+									<polyline points="6 9 12 15 18 9"></polyline>
+								</svg>
+							</button>
+						</div>
+
+						<div className="divide-y divide-neutral-100">
+							{props.research.questions.map((obj) => (
+								<div className="p-4 bg-white">
+									<div className="font-medium text-neutral-800 mb-1">{obj.question}</div>
+									<div className="text-sm text-neutral-600">{obj.answer}</div>
+								</div>
+							))}
+						</div>
+					</div>
+
+					<div className="border border-neutral-200 rounded-lg overflow-hidden">
+						<div className="flex items-center px-4 py-3 bg-neutral-50 border-b border-neutral-200">
+							<div className="flex items-center justify-between w-full">
+								<span className="font-medium text-neutral-800">Research Report</span>
+								{props.research.status === 1 && (
+									<div className="flex items-center text-amber-600 text-sm">
+										<svg className="animate-spin -ml-1 mr-2 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+											<circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+											<path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+										</svg>
+										Processing...
+									</div>
+								)}
+							</div>
+						</div>
+
+						<div className="p-6 bg-white">
+							<div className="report prose max-w-none">{html(props.research.report_html)}</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	);
+};
+
+export const CreateResearch: FC = () => {
+	return (
+		<div className="card bg-white shadow-md rounded-xl overflow-hidden">
+			<div className="p-6">
+				<div className="flex items-center justify-between mb-6">
+					<h2 className="text-2xl font-bold text-neutral-900">
+						Create New Research
+					</h2>
+					<a href="/" className="btn btn-secondary btn-sm flex items-center space-x-1">
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							width="16"
+							height="16"
+							fill="currentColor"
+							viewBox="0 0 16 16"
+						>
+							<path
+								fill-rule="evenodd"
+								d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"
+							/>
+						</svg>
+						<span>Go back</span>
+					</a>
+				</div>
+
+				<form
+					className="space-y-6 max-w-2xl"
+					action="/create"
+					method="post"
+				>
+					<div className="space-y-2">
+						<label className="block text-sm font-medium text-neutral-700">
+							What do you want to research?
+						</label>
+						<textarea
+							name="query"
+							className="w-full min-h-32 p-3 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+							required={true}
+							placeholder="Write me a report about..."
+						></textarea>
+					</div>
+
+					<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+						<div className="space-y-2">
+							<label className="block text-sm font-medium text-neutral-700">
+								Research Depth
+							</label>
+							<div className="flex items-center">
+								<input
+									name="depth"
+									type="number"
+									min="1"
+									max="5"
+									className="w-20 p-2 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+									value="3"
+									required={true}
+								/>
+								<div className="ml-3 text-sm text-neutral-500">
+									<span className="block">1 = Basic research</span>
+									<span className="block">5 = Deep, extensive research</span>
+								</div>
+							</div>
+						</div>
+
+						<div className="space-y-2">
+							<label className="block text-sm font-medium text-neutral-700">
+								Research Breadth
+							</label>
+							<div className="flex items-center">
+								<input
+									name="breadth"
+									type="number"
+									min="1"
+									max="5"
+									className="w-20 p-2 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+									value="3"
+									required={true}
+								/>
+								<div className="ml-3 text-sm text-neutral-500">
+									<span className="block">1 = Focused, narrow scope</span>
+									<span className="block">5 = Wide, exploratory scope</span>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div className="pt-4">
+						<button className="btn btn-primary w-full md:w-auto">
+							Continue with creation
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	);
+};
+
+export const NewResearchQuestions: FC = (props) => {
+	return (
+		<div className="card bg-white shadow-md rounded-xl overflow-hidden">
+			<div className="p-6">
+				<div className="flex items-center justify-between mb-6">
+					<h2 className="text-2xl font-bold text-neutral-900">
+						Research Drill-Down Questions
+					</h2>
+					<a href="/" className="btn btn-secondary btn-sm flex items-center space-x-1">
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							width="16"
+							height="16"
+							fill="currentColor"
+							viewBox="0 0 16 16"
+						>
+							<path
+								fill-rule="evenodd"
+								d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"
+							/>
+						</svg>
+						<span>Go back</span>
+					</a>
+				</div>
+
+				<div className="bg-primary-50 border border-primary-200 rounded-lg p-4 mb-6">
+					<div className="text-sm font-medium text-primary-800 mb-1">Initial Research Query:</div>
+					<p className="text-primary-900">{props.research.query}</p>
+				</div>
+
+				<div className="max-w-2xl">
+					<div className="mb-6">
+						<h3 className="text-lg font-medium text-neutral-800 mb-2">
+							To get better results, please answer these follow-up questions:
+						</h3>
+						<p className="text-neutral-600 text-sm">
+							These questions will help the AI understand your needs better and provide more relevant research.
+						</p>
+					</div>
+
+					<form action="/create/finish" method="post" className="space-y-6">
+						<input name="query" value={props.research.query} type="hidden" />
+						<input name="breadth" value={props.research.breadth} type="hidden" />
+						<input name="depth" value={props.research.depth} type="hidden" />
+
+						{props.questions.map((obj, index) => (
+							<div className="space-y-2">
+								<label className="block text-sm font-medium text-neutral-700">
+									{index + 1}. {obj}
+								</label>
+								<input name="question" value={obj} type="hidden" />
+								<input
+									name="answer"
+									className="w-full p-3 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+									required
+									placeholder="Your answer..."
+								/>
+							</div>
+						))}
+
+						<div className="pt-2">
+							<button className="btn btn-primary w-full md:w-auto">
+								Create new Research
+							</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	);
+};
