@@ -307,7 +307,7 @@ export const ResearchDetails: FC = (props) => {
 									d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"
 								/>
 							</svg>
-							<span>Go Back</span>
+							<span>Back</span>
 						</a>
 					</div>
 				</div>
@@ -425,7 +425,7 @@ export const CreateResearch: FC = () => {
 				<div className="p-6">
 					<div className="flex items-center justify-between mb-6">
 						<h2 className="text-2xl font-bold text-neutral-900">
-							Create New Research
+							Generate Research Report
 						</h2>
 						<a href="/" className="btn btn-secondary btn-sm flex items-center space-x-1">
 							<svg
@@ -440,7 +440,7 @@ export const CreateResearch: FC = () => {
 									d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"
 								/>
 							</svg>
-							<span>Go Back</span>
+							<span>Back</span>
 						</a>
 					</div>
 
@@ -461,27 +461,41 @@ export const CreateResearch: FC = () => {
 									required={true}
 									placeholder="Write me a report about..."
 								></textarea>
-								<button
-									type="button"
-									id="optimize-topic-btn"
-									className="absolute bottom-3 right-3 bg-primary-50 text-primary-700 hover:bg-primary-100 transition-colors border border-primary-200 rounded p-2"
-									aria-label="Optimize my research topic with AI"
-								>
-									<span className="tooltip-container">
-										<svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-											<path fillRule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clipRule="evenodd" />
-										</svg>
+								<div className="group absolute bottom-3 right-3">
+									<button
+										type="button"
+										id="optimize-topic-btn"
+										className="bg-primary-50 text-primary-700 hover:bg-primary-100 transition-colors border border-primary-200 rounded p-2"
+										aria-label="Optimize my research topic with AI"
+									>
+										<span id="optimize-icon" className="block">
+											<svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+												<path fillRule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clipRule="evenodd" />
+											</svg>
+										</span>
 										<span id="optimize-loading" className="hidden">
 											<svg className="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
 												<circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
 												<path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
 											</svg>
 										</span>
-										<span className="tooltip absolute -top-10 right-0 bg-neutral-800 text-white text-xs rounded px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-md">Optimize my research topic with AI</span>
-									</span>
-								</button>
+										<div className="absolute bottom-full right-0 mb-2 w-48 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
+											<div className="bg-neutral-800 text-white text-xs rounded py-1 px-2 shadow-lg">
+												Optimize my research topic with AI
+											</div>
+										</div>
+									</button>
+								</div>
 							</div>
-							<div id="optimization-status" className="text-sm text-neutral-600 hidden mt-2"></div>
+							<div className="flex justify-between">
+								<div className="text-xs text-neutral-500 flex items-center">
+									<svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 mr-1 text-primary-600" viewBox="0 0 20 20" fill="currentColor">
+										<path d="M11 3a1 1 0 10-2 0v1a1 1 0 102 0V3zM15.657 5.757a1 1 0 00-1.414-1.414l-.707.707a1 1 0 001.414 1.414l.707-.707zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM5.05 6.464A1 1 0 106.464 5.05l-.707-.707a1 1 0 00-1.414 1.414l.707.707zM5 10a1 1 0 01-1 1H3a1 1 0 110-2h1a1 1 0 011 1zM8 16v-1h4v1a2 2 0 11-4 0zM12 14c.015-.34.208-.646.477-.859a4 4 0 10-4.954 0c.27.213.462.519.476.859h4.002z" />
+									</svg>
+									<span>Tip: Click the lightning bolt to refine your research topic with AI</span>
+								</div>
+								<div id="optimization-status" className="text-sm text-neutral-600 hidden mt-2"></div>
+							</div>
 						</div>
 
 						<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -530,34 +544,19 @@ export const CreateResearch: FC = () => {
 
 						<div className="pt-4">
 							<button className="btn btn-primary w-full md:w-auto">
-								Continue With Creation
+								Continue
 							</button>
 						</div>
 					</form>
 				</div>
 			</div>
 
-			<style dangerouslySetInnerHTML={{
-				__html: `
-					.tooltip-container {
-						position: relative;
-						display: inline-block;
-					}
-					.tooltip {
-						visibility: hidden;
-						z-index: 50;
-					}
-					.tooltip-container:hover .tooltip {
-						visibility: visible;
-					}
-				`
-			}}></style>
-
 			<script dangerouslySetInnerHTML={{
 				__html: `
 					document.addEventListener('DOMContentLoaded', () => {
 						const optimizeBtn = document.getElementById('optimize-topic-btn');
 						const textarea = document.getElementById('research-query');
+						const optimizeIcon = document.getElementById('optimize-icon');
 						const loadingIndicator = document.getElementById('optimize-loading');
 						const statusElement = document.getElementById('optimization-status');
 						
@@ -577,8 +576,7 @@ export const CreateResearch: FC = () => {
 								}
 								
 								// Show loading indicator
-								const normalIcon = optimizeBtn.querySelector('svg:not(.animate-spin)');
-								if (normalIcon) normalIcon.classList.add('hidden');
+								optimizeIcon.classList.add('hidden');
 								loadingIndicator.classList.remove('hidden');
 								optimizeBtn.disabled = true;
 								
@@ -630,7 +628,7 @@ export const CreateResearch: FC = () => {
 									}, 4000);
 								} finally {
 									// Hide loading indicator
-									if (normalIcon) normalIcon.classList.remove('hidden');
+									optimizeIcon.classList.remove('hidden');
 									loadingIndicator.classList.add('hidden');
 									optimizeBtn.disabled = false;
 								}
@@ -681,7 +679,7 @@ export const NewResearchQuestions: FC = (props) => {
 									d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"
 								/>
 							</svg>
-							<span>Go Back</span>
+							<span>Back</span>
 						</a>
 					</div>
 
@@ -769,7 +767,7 @@ export const NewResearchQuestions: FC = (props) => {
 
 							<div className="pt-2">
 								<button className="btn btn-primary w-full md:w-auto">
-									Create New Research
+									Generate
 								</button>
 							</div>
 						</form>

@@ -141,11 +141,10 @@ async function generateSerpQueries({
 	const res = await generateObject({
 		model: getModel(env),
 		system: RESEARCH_PROMPT(),
-		prompt: `Generate up to ${numQueries} unique SERP queries for the following prompt: <prompt>${query}</prompt>${
-			learnings
-				? `\nIncorporate these previous learnings:\n${learnings.join("\n")}`
-				: ""
-		}`,
+		prompt: `Generate up to ${numQueries} unique SERP queries for the following prompt: <prompt>${query}</prompt>${learnings
+			? `\nIncorporate these previous learnings:\n${learnings.join("\n")}`
+			: ""
+			}`,
 		schema: z.object({
 			queries: z
 				.array(
@@ -180,11 +179,34 @@ async function writeFinalReport({
 	const { text } = await generateText({
 		model: getModelThinking(env),
 		system: RESEARCH_PROMPT(),
-		prompt: `Using the prompt <prompt>${prompt}</prompt>, write a detailed final report (3+ pages) that includes all the following learnings:\n\n<learnings>\n${learningsString}\n</learnings>`,
+		prompt: `Using the prompt <prompt>${prompt}</prompt>, write a detailed final report (3+ pages) that includes all the following learnings and properly cites the provided sources.
+
+<instructions>
+1. Incorporate all the learnings below into a cohesive, well-structured report
+2. Cite the sources throughout your report using [Source X] notation where X is the source number
+3. When discussing information from a specific source, include the appropriate citation
+4. Ensure EVERY major claim or piece of information has a source citation
+5. Include a comprehensive "Sources" section at the end listing all URLs
+6. The final report should be detailed, informative, and academically rigorous
+</instructions>
+
+<learnings>
+${learningsString}
+</learnings>`,
 	});
 
-	const urlsSection = `\n\n## Sources\n\n${visitedUrls.map((url) => `- ${url}`).join("\n")}`;
-	return text + urlsSection;
+	// More robust check for any existing sources section using a regular expression
+	// This will detect various formats: # Sources, ## Sources, ### References, etc.
+	const sourceSectionRegex = /(?:^|\n)#+\s*(?:sources|references|citations|bibliography|works cited)(?:\s|$)/i;
+	const hasSourcesSection = sourceSectionRegex.test(text);
+
+	if (!hasSourcesSection) {
+		// If no sources section is found, append our own
+		const urlsSection = `\n\n## Sources\n\n${visitedUrls.map((url, i) => `${i + 1}. ${url}`).join("\n")}`;
+		return text + urlsSection;
+	}
+
+	return text;
 }
 
 export class ResearchWorkflow extends WorkflowEntrypoint<Env, ResearchType> {
