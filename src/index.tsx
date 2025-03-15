@@ -127,7 +127,37 @@ app.post("/create/finish", async (c) => {
 		})
 		.execute();
 
-	return c.redirect("/");
+	// Redirect to details page instead of index
+	return c.redirect(`/details/${id}`);
+});
+
+// New API endpoint to check research status
+app.get("/api/research-status/:id", async (c) => {
+	const id = c.req.param("id");
+	const userId = c.get("user");
+
+	const qb = new D1QB(c.env.DB);
+	const resp = await qb
+		.fetchOne<{ status: number, result: string | null }>({
+			tableName: "researches",
+			fields: ["status", "result"],
+			where: {
+				conditions: ["id = ?", "user = ?"],
+				params: [id, userId],
+			},
+		})
+		.execute();
+
+	if (!resp.results) {
+		return c.json({ error: "Research not found" }, 404);
+	}
+
+	return c.json({
+		id,
+		status: resp.results.status,
+		completed: resp.results.status === 2,
+		hasResult: resp.results.result !== null
+	});
 });
 
 app.get("/details/:id", async (c) => {
@@ -161,12 +191,12 @@ app.get("/details/:id", async (c) => {
   
   <h3 class="text-xl font-bold text-primary-800 text-center">Your research is brewing...</h3>
   
-  <div class="loading-message text-center text-primary-700 italic">
+  <div class="loading-message text-center text-primary-700 italic transition-opacity duration-500">
     "If you think research is expensive, try ignorance." — Derek Bok
   </div>
   
   <div class="w-full max-w-md bg-white rounded-full h-2.5 mt-2">
-    <div class="loading-bar bg-primary-600 h-2.5 rounded-full w-[0%]"></div>
+    <div class="loading-bar bg-primary-600 h-2.5 rounded-full w-[0%] transition-all duration-1000"></div>
   </div>
   
   <div class="text-sm text-primary-600 flex items-center">
@@ -174,7 +204,7 @@ app.get("/details/:id", async (c) => {
       <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
       <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
     </svg>
-    Gathering insights from across the web
+    <span id="status-text">Gathering insights from across the web</span>
   </div>
   
   <div class="text-sm text-neutral-600 max-w-md text-center">
@@ -228,6 +258,42 @@ app.get("/details/:id", async (c) => {
       messageElement.style.opacity = 1;
     }, 500);
   }, 8000);
+
+  // Add polling mechanism to check research status
+  const researchId = "${resp.results.id}";
+  const statusText = document.getElementById('status-text');
+  const pollingInterval = setInterval(async () => {
+    try {
+      const response = await fetch(\`/api/research-status/\${researchId}\`);
+      if (!response.ok) throw new Error('Failed to check status');
+      
+      const data = await response.json();
+      
+      // If research is complete and has results
+      if (data.completed && data.hasResult) {
+        // Update UI to show completion is imminent
+        loadingBar.style.width = '100%';
+        statusText.innerHTML = '<span class="text-green-600 font-medium">Research complete! Loading report...</span>';
+        
+        // Clear all intervals
+        clearInterval(pollingInterval);
+        clearInterval(loadingInterval);
+        
+        // Reload the page after a brief delay to show the completion animation
+        setTimeout(() => {
+          window.location.reload();
+        }, 1500);
+      }
+    } catch (error) {
+      console.error('Error checking research status:', error);
+    }
+  }, 5000); // Check every 5 seconds
+
+  // Clean up intervals when user leaves page
+  window.addEventListener('beforeunload', () => {
+    clearInterval(pollingInterval);
+    clearInterval(loadingInterval);
+  });
 </script>
 `;
 	} else {
@@ -367,7 +433,7 @@ app.post("/api/optimize-topic", async (c) => {
 
 	try {
 		const { text } = await generateText({
-			model: getModel(c.env),
+			model: getFlashFast(c.env),
 			messages: [
 				{
 					role: "system",
