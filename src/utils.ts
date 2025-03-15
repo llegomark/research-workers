@@ -28,6 +28,7 @@ export function getModel(env: Env) {
 
 	return google("gemini-2.0-flash");
 }
+
 export function getModelThinking(env: Env) {
 	const google = getGoogleProvider(env);
 
@@ -38,6 +39,17 @@ export function getFlashFast(env: Env) {
 	const google = getGoogleProvider(env);
 
 	return google("gemini-2.0-flash-lite");
+}
+
+export function getSearch(env: Env) {
+	const google = getGoogleProvider(env);
+
+	return google("gemini-2.0-flash", {
+		useSearchGrounding: true,
+		dynamicRetrievalConfig: {
+			mode: 'MODE_UNSPECIFIED'
+		}
+	});
 }
 
 export function timeAgo(date: Date): string {
