@@ -10,6 +10,7 @@ export type ResearchType = {
 	}[];
 	result?: string;
 	created_at?: string;
+	direct_search?: boolean;
 };
 
 export type ResearchTypeDB = {
@@ -21,4 +22,5 @@ export type ResearchTypeDB = {
 	questions: string;
 	result?: string;
 	created_at?: string;
+	direct_search?: boolean;
 };

@@ -11,13 +11,16 @@ import {
 	NewResearchQuestions,
 	ResearchDetails,
 	ResearchList,
+	DirectSearch,
+	PrivacyPolicy,
+	HowItWorks,
 } from "./layout/templates";
 import { FOLLOWUP_QUESTIONS_PROMPT } from "./prompts";
 import type { ResearchType, ResearchTypeDB } from "./types";
 import { getModel, getFlashFast } from "./utils";
 import { generateText } from "ai";
 
-export { ResearchWorkflow } from "./workflows";
+export { ResearchWorkflow, DirectSearchWorkflow } from "./workflows";
 
 export const app = new Hono<{ Bindings: Env; Variables: Variables }>();
 
@@ -451,6 +454,71 @@ app.post("/api/optimize-topic", async (c) => {
 		console.error("Error optimizing topic:", error);
 		return c.json({ error: "Failed to optimize topic" }, 500);
 	}
+});
+
+// Route for the direct search form
+app.get("/direct-search", async (c) => {
+	return c.html(
+		<Layout user={c.get("user")}>
+			<DirectSearch />
+		</Layout>,
+	);
+});
+
+// Route for handling direct search submissions
+app.post("/direct-search/create", async (c) => {
+	const form = await c.req.formData();
+	const query = form.get("query") as string;
+
+	// Generate a unique ID for this research
+	const id = crypto.randomUUID();
+
+	// This is a simplified research object without depth, breadth or questions
+	const obj: ResearchType = {
+		id,
+		query,
+		// Default values for compatibility
+		depth: "3",
+		breadth: "3",
+		questions: [],
+		status: 1,
+		// Mark as a direct search for distinction if needed
+		direct_search: true
+	};
+
+	// Start the direct search workflow
+	await c.env.DIRECT_SEARCH_WORKFLOW.create({
+		id,
+		params: obj,
+	});
+
+	// Insert the research into the database
+	const qb = new D1QB(c.env.DB);
+	await qb
+		.insert({
+			tableName: "researches",
+			data: {
+				...obj,
+				questions: JSON.stringify([]), // Empty array for questions
+				user: c.get("user"),
+			},
+		})
+		.execute();
+
+	// Redirect to details page to show progress
+	return c.redirect(`/details/${id}`);
+});
+
+app.get("/privacy", async (c) => {
+	return c.html(
+		<PrivacyPolicy user={c.get("user")} />
+	);
+});
+
+app.get("/how-it-works", async (c) => {
+	return c.html(
+		<HowItWorks user={c.get("user")} />
+	);
 });
 
 export default app;
