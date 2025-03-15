@@ -34,6 +34,12 @@ export function getModelThinking(env: Env) {
 	return google("gemini-2.0-flash-thinking-exp-01-21");
 }
 
+export function getFlashFast(env: Env) {
+	const google = getGoogleProvider(env);
+
+	return google("gemini-2.0-flash-lite");
+}
+
 export function timeAgo(date: Date): string {
 	const now = new Date();
 	const seconds = Math.floor((now.getTime() - date.getTime()) / 1000);

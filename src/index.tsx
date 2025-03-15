@@ -14,7 +14,8 @@ import {
 } from "./layout/templates";
 import { FOLLOWUP_QUESTIONS_PROMPT } from "./prompts";
 import type { ResearchType, ResearchTypeDB } from "./types";
-import { getModel } from "./utils";
+import { getModel, getFlashFast } from "./utils";
+import { generateText } from "ai";
 
 export { ResearchWorkflow } from "./workflows";
 
@@ -239,6 +240,37 @@ app.post("/delete", async (c) => {
 		.execute();
 
 	return c.redirect("/");
+});
+
+app.post("/api/suggest-answer", async (c) => {
+	const body = await c.req.json();
+	const question = body.question;
+	const query = body.query;
+
+	if (!question) {
+		return c.json({ error: "Question is required" }, 400);
+	}
+
+	try {
+		const { text } = await generateText({
+			model: getFlashFast(c.env),
+			messages: [
+				{
+					role: "system",
+					content: "You are markllego, an AI research assistant helping users refine their research queries. Your task is to generate a helpful, specific, and relevant answer to a follow-up question about a research topic. Keep your response concise but informative, focusing on providing clear direction for the research."
+				},
+				{
+					role: "user",
+					content: `I'm planning to research: "${query}"\nPlease suggest a good answer to this follow-up question: "${question}". Do not user markdown syntax. Keep your response direct to the point, concise and informative.`
+				}
+			]
+		});
+
+		return c.json({ answer: text });
+	} catch (error) {
+		console.error("Error generating answer suggestion:", error);
+		return c.json({ error: "Failed to generate suggestion" }, 500);
+	}
 });
 
 export default app;

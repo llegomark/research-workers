@@ -207,7 +207,7 @@ export const ResearchList: FC = (props) => {
 							>
 								<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
 							</svg>
-							<span>New Research</span>
+							<span>New</span>
 						</a>
 					</div>
 
@@ -258,7 +258,7 @@ export const ResearchList: FC = (props) => {
 												href={"/details/" + obj.id}
 												className="inline-block text-center px-4 py-1.5 bg-primary-600 hover:bg-primary-700 text-white rounded-md transition-colors text-sm font-medium w-full sm:w-auto"
 											>
-												{obj.status === 1 ? "View Progress" : "Read Report"}
+												{obj.status === 1 ? "View" : "Read"}
 											</a>
 										</td>
 
@@ -275,7 +275,7 @@ export const ResearchList: FC = (props) => {
 								</div>
 								<h3 className="text-lg font-medium text-neutral-900 mb-1">No researches yet</h3>
 								<p className="text-neutral-500 text-center mb-6">Start the first community research by clicking the button above</p>
-								<a href="/create" className="btn btn-primary">Create New Research</a>
+								<a href="/create" className="btn btn-primary">Create</a>
 							</div>
 						)}
 					</div>
@@ -440,7 +440,7 @@ export const CreateResearch: FC = () => {
 									d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"
 								/>
 							</svg>
-							<span>Go back</span>
+							<span>Go Back</span>
 						</a>
 					</div>
 
@@ -507,7 +507,7 @@ export const CreateResearch: FC = () => {
 
 						<div className="pt-4">
 							<button className="btn btn-primary w-full md:w-auto">
-								Continue With Creation
+								Continue
 							</button>
 						</div>
 					</form>
@@ -555,7 +555,7 @@ export const NewResearchQuestions: FC = (props) => {
 									d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"
 								/>
 							</svg>
-							<span>Go back</span>
+							<span>Go Back</span>
 						</a>
 					</div>
 
@@ -569,28 +569,75 @@ export const NewResearchQuestions: FC = (props) => {
 							<h3 className="text-lg font-medium text-neutral-800 mb-2">
 								To get better results, please answer these follow-up questions:
 							</h3>
-							<p className="text-neutral-600 text-sm">
+							<p className="text-neutral-600 text-sm mb-4">
 								These questions will help the AI understand your needs better and provide more relevant research.
 							</p>
+							<button
+								type="button"
+								id="prefill-all-btn"
+								className="text-sm font-medium bg-primary-100 text-primary-800 hover:bg-primary-200 px-3 py-2 rounded-md flex items-center transition-colors"
+							>
+								<svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2" viewBox="0 0 20 20" fill="currentColor">
+									<path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+								</svg>
+								Generate All Answers with AI
+							</button>
+							<div id="all-suggestions-status" className="mt-2 text-sm text-neutral-600 hidden">
+								<div className="flex items-center">
+									<svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-primary-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+										<circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+										<path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+									</svg>
+									Generating AI suggestions...
+								</div>
+							</div>
 						</div>
 
-						<form action="/create/finish" method="post" className="space-y-6">
-							<input name="query" value={props.research.query} type="hidden" />
+						<form action="/create/finish" method="post" className="space-y-6" id="research-questions-form">
+							<input name="query" value={props.research.query} type="hidden" id="research-query" />
 							<input name="breadth" value={props.research.breadth} type="hidden" />
 							<input name="depth" value={props.research.depth} type="hidden" />
 
 							{props.questions.map((obj, index) => (
 								<div className="space-y-2">
-									<label className="block text-sm font-medium text-neutral-700">
+									<label className="block text-sm font-medium text-neutral-700" id={`question-${index}-label`}>
 										{index + 1}. {obj}
 									</label>
 									<input name="question" value={obj} type="hidden" />
-									<input
-										name="answer"
-										className="w-full p-3 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
-										required
-										placeholder="Your answer..."
-									/>
+									<div className="relative">
+										<input
+											id={`answer-${index}`}
+											name="answer"
+											className="w-full p-3 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+											required
+											placeholder="Your answer..."
+										/>
+										<button
+											type="button"
+											className="suggest-btn bg-primary-50 text-primary-700 hover:bg-primary-100 transition-colors border border-primary-200 absolute right-2 top-1/2 -translate-y-1/2 rounded px-2 py-1 text-sm flex items-center"
+											data-index={index}
+										>
+											<svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor">
+												<path fill-rule="evenodd" d="M6.625 2.655A9 9 0 0119 11a1 1 0 11-2 0 7 7 0 00-9.625-6.492 1 1 0 11-.75-1.853zM4.662 4.959A1 1 0 014.75 6.37 6.97 6.97 0 003 11a1 1 0 11-2 0 8.97 8.97 0 012.25-5.953 1 1 0 011.412-.088z" clip-rule="evenodd" />
+												<path fill-rule="evenodd" d="M5 11a5 5 0 1110 0 5 5 0 01-10 0zm5-3a3 3 0 100 6 3 3 0 000-6z" clip-rule="evenodd" />
+											</svg>
+											<span>AI Suggest</span>
+											<span className="loading-indicator hidden ml-1">
+												<svg className="animate-spin h-3 w-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+													<circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+													<path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+												</svg>
+											</span>
+										</button>
+									</div>
+									<div className="suggestion-status text-xs text-neutral-500 hidden">
+										<span className="flex items-center text-green-600">
+											<svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 mr-1" viewBox="0 0 20 20" fill="currentColor">
+												<path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+											</svg>
+											AI-generated answer applied
+										</span>
+									</div>
 								</div>
 							))}
 
@@ -603,6 +650,115 @@ export const NewResearchQuestions: FC = (props) => {
 					</div>
 				</div>
 			</div>
+
+			<script dangerouslySetInnerHTML={{
+				__html: `
+					document.addEventListener('DOMContentLoaded', () => {
+						const form = document.getElementById('research-questions-form');
+						const researchQuery = document.getElementById('research-query').value;
+						const suggestAllBtn = document.getElementById('prefill-all-btn');
+						const allSuggestionsStatus = document.getElementById('all-suggestions-status');
+						
+						// Function to fetch AI suggestion for a single question
+						async function getAISuggestion(question) {
+							try {
+								const response = await fetch('/api/suggest-answer', {
+									method: 'POST',
+									headers: {
+										'Content-Type': 'application/json',
+									},
+									body: JSON.stringify({
+										question: question,
+										query: researchQuery
+									}),
+								});
+								
+								if (!response.ok) {
+									throw new Error('Failed to get suggestion');
+								}
+								
+								const data = await response.json();
+								return data.answer;
+							} catch (error) {
+								console.error('Error getting suggestion:', error);
+								return null;
+							}
+						}
+						
+						// Handle individual suggestion buttons
+						document.querySelectorAll('.suggest-btn').forEach(button => {
+							button.addEventListener('click', async function() {
+								// Get elements
+								const index = this.getAttribute('data-index');
+								const questionElement = document.getElementById(\`question-\${index}-label\`);
+								const inputElement = document.getElementById(\`answer-\${index}\`);
+								const loadingIndicator = this.querySelector('.loading-indicator');
+								const statusElement = this.closest('.space-y-2').querySelector('.suggestion-status');
+								
+								if (!questionElement || !inputElement) return;
+								
+								// Get question text (remove the number prefix)
+								const questionText = questionElement.textContent.trim();
+								const questionWithoutNumber = questionText.substring(questionText.indexOf('. ') + 2);
+								
+								// Show loading state
+								this.disabled = true;
+								loadingIndicator.classList.remove('hidden');
+								
+								// Get AI suggestion
+								const suggestion = await getAISuggestion(questionWithoutNumber);
+								
+								// Update UI
+								if (suggestion) {
+									inputElement.value = suggestion;
+									statusElement.classList.remove('hidden');
+								}
+								
+								// Reset button state
+								this.disabled = false;
+								loadingIndicator.classList.add('hidden');
+							});
+						});
+						
+						// Handle suggest all button
+						if (suggestAllBtn) {
+							suggestAllBtn.addEventListener('click', async function() {
+								// Show loading state
+								this.disabled = true;
+								allSuggestionsStatus.classList.remove('hidden');
+								
+								// Get all question elements
+								const questionElements = document.querySelectorAll('[id^="question-"][id$="-label"]');
+								
+								// Process each question sequentially
+								for (let i = 0; i < questionElements.length; i++) {
+									const questionElement = questionElements[i];
+									const index = questionElement.id.replace('question-', '').replace('-label', '');
+									const inputElement = document.getElementById(\`answer-\${index}\`);
+									const statusElement = inputElement.closest('.space-y-2').querySelector('.suggestion-status');
+									
+									// Get question text (remove the number prefix)
+									const questionText = questionElement.textContent.trim();
+									const questionWithoutNumber = questionText.substring(questionText.indexOf('. ') + 2);
+									
+									// Get AI suggestion
+									const suggestion = await getAISuggestion(questionWithoutNumber);
+									
+									// Update UI
+									if (suggestion) {
+										inputElement.value = suggestion;
+										statusElement.classList.remove('hidden');
+									}
+								}
+								
+								// Reset button state
+								this.disabled = false;
+								allSuggestionsStatus.innerHTML = '<span class="flex items-center text-green-600"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>All answers generated</span>';
+							});
+						}
+					});
+				`
+			}}></script>
 		</>
 	);
 };
