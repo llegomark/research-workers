@@ -453,12 +453,35 @@ export const CreateResearch: FC = () => {
 							<label className="block text-sm font-medium text-neutral-700">
 								What do you want to research?
 							</label>
-							<textarea
-								name="query"
-								className="w-full min-h-32 p-3 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
-								required={true}
-								placeholder="Write me a report about..."
-							></textarea>
+							<div className="relative">
+								<textarea
+									id="research-query"
+									name="query"
+									className="w-full min-h-32 p-3 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+									required={true}
+									placeholder="Write me a report about..."
+								></textarea>
+								<button
+									type="button"
+									id="optimize-topic-btn"
+									className="absolute bottom-3 right-3 bg-primary-50 text-primary-700 hover:bg-primary-100 transition-colors border border-primary-200 rounded p-2"
+									aria-label="Optimize my research topic with AI"
+								>
+									<span className="tooltip-container">
+										<svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+											<path fillRule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clipRule="evenodd" />
+										</svg>
+										<span id="optimize-loading" className="hidden">
+											<svg className="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+												<circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+												<path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+											</svg>
+										</span>
+										<span className="tooltip absolute -top-10 right-0 bg-neutral-800 text-white text-xs rounded px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-md">Optimize my research topic with AI</span>
+									</span>
+								</button>
+							</div>
+							<div id="optimization-status" className="text-sm text-neutral-600 hidden mt-2"></div>
 						</div>
 
 						<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -507,12 +530,115 @@ export const CreateResearch: FC = () => {
 
 						<div className="pt-4">
 							<button className="btn btn-primary w-full md:w-auto">
-								Continue
+								Continue With Creation
 							</button>
 						</div>
 					</form>
 				</div>
 			</div>
+
+			<style dangerouslySetInnerHTML={{
+				__html: `
+					.tooltip-container {
+						position: relative;
+						display: inline-block;
+					}
+					.tooltip {
+						visibility: hidden;
+						z-index: 50;
+					}
+					.tooltip-container:hover .tooltip {
+						visibility: visible;
+					}
+				`
+			}}></style>
+
+			<script dangerouslySetInnerHTML={{
+				__html: `
+					document.addEventListener('DOMContentLoaded', () => {
+						const optimizeBtn = document.getElementById('optimize-topic-btn');
+						const textarea = document.getElementById('research-query');
+						const loadingIndicator = document.getElementById('optimize-loading');
+						const statusElement = document.getElementById('optimization-status');
+						
+						if (optimizeBtn && textarea) {
+							optimizeBtn.addEventListener('click', async () => {
+								const currentText = textarea.value.trim();
+								
+								if (!currentText) {
+									statusElement.textContent = 'Please enter a research topic first';
+									statusElement.className = 'text-sm text-amber-600 mt-2';
+									statusElement.classList.remove('hidden');
+									
+									setTimeout(() => {
+										statusElement.classList.add('hidden');
+									}, 3000);
+									return;
+								}
+								
+								// Show loading indicator
+								const normalIcon = optimizeBtn.querySelector('svg:not(.animate-spin)');
+								if (normalIcon) normalIcon.classList.add('hidden');
+								loadingIndicator.classList.remove('hidden');
+								optimizeBtn.disabled = true;
+								
+								statusElement.textContent = 'Optimizing your research topic...';
+								statusElement.className = 'text-sm text-primary-600 mt-2';
+								statusElement.classList.remove('hidden');
+								
+								try {
+									const response = await fetch('/api/optimize-topic', {
+										method: 'POST',
+										headers: {
+											'Content-Type': 'application/json',
+										},
+										body: JSON.stringify({
+											topic: currentText
+										})
+									});
+									
+									if (!response.ok) {
+										throw new Error('Failed to optimize topic');
+									}
+									
+									const data = await response.json();
+									
+									if (data.optimizedTopic) {
+										textarea.value = data.optimizedTopic;
+										
+										statusElement.innerHTML = '<span class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 text-green-600" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>Research topic optimized successfully</span>';
+										statusElement.className = 'text-sm text-green-600 mt-2';
+										
+										// Highlight the textarea briefly
+										textarea.classList.add('ring-2', 'ring-green-500');
+										setTimeout(() => {
+											textarea.classList.remove('ring-2', 'ring-green-500');
+										}, 2000);
+										
+										setTimeout(() => {
+											statusElement.classList.add('hidden');
+										}, 5000);
+									}
+								} catch (error) {
+									console.error('Error optimizing topic:', error);
+									
+									statusElement.textContent = 'Failed to optimize topic. Please try again.';
+									statusElement.className = 'text-sm text-red-600 mt-2';
+									
+									setTimeout(() => {
+										statusElement.classList.add('hidden');
+									}, 4000);
+								} finally {
+									// Hide loading indicator
+									if (normalIcon) normalIcon.classList.remove('hidden');
+									loadingIndicator.classList.add('hidden');
+									optimizeBtn.disabled = false;
+								}
+							});
+						}
+					});
+				`
+			}}></script>
 		</>
 	);
 };

@@ -273,4 +273,34 @@ app.post("/api/suggest-answer", async (c) => {
 	}
 });
 
+app.post("/api/optimize-topic", async (c) => {
+	const body = await c.req.json();
+	const topic = body.topic;
+
+	if (!topic) {
+		return c.json({ error: "Topic is required" }, 400);
+	}
+
+	try {
+		const { text } = await generateText({
+			model: getModel(c.env),
+			messages: [
+				{
+					role: "system",
+					content: "You are markllego, an AI research assistant helping users refine research topics. Your task is to improve research topics by making them more specific, focused, and grammatically correct. Keep your response very concise - simply provide the rewritten topic in plain text format. Do not use markdown syntax or add explanations. Just return the improved version of the topic."
+				},
+				{
+					role: "user",
+					content: `Rewrite this research topic to be more specific, focused, and grammatically correct. Provide only the improved version without any explanation or formatting: "${topic}"`
+				}
+			]
+		});
+
+		return c.json({ optimizedTopic: text });
+	} catch (error) {
+		console.error("Error optimizing topic:", error);
+		return c.json({ error: "Failed to optimize topic" }, 500);
+	}
+});
+
 export default app;
