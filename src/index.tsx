@@ -14,11 +14,18 @@ import {
 	DirectSearch,
 	PrivacyPolicy,
 	HowItWorks,
+	ValidationErrorDisplay,
 } from "./layout/templates";
 import { FOLLOWUP_QUESTIONS_PROMPT } from "./prompts";
 import type { ResearchType, ResearchTypeDB } from "./types";
 import { getModel, getFlashFast } from "./utils";
 import { generateText } from "ai";
+import {
+	researchParamsSchema,
+	initialResearchSchema,
+	finalResearchSchema,
+	directSearchSchema
+} from "./validation";
 
 export { ResearchWorkflow, DirectSearchWorkflow } from "./workflows";
 
@@ -58,19 +65,37 @@ app.get("/create", async (c) => {
 app.post("/create", async (c) => {
 	const form = await c.req.formData();
 
-	const research = {
+	const formData = {
 		query: form.get("query") as string,
 		depth: form.get("depth") as string,
 		breadth: form.get("breadth") as string,
 	};
 
+	// Validate input using Zod
+	const validationResult = initialResearchSchema.safeParse(formData);
+
+	if (!validationResult.success) {
+		// If validation fails, extract error messages and render the form again with errors
+		const errorMessages = validationResult.error.errors.map(
+			(err) => `${err.path.join('.')}: ${err.message}`
+		);
+
+		return c.html(
+			<Layout user={c.get("user")}>
+				<ValidationErrorDisplay errors={errorMessages} />
+				<CreateResearch formData={formData} />
+			</Layout>,
+		);
+	}
+
+	// Validation passed, proceed with the original logic
 	const { object } = await generateObject({
 		model: getModel(c.env),
 		messages: [
 			{ role: "system", content: FOLLOWUP_QUESTIONS_PROMPT() },
 			{
 				role: "user",
-				content: research.query,
+				content: validationResult.data.query,
 			},
 		],
 		schema: z.object({
@@ -87,7 +112,7 @@ app.post("/create", async (c) => {
 
 	return c.html(
 		<Layout user={c.get("user")}>
-			<NewResearchQuestions research={research} questions={questions} />
+			<NewResearchQuestions research={validationResult.data} questions={questions} />
 		</Layout>,
 	);
 });
@@ -99,17 +124,54 @@ app.post("/create/finish", async (c) => {
 	const questions = form.getAll("question") as string[];
 	const answers = form.getAll("answer") as string[];
 
+	// Create properly typed question-answer objects
 	const processedQuestions = questions.map((question, i) => ({
 		question,
-		answer: answers[i],
+		answer: answers[i] || "", // Ensure we have a string, even if empty
 	}));
 
-	const obj: ResearchType = {
-		id,
+	const formData = {
 		query: form.get("query") as string,
 		depth: form.get("depth") as string,
 		breadth: form.get("breadth") as string,
 		questions: processedQuestions,
+	};
+
+	// Validate input using Zod
+	const validationResult = finalResearchSchema.safeParse(formData);
+
+	if (!validationResult.success) {
+		// If validation fails, extract error messages
+		const errorMessages = validationResult.error.errors.map(
+			(err) => `${err.path.join('.')}: ${err.message}`
+		);
+
+		// Redirect back to the create page with error message
+		return c.html(
+			<Layout user={c.get("user")}>
+				<ValidationErrorDisplay errors={errorMessages} />
+				<CreateResearch />
+			</Layout>,
+		);
+	}
+
+	// Validation passed, create the research object
+	const validatedData = validationResult.data;
+
+	// Create a properly typed questions array (explicitly create objects with required properties)
+	const typedQuestions: { question: string; answer: string }[] =
+		validatedData.questions.map(q => ({
+			question: q.question,
+			answer: q.answer
+		}));
+
+	// Create the ResearchType object with properly typed questions
+	const obj: ResearchType = {
+		id,
+		query: validatedData.query,
+		depth: String(validatedData.depth), // Convert back to string for consistency with existing code
+		breadth: String(validatedData.breadth), // Convert back to string for consistency with existing code
+		questions: typedQuestions, // Use our explicitly typed array
 		status: 1,
 	};
 
@@ -470,13 +532,30 @@ app.post("/direct-search/create", async (c) => {
 	const form = await c.req.formData();
 	const query = form.get("query") as string;
 
+	// Validate input using Zod
+	const validationResult = directSearchSchema.safeParse({ query });
+
+	if (!validationResult.success) {
+		// If validation fails, extract error messages
+		const errorMessages = validationResult.error.errors.map(
+			(err) => `${err.path.join('.')}: ${err.message}`
+		);
+
+		return c.html(
+			<Layout user={c.get("user")}>
+				<ValidationErrorDisplay errors={errorMessages} />
+				<DirectSearch formData={{ query }} />
+			</Layout>,
+		);
+	}
+
 	// Generate a unique ID for this research
 	const id = crypto.randomUUID();
 
 	// This is a simplified research object without depth, breadth or questions
 	const obj: ResearchType = {
 		id,
-		query,
+		query: validationResult.data.query,
 		// Default values for compatibility
 		depth: "3",
 		breadth: "3",
