@@ -197,18 +197,32 @@ export const ResearchList: FC = (props) => {
 						<h2 className="text-2xl font-bold text-neutral-900">
 							Community Research Archive
 						</h2>
-						<a href="/create" className="btn btn-success flex items-center space-x-2">
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								fill="none"
-								viewBox="0 0 24 24"
-								stroke="currentColor"
-								className="w-5 h-5"
-							>
-								<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-							</svg>
-							<span>New</span>
-						</a>
+						<div className="flex gap-2">
+							<a href="/direct-search" className="btn bg-primary-700 text-white hover:bg-primary-800 flex items-center space-x-2 btn-sm">
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									fill="none"
+									viewBox="0 0 24 24"
+									stroke="currentColor"
+									className="w-4 h-4"
+								>
+									<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+								</svg>
+								<span>Direct Search</span>
+							</a>
+							<a href="/create" className="btn btn-success flex items-center space-x-2">
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									fill="none"
+									viewBox="0 0 24 24"
+									stroke="currentColor"
+									className="w-5 h-5"
+								>
+									<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+								</svg>
+								<span>New</span>
+							</a>
+						</div>
 					</div>
 
 					<div className="overflow-x-auto -mx-6">
@@ -878,6 +892,222 @@ export const NewResearchQuestions: FC = (props) => {
 								// Reset button state
 								this.disabled = false;
 								allSuggestionsStatus.innerHTML = '<span class="flex items-center text-green-600"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>All answers generated</span>';
+							});
+						}
+					});
+				`
+			}}></script>
+		</>
+	);
+};
+
+export const DirectSearch: FC = () => {
+	return (
+		<>
+			<div className="bg-blue-50 border-l-4 border-blue-500 p-4 mb-6 rounded-r-lg shadow-sm">
+				<div className="flex">
+					<div className="flex-shrink-0">
+						<svg className="h-5 w-5 text-blue-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+							<path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+						</svg>
+					</div>
+					<div className="ml-3">
+						<h3 className="text-sm font-medium text-blue-800">Public Research Notice</h3>
+						<div className="mt-2 text-sm text-blue-700">
+							<p>All research conducted on e-saliksik is publicly available. Please do not include sensitive or personal information in your queries.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div className="card bg-white shadow-md rounded-xl overflow-hidden">
+				<div className="p-6">
+					<div className="flex items-center justify-between mb-6">
+						<h2 className="text-2xl font-bold text-neutral-900">
+							Instant Research with Google Search
+						</h2>
+						<a href="/" className="btn btn-secondary btn-sm flex items-center space-x-1">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								width="16"
+								height="16"
+								fill="currentColor"
+								viewBox="0 0 16 16"
+							>
+								<path
+									fill-rule="evenodd"
+									d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"
+								/>
+							</svg>
+							<span>Back</span>
+						</a>
+					</div>
+
+					<div className="bg-amber-50 border-l-4 border-amber-500 p-4 mb-6 rounded-r-lg shadow-sm">
+						<div className="flex">
+							<div className="flex-shrink-0">
+								<svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-amber-500" viewBox="0 0 20 20" fill="currentColor">
+									<path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+								</svg>
+							</div>
+							<div className="ml-3">
+								<h3 className="text-sm font-medium text-amber-800">New Feature: Direct Research</h3>
+								<div className="mt-2 text-sm text-amber-700">
+									<p>This feature uses Google Search Grounding to generate research reports directly. It's faster than deep research but may provide less comprehensive results.</p>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<form
+						className="space-y-6 max-w-2xl"
+						action="/direct-search/create"
+						method="post"
+					>
+						<div className="space-y-2">
+							<label className="block text-sm font-medium text-neutral-700">
+								What do you want to research?
+							</label>
+							<div className="relative">
+								<textarea
+									id="research-query"
+									name="query"
+									className="w-full min-h-32 p-3 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+									required={true}
+									placeholder="Write me a report about..."
+								></textarea>
+								<div className="group absolute bottom-3 right-3">
+									<button
+										type="button"
+										id="optimize-topic-btn"
+										className="bg-primary-50 text-primary-700 hover:bg-primary-100 transition-colors border border-primary-200 rounded p-2"
+										aria-label="Optimize my research topic with AI"
+									>
+										<span id="optimize-icon" className="block">
+											<svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+												<path fillRule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clipRule="evenodd" />
+											</svg>
+										</span>
+										<span id="optimize-loading" className="hidden">
+											<svg className="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+												<circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+												<path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+											</svg>
+										</span>
+										<div className="absolute bottom-full right-0 mb-2 w-48 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
+											<div className="bg-neutral-800 text-white text-xs rounded py-1 px-2 shadow-lg">
+												Optimize my research topic with AI
+											</div>
+										</div>
+									</button>
+								</div>
+							</div>
+							<div className="flex justify-between">
+								<div className="text-xs text-neutral-500 flex items-center">
+									<svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 mr-1 text-primary-600" viewBox="0 0 20 20" fill="currentColor">
+										<path d="M11 3a1 1 0 10-2 0v1a1 1 0 102 0V3zM15.657 5.757a1 1 0 00-1.414-1.414l-.707.707a1 1 0 001.414 1.414l.707-.707zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM5.05 6.464A1 1 0 106.464 5.05l-.707-.707a1 1 0 00-1.414 1.414l.707.707zM5 10a1 1 0 01-1 1H3a1 1 0 110-2h1a1 1 0 011 1zM8 16v-1h4v1a2 2 0 11-4 0zM12 14c.015-.34.208-.646.477-.859a4 4 0 10-4.954 0c.27.213.462.519.476.859h4.002z" />
+									</svg>
+									<span>Tip: Click the lightning bolt to refine your research topic with AI</span>
+								</div>
+								<div id="optimization-status" className="text-sm text-neutral-600 hidden mt-2"></div>
+							</div>
+						</div>
+
+						<div className="pt-4">
+							<button className="btn btn-primary w-full md:w-auto">
+								<div className="flex items-center">
+									<svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+										<path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd" />
+									</svg>
+									Start Research
+								</div>
+							</button>
+						</div>
+					</form>
+				</div>
+			</div>
+
+			<script dangerouslySetInnerHTML={{
+				__html: `
+					document.addEventListener('DOMContentLoaded', () => {
+						const optimizeBtn = document.getElementById('optimize-topic-btn');
+						const textarea = document.getElementById('research-query');
+						const optimizeIcon = document.getElementById('optimize-icon');
+						const loadingIndicator = document.getElementById('optimize-loading');
+						const statusElement = document.getElementById('optimization-status');
+						
+						if (optimizeBtn && textarea) {
+							optimizeBtn.addEventListener('click', async () => {
+								const currentText = textarea.value.trim();
+								
+								if (!currentText) {
+									statusElement.textContent = 'Please enter a research topic first';
+									statusElement.className = 'text-sm text-amber-600 mt-2';
+									statusElement.classList.remove('hidden');
+									
+									setTimeout(() => {
+										statusElement.classList.add('hidden');
+									}, 3000);
+									return;
+								}
+								
+								// Show loading indicator
+								optimizeIcon.classList.add('hidden');
+								loadingIndicator.classList.remove('hidden');
+								optimizeBtn.disabled = true;
+								
+								statusElement.textContent = 'Optimizing your research topic...';
+								statusElement.className = 'text-sm text-primary-600 mt-2';
+								statusElement.classList.remove('hidden');
+								
+								try {
+									const response = await fetch('/api/optimize-topic', {
+										method: 'POST',
+										headers: {
+											'Content-Type': 'application/json',
+										},
+										body: JSON.stringify({
+											topic: currentText
+										})
+									});
+									
+									if (!response.ok) {
+										throw new Error('Failed to optimize topic');
+									}
+									
+									const data = await response.json();
+									
+									if (data.optimizedTopic) {
+										textarea.value = data.optimizedTopic;
+										
+										statusElement.innerHTML = '<span class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 text-green-600" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>Research topic optimized successfully</span>';
+										statusElement.className = 'text-sm text-green-600 mt-2';
+										
+										// Highlight the textarea briefly
+										textarea.classList.add('ring-2', 'ring-green-500');
+										setTimeout(() => {
+											textarea.classList.remove('ring-2', 'ring-green-500');
+										}, 2000);
+										
+										setTimeout(() => {
+											statusElement.classList.add('hidden');
+										}, 5000);
+									}
+								} catch (error) {
+									console.error('Error optimizing topic:', error);
+									
+									statusElement.textContent = 'Failed to optimize topic. Please try again.';
+									statusElement.className = 'text-sm text-red-600 mt-2';
+									
+									setTimeout(() => {
+										statusElement.classList.add('hidden');
+									}, 4000);
+								} finally {
+									// Hide loading indicator
+									optimizeIcon.classList.remove('hidden');
+									loadingIndicator.classList.add('hidden');
+									optimizeBtn.disabled = false;
+								}
 							});
 						}
 					});

@@ -47,7 +47,8 @@ export function getSearch(env: Env) {
 	return google("gemini-2.0-flash", {
 		useSearchGrounding: true,
 		dynamicRetrievalConfig: {
-			mode: 'MODE_UNSPECIFIED'
+			mode: 'MODE_DYNAMIC',
+			dynamicThreshold: 0.0,
 		}
 	});
 }

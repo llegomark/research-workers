@@ -20,6 +20,11 @@ name = "workers-reseacher-workflow"
 binding = "RESEARCH_WORKFLOW"
 class_name = "ResearchWorkflow"
 
+[[workflows]]
+name = "workers-direct-search-workflow"
+binding = "DIRECT_SEARCH_WORKFLOW"
+class_name = "DirectSearchWorkflow"
+
 [[d1_databases]]
 binding = "DB"
 database_name = "research-workers"

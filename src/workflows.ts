@@ -9,7 +9,7 @@ import { z } from "zod";
 import type { Env } from "./bindings";
 import { RESEARCH_PROMPT } from "./prompts";
 import type { ResearchType } from "./types";
-import { getModel, getModelThinking } from "./utils";
+import { getModel, getModelThinking, getSearch, extractSearchMetadata } from "./utils";
 import {
 	type ResearchBrowser,
 	type SearchResult,
@@ -249,5 +249,79 @@ export class ResearchWorkflow extends WorkflowEntrypoint<Env, ResearchType> {
 
 		console.log("Workflow finished!");
 		return researchResult;
+	}
+}
+
+export class DirectSearchWorkflow extends WorkflowEntrypoint<Env, ResearchType> {
+	async run(event: WorkflowEvent<ResearchType>, step: WorkflowStep) {
+		console.log("Starting direct search workflow");
+
+		const { query, id } = event.payload;
+
+		try {
+			console.log("Generating report with search grounding");
+			const report = await step.do("generate report with search", async () => {
+				const model = getSearch(this.env);
+
+				const { text, providerMetadata } = await generateText({
+					model,
+					system: RESEARCH_PROMPT(),
+					prompt: `Generate a comprehensive research report on the following topic using the most up-to-date information available online: ${query}. 
+                    Include proper citations for all information sources used.`,
+				});
+
+				// Extract source metadata for proper citations
+				const metadata = extractSearchMetadata(providerMetadata);
+
+				let finalReport = text;
+
+				// Add citations section if there are sources in the metadata
+				if (metadata.sources && metadata.sources.length > 0) {
+					// Check if the report already has a sources section
+					const hasSourcesSection = /(?:^|\n)#+\s*(?:sources|references|citations|bibliography|works cited)(?:\s|$)/i.test(text);
+
+					if (!hasSourcesSection) {
+						// Format sources into a proper citation section
+						const sourcesSection = `\n\n## Sources\n\n${metadata.sources.map((source: any, i: number) =>
+							`${i + 1}. ${source.title || 'Untitled'}. ${source.url}`
+						).join('\n')}`;
+
+						finalReport += sourcesSection;
+					}
+				}
+
+				return finalReport;
+			});
+
+			// Update database with the completed report
+			const qb = new D1QB(this.env.DB);
+			await qb
+				.update({
+					tableName: "researches",
+					data: { status: 2, result: report },
+					where: { conditions: "id = ?", params: [id] },
+				})
+				.execute();
+
+			console.log("Direct search workflow finished!");
+			return { success: true };
+		} catch (error) {
+			console.error("Error in direct search workflow:", error);
+
+			// Update database with error status
+			const qb = new D1QB(this.env.DB);
+			await qb
+				.update({
+					tableName: "researches",
+					data: {
+						status: 3, // Use status 3 for error
+						result: `## Error Generating Report\n\nThere was an error generating your research report. Please try again later or try modifying your research query.\n\nError details: ${error instanceof Error ? error.message : "Unknown error"}`
+					},
+					where: { conditions: "id = ?", params: [id] },
+				})
+				.execute();
+
+			throw error;
+		}
 	}
 }
