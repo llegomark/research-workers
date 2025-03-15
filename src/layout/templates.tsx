@@ -307,7 +307,7 @@ export const ResearchDetails: FC = (props) => {
 									d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"
 								/>
 							</svg>
-							<span>Go back</span>
+							<span>Go Back</span>
 						</a>
 					</div>
 				</div>
@@ -507,7 +507,7 @@ export const CreateResearch: FC = () => {
 
 						<div className="pt-4">
 							<button className="btn btn-primary w-full md:w-auto">
-								Continue with creation
+								Continue With Creation
 							</button>
 						</div>
 					</form>
@@ -596,7 +596,7 @@ export const NewResearchQuestions: FC = (props) => {
 
 							<div className="pt-2">
 								<button className="btn btn-primary w-full md:w-auto">
-									Create new Research
+									Create New Research
 								</button>
 							</div>
 						</form>
