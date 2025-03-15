@@ -6,8 +6,8 @@ import { formatManilaTime } from "../utils";
 const TopBar: FC = (props) => {
 	return (
 		<header className="bg-neutral-50 border-b border-neutral-200 shadow-sm sticky top-0 z-10">
-			<div className="container mx-auto">
-				<div className="flex items-center justify-between h-16 px-4">
+			<div className="container mx-auto max-w-4xl px-4">
+				<div className="flex items-center justify-between h-16">
 					<div className="flex items-center">
 						<a href="/" className="flex items-center space-x-2 text-xl font-semibold text-primary-700">
 							<svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -17,55 +17,34 @@ const TopBar: FC = (props) => {
 						</a>
 					</div>
 					<div className="flex items-center">
-						<div className="relative">
-							<div
-								tabIndex={0}
-								role="button"
-								className="flex items-center space-x-2 bg-neutral-100 hover:bg-neutral-200 transition-colors duration-200 px-3 py-2 rounded-lg cursor-pointer"
-							>
-								{props.user !== "unknown" ? (
-									<div className="flex items-center space-x-2">
-										<div className="w-8 h-8 rounded-full bg-primary-100 text-primary-700 flex items-center justify-center">
-											{props.user.charAt(0).toUpperCase()}
-										</div>
-										<span className="font-medium">{props.user}</span>
+						<div className="flex items-center space-x-2 bg-neutral-100 px-3 py-2 rounded-lg">
+							{props.user !== "unknown" ? (
+								<div className="flex items-center space-x-2">
+									<div className="w-8 h-8 rounded-full bg-primary-100 text-primary-700 flex items-center justify-center">
+										{props.user.charAt(0).toUpperCase()}
 									</div>
-								) : (
-									<div className="flex items-center space-x-2">
-										<div className="w-8 h-8 rounded-full bg-neutral-200 flex items-center justify-center">
-											<svg
-												xmlns="http://www.w3.org/2000/svg"
-												width="16"
-												height="16"
-												fill="currentColor"
-												viewBox="0 0 16 16"
-											>
-												<path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
-												<path
-													fill-rule="evenodd"
-													d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"
-												/>
-											</svg>
-										</div>
-										<span className="font-medium">Public</span>
+									<span className="font-medium">{props.user}</span>
+								</div>
+							) : (
+								<div className="flex items-center space-x-2">
+									<div className="w-8 h-8 rounded-full bg-neutral-200 flex items-center justify-center">
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											width="16"
+											height="16"
+											fill="currentColor"
+											viewBox="0 0 16 16"
+										>
+											<path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
+											<path
+												fill-rule="evenodd"
+												d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"
+											/>
+										</svg>
 									</div>
-								)}
-								<svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-									<path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
-								</svg>
-							</div>
-							<div className="absolute right-0 mt-1 w-56 bg-white rounded-lg shadow-lg border border-neutral-200 hidden group-focus:block">
-								<ul className="py-2">
-									<li>
-										<a href="/auth/logout" className="flex items-center px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-100">
-											<svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2" viewBox="0 0 20 20" fill="currentColor">
-												<path fillRule="evenodd" d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z" clipRule="evenodd" />
-											</svg>
-											Logout
-										</a>
-									</li>
-								</ul>
-							</div>
+									<span className="font-medium">Public</span>
+								</div>
+							)}
 						</div>
 					</div>
 				</div>
@@ -74,12 +53,13 @@ const TopBar: FC = (props) => {
 	);
 };
 
+
 const Footer: FC = () => {
 	const currentYear = new Date().getFullYear();
 
 	return (
 		<footer className="bg-neutral-100 border-t border-neutral-200">
-			<div className="container mx-auto py-6 px-4">
+			<div className="container mx-auto max-w-4xl px-4 py-6">
 				<div className="flex flex-col md:flex-row justify-between items-center">
 					<div className="mb-4 md:mb-0">
 						<p className="text-neutral-600 text-sm">
@@ -157,8 +137,8 @@ export const Layout: FC = (props) => {
 			</head>
 			<body className="bg-neutral-50 min-h-screen flex flex-col">
 				<TopBar user={props.user} />
-				<main className="flex-grow">
-					<div className="container mx-auto p-4 md:p-6">{props.children}</div>
+				<main className="flex-grow py-6">
+					{props.children}
 				</main>
 				<Footer />
 			</body>
@@ -168,7 +148,7 @@ export const Layout: FC = (props) => {
 
 export const ResearchList: FC = (props) => {
 	return (
-		<>
+		<div className="container mx-auto max-w-4xl px-4">
 			<div className="bg-blue-50 border-l-4 border-blue-500 p-4 mb-6 rounded-r-lg shadow-sm">
 				<div className="flex">
 					<div className="flex-shrink-0">
@@ -201,8 +181,8 @@ export const ResearchList: FC = (props) => {
 				</div>
 			</div>
 
-			<div className="card bg-white shadow-md rounded-xl overflow-hidden">
-				<div className="p-6">
+			<div className="bg-white shadow-md rounded-xl overflow-hidden">
+				<div className="p-6 md:p-8">
 					<div className="flex items-center justify-between mb-6">
 						<h2 className="text-2xl font-bold text-neutral-900">
 							Community Research Archive
@@ -285,7 +265,6 @@ export const ResearchList: FC = (props) => {
 												{obj.status === 1 ? "View" : "Read"}
 											</a>
 										</td>
-
 									</tr>
 								))}
 							</tbody>
@@ -305,143 +284,144 @@ export const ResearchList: FC = (props) => {
 					</div>
 				</div>
 			</div>
-		</>
+		</div>
 	);
 };
 
 export const ResearchDetails: FC = (props) => {
 	return (
-		<div className="card bg-white shadow-md rounded-xl overflow-hidden">
-			<div className="p-6">
-				<div className="flex items-center justify-between mb-6">
-					<h3 className="text-lg font-medium text-neutral-500">
-						Reading Research
-					</h3>
-					<div className="flex items-center gap-2">
-						<a href="/" className="btn btn-secondary btn-sm flex items-center space-x-1">
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								width="16"
-								height="16"
-								fill="currentColor"
-								viewBox="0 0 16 16"
-							>
-								<path
-									fill-rule="evenodd"
-									d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"
-								/>
-							</svg>
-							<span>Back</span>
-						</a>
-					</div>
-				</div>
-
-				<div className="mb-6 bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r-lg">
-					<div className="flex">
-						<div className="flex-shrink-0">
-							<svg className="h-5 w-5 text-amber-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-								<path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
-							</svg>
-						</div>
-						<div className="ml-3">
-							<p className="text-sm text-amber-700">
-								This research report is AI-generated and may contain errors. Always verify important information from multiple sources.
-							</p>
-						</div>
-					</div>
-				</div>
-
-				<div className="flex items-center gap-2 mb-6">
-					<h2 className="text-2xl font-bold text-neutral-900">{props.research.query}</h2>
-					{props.research.direct_search && (
-						<span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-							<svg className="mr-1 h-3 w-3 text-blue-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-								<path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd" />
-							</svg>
-							Search
-						</span>
-					)}
-				</div>
-
-				<div className="space-y-6">
-					<div className="border border-neutral-200 rounded-lg overflow-hidden">
-						<div className="flex items-center px-4 py-3 bg-neutral-50 border-b border-neutral-200">
-							<button className="flex items-center justify-between w-full text-left">
-								<span className="font-medium text-neutral-800">Research Parameters</span>
-								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-									<polyline points="6 9 12 15 18 9"></polyline>
+		<div className="container mx-auto max-w-4xl px-4">
+			<div className="bg-white shadow-md rounded-xl overflow-hidden">
+				<div className="p-6 md:p-8">
+					<div className="flex items-center justify-between mb-6">
+						<h3 className="text-lg font-medium text-neutral-500">
+							Reading Research
+						</h3>
+						<div className="flex items-center gap-2">
+							<a href="/" className="btn btn-secondary btn-sm flex items-center space-x-1">
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									width="16"
+									height="16"
+									fill="currentColor"
+									viewBox="0 0 16 16"
+								>
+									<path
+										fill-rule="evenodd"
+										d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"
+									/>
 								</svg>
-							</button>
-						</div>
-
-						<div className="p-4 bg-white">
-							{props.research.direct_search ? (
-								<div className="flex items-center text-neutral-700">
-									<svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 text-blue-500" viewBox="0 0 20 20" fill="currentColor">
-										<path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd" />
-									</svg>
-									<span>Generated using Google Search Grounding for faster results</span>
-								</div>
-							) : (
-								<table className="w-full text-sm">
-									<tbody>
-										<tr className="border-b border-neutral-100">
-											<th className="py-2 pr-4 font-medium text-neutral-700 text-left">Depth</th>
-											<td className="py-2 text-neutral-900">{props.research.depth}</td>
-										</tr>
-										<tr>
-											<th className="py-2 pr-4 font-medium text-neutral-700 text-left">Breadth</th>
-											<td className="py-2 text-neutral-900">{props.research.breadth}</td>
-										</tr>
-									</tbody>
-								</table>
-							)}
+								<span>Back</span>
+							</a>
 						</div>
 					</div>
 
-					{!props.research.direct_search && (
+					<div className="mb-6 bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r-lg">
+						<div className="flex">
+							<div className="flex-shrink-0">
+								<svg className="h-5 w-5 text-amber-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+									<path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+								</svg>
+							</div>
+							<div className="ml-3">
+								<p className="text-sm text-amber-700">
+									This research report is AI-generated and may contain errors. Always verify important information from multiple sources.
+								</p>
+							</div>
+						</div>
+					</div>
+
+					<div className="flex items-center gap-2 mb-6">
+						<h2 className="text-2xl font-bold text-neutral-900">{props.research.query}</h2>
+						{props.research.direct_search && (
+							<span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+								<svg className="mr-1 h-3 w-3 text-blue-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+									<path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd" />
+								</svg>
+								Search
+							</span>
+						)}
+					</div>
+
+					<div className="space-y-6">
 						<div className="border border-neutral-200 rounded-lg overflow-hidden">
 							<div className="flex items-center px-4 py-3 bg-neutral-50 border-b border-neutral-200">
 								<button className="flex items-center justify-between w-full text-left">
-									<span className="font-medium text-neutral-800">Drill-Down Questions</span>
+									<span className="font-medium text-neutral-800">Research Parameters</span>
 									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 										<polyline points="6 9 12 15 18 9"></polyline>
 									</svg>
 								</button>
 							</div>
 
-							<div className="divide-y divide-neutral-100">
-								{props.research.questions.map((obj) => (
-									<div className="p-4 bg-white">
-										<div className="font-medium text-neutral-800 mb-1">{obj.question}</div>
-										<div className="text-sm text-neutral-600">{obj.answer}</div>
-									</div>
-								))}
-							</div>
-						</div>
-					)}
-
-					<div className="border border-neutral-200 rounded-lg overflow-hidden">
-						<div className="flex items-center px-4 py-3 bg-neutral-50 border-b border-neutral-200">
-							<div className="flex items-center justify-between w-full">
-								<span className="font-medium text-neutral-800">Research Report</span>
-								{props.research.status === 1 && (
-									<div className="flex items-center text-amber-600 text-sm">
-										<svg className="animate-spin -ml-1 mr-2 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-											<circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-											<path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+							<div className="p-4 bg-white">
+								{props.research.direct_search ? (
+									<div className="flex items-center text-neutral-700">
+										<svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 text-blue-500" viewBox="0 0 20 20" fill="currentColor">
+											<path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd" />
 										</svg>
-										Processing...
+										<span>Generated using Google Search Grounding for faster results</span>
 									</div>
+								) : (
+									<table className="w-full text-sm">
+										<tbody>
+											<tr className="border-b border-neutral-100">
+												<th className="py-2 pr-4 font-medium text-neutral-700 text-left">Depth</th>
+												<td className="py-2 text-neutral-900">{props.research.depth}</td>
+											</tr>
+											<tr>
+												<th className="py-2 pr-4 font-medium text-neutral-700 text-left">Breadth</th>
+												<td className="py-2 text-neutral-900">{props.research.breadth}</td>
+											</tr>
+										</tbody>
+									</table>
 								)}
 							</div>
 						</div>
 
-						<div className="p-6 bg-white">
-							<div className="report prose max-w-none">{html(props.research.report_html)}</div>
-							{/* Add this script to make all source links open in new tabs */}
-							<script dangerouslySetInnerHTML={{
-								__html: `
+						{!props.research.direct_search && (
+							<div className="border border-neutral-200 rounded-lg overflow-hidden">
+								<div className="flex items-center px-4 py-3 bg-neutral-50 border-b border-neutral-200">
+									<button className="flex items-center justify-between w-full text-left">
+										<span className="font-medium text-neutral-800">Drill-Down Questions</span>
+										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+											<polyline points="6 9 12 15 18 9"></polyline>
+										</svg>
+									</button>
+								</div>
+
+								<div className="divide-y divide-neutral-100">
+									{props.research.questions.map((obj) => (
+										<div className="p-4 bg-white">
+											<div className="font-medium text-neutral-800 mb-1">{obj.question}</div>
+											<div className="text-sm text-neutral-600">{obj.answer}</div>
+										</div>
+									))}
+								</div>
+							</div>
+						)}
+
+						<div className="border border-neutral-200 rounded-lg overflow-hidden">
+							<div className="flex items-center px-4 py-3 bg-neutral-50 border-b border-neutral-200">
+								<div className="flex items-center justify-between w-full">
+									<span className="font-medium text-neutral-800">Research Report</span>
+									{props.research.status === 1 && (
+										<div className="flex items-center text-amber-600 text-sm">
+											<svg className="animate-spin -ml-1 mr-2 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+												<circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+												<path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+											</svg>
+											Processing...
+										</div>
+									)}
+								</div>
+							</div>
+
+							<div className="p-6 bg-white">
+								<div className="report prose max-w-none">{html(props.research.report_html)}</div>
+								{/* Add this script to make all source links open in new tabs */}
+								<script dangerouslySetInnerHTML={{
+									__html: `
         document.addEventListener('DOMContentLoaded', () => {
             // Target all links under the sources section
             const sourcesHeading = Array.from(document.querySelectorAll('.report h2')).find(h => 
@@ -460,7 +440,8 @@ export const ResearchDetails: FC = (props) => {
             }
         });
     `
-							}}></script>
+								}}></script>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -471,7 +452,7 @@ export const ResearchDetails: FC = (props) => {
 
 export const CreateResearch: FC = () => {
 	return (
-		<>
+		<div className="container mx-auto max-w-4xl px-4">
 			<div className="bg-blue-50 border-l-4 border-blue-500 p-4 mb-6 rounded-r-lg shadow-sm">
 				<div className="flex">
 					<div className="flex-shrink-0">
@@ -488,8 +469,8 @@ export const CreateResearch: FC = () => {
 				</div>
 			</div>
 
-			<div className="card bg-white shadow-md rounded-xl overflow-hidden">
-				<div className="p-6">
+			<div className="bg-white shadow-md rounded-xl overflow-hidden">
+				<div className="p-6 md:p-8">
 					<div className="flex items-center justify-between mb-6">
 						<h2 className="text-2xl font-bold text-neutral-900">
 							Generate Research Report
@@ -704,13 +685,13 @@ export const CreateResearch: FC = () => {
 					});
 				`
 			}}></script>
-		</>
+		</div>
 	);
 };
 
 export const NewResearchQuestions: FC = (props) => {
 	return (
-		<>
+		<div className="container mx-auto max-w-4xl px-4">
 			<div className="bg-blue-50 border-l-4 border-blue-500 p-4 mb-6 rounded-r-lg shadow-sm">
 				<div className="flex">
 					<div className="flex-shrink-0">
@@ -727,8 +708,8 @@ export const NewResearchQuestions: FC = (props) => {
 				</div>
 			</div>
 
-			<div className="card bg-white shadow-md rounded-xl overflow-hidden">
-				<div className="p-6">
+			<div className="bg-white shadow-md rounded-xl overflow-hidden">
+				<div className="p-6 md:p-8">
 					<div className="flex items-center justify-between mb-6">
 						<h2 className="text-2xl font-bold text-neutral-900">
 							Research Drill-Down Questions
@@ -950,13 +931,13 @@ export const NewResearchQuestions: FC = (props) => {
 					});
 				`
 			}}></script>
-		</>
+		</div>
 	);
 };
 
 export const DirectSearch: FC = () => {
 	return (
-		<>
+		<div className="container mx-auto max-w-4xl px-4">
 			<div className="bg-blue-50 border-l-4 border-blue-500 p-4 mb-6 rounded-r-lg shadow-sm">
 				<div className="flex">
 					<div className="flex-shrink-0">
@@ -973,8 +954,8 @@ export const DirectSearch: FC = () => {
 				</div>
 			</div>
 
-			<div className="card bg-white shadow-md rounded-xl overflow-hidden">
-				<div className="p-6">
+			<div className="bg-white shadow-md rounded-xl overflow-hidden">
+				<div className="p-6 md:p-8">
 					<div className="flex items-center justify-between mb-6">
 						<h2 className="text-2xl font-bold text-neutral-900">
 							Instant Research with Google Search
@@ -1166,7 +1147,7 @@ export const DirectSearch: FC = () => {
 					});
 				`
 			}}></script>
-		</>
+		</div>
 	);
 };
 
