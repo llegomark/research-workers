@@ -172,6 +172,14 @@ async function writeFinalReport({
 	learnings: string[];
 	visitedUrls: string[];
 }) {
+	// Get current date in a readable format
+	const currentDate = new Date().toLocaleDateString('en-US', {
+		weekday: 'long',
+		year: 'numeric',
+		month: 'long',
+		day: 'numeric'
+	});
+
 	const learningsString = learnings
 		.map((l) => `<learning>\n${l}\n</learning>`)
 		.join("\n");
@@ -179,7 +187,7 @@ async function writeFinalReport({
 	const { text } = await generateText({
 		model: getModelThinking(env),
 		system: RESEARCH_PROMPT(),
-		prompt: `Using the prompt <prompt>${prompt}</prompt>, write a detailed final report (3+ pages) that includes all the following learnings. Output ONLY the report with no introduction or acknowledgment text.
+		prompt: `Using the prompt <prompt>${prompt}</prompt>, write a detailed final report (3+ pages) that includes all the following learnings. Today's date is ${currentDate}. Output ONLY the report with no introduction or acknowledgment text.
             
 <learnings>
 ${learningsString}
@@ -187,7 +195,9 @@ ${learningsString}
 
 <sources>
 ${visitedUrls.map((url, i) => `${i + 1}. ${url}`).join("\n")}
-</sources>`,
+</sources>
+
+When creating the report, consider today's date (${currentDate}) for relevance and timeliness of information.`,
 	});
 
 	// More robust check for any existing sources section using a regular expression 	 	
@@ -275,7 +285,7 @@ export class DirectSearchWorkflow extends WorkflowEntrypoint<Env, ResearchType> 
 					model,
 					// Add a clear system message to set expectations with current date
 					system: `You are a professional research system that produces direct, formal reports without any acknowledgments, meta-commentary, or self-references. Begin reports immediately with substantive content. Today is ${currentDate}.`,
-					prompt: `[DEEP RESEARCH REQUEST] ${query}
+					prompt: `[GOOGLE SEARCH REQUEST] ${query}
 		
 		Using both your knowledge and real-time Google Search:
   
