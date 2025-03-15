@@ -86,12 +86,22 @@ const Footer: FC = () => {
 							Copyright © {currentYear} Mark Anthony Llego. All rights reserved.
 						</p>
 					</div>
-					<div className="flex items-center space-x-4">
-						<a href="https://github.com/llegomark" className="text-neutral-600 hover:text-primary-700 transition-colors">
-							<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
-								<path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z" />
-							</svg>
-						</a>
+					<div className="flex flex-col md:flex-row items-center space-y-2 md:space-y-0">
+						<div className="flex items-center space-x-4 md:mr-6">
+							<a href="/how-it-works" className="text-neutral-600 hover:text-primary-700 transition-colors text-sm">
+								How It Works
+							</a>
+							<a href="/privacy" className="text-neutral-600 hover:text-primary-700 transition-colors text-sm">
+								Privacy Policy
+							</a>
+						</div>
+						<div className="flex items-center space-x-4">
+							<a href="https://github.com/llegomark" className="text-neutral-600 hover:text-primary-700 transition-colors">
+								<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+									<path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z" />
+								</svg>
+							</a>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -1157,5 +1167,599 @@ export const DirectSearch: FC = () => {
 				`
 			}}></script>
 		</>
+	);
+};
+
+export const PrivacyPolicy: FC = (props) => {
+	return (
+		<Layout user={props.user}>
+			<div className="container mx-auto max-w-4xl px-4">
+				<div className="bg-white shadow-md rounded-xl overflow-hidden">
+					<div className="p-6 md:p-8">
+						<div className="flex items-center justify-between mb-6">
+							<h1 className="text-3xl font-bold text-neutral-900">Privacy Policy</h1>
+							<a href="/" className="btn btn-secondary btn-sm flex items-center space-x-1">
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									width="16"
+									height="16"
+									fill="currentColor"
+									viewBox="0 0 16 16"
+								>
+									<path
+										fill-rule="evenodd"
+										d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"
+									/>
+								</svg>
+								<span>Back</span>
+							</a>
+						</div>
+
+						<div className="space-y-6 text-neutral-700">
+							<p className="text-sm">Last Updated: March 17, 2025</p>
+
+							<section className="space-y-4">
+								<h2 className="text-xl font-semibold text-neutral-900 border-b border-neutral-200 pb-2">1. Introduction</h2>
+								<p>
+									Welcome to e-saliksik ("we", "our", or "us"). We respect your privacy and are committed to protecting your personal data.
+									This privacy policy will inform you about how we handle your personal data when you visit our website and inform you about your privacy rights and how the law protects you.
+								</p>
+								<p>
+									This privacy policy applies to all users of our AI-powered research platform. Please read this privacy policy carefully to understand our practices regarding your personal data.
+								</p>
+							</section>
+
+							<section className="space-y-4">
+								<h2 className="text-xl font-semibold text-neutral-900 border-b border-neutral-200 pb-2">2. Data We Collect</h2>
+								<p>
+									We may collect, use, store, and transfer different kinds of personal data about you which we have grouped as follows:
+								</p>
+								<ul className="list-disc pl-6 space-y-2">
+									<li><strong>Identity Data</strong> includes username or similar identifier.</li>
+									<li><strong>Contact Data</strong> includes email address.</li>
+									<li><strong>Technical Data</strong> includes internet protocol (IP) address, browser type and version, time zone setting and location, browser plug-in types and versions, operating system and platform, and other technology on the devices you use to access our website.</li>
+									<li><strong>Usage Data</strong> includes information about how you use our website and services, including your search queries and research topics.</li>
+									<li><strong>Research Data</strong> includes all information related to your research queries, results, and any data generated during the research process.</li>
+								</ul>
+							</section>
+
+							<section className="space-y-4">
+								<h2 className="text-xl font-semibold text-neutral-900 border-b border-neutral-200 pb-2">3. How We Collect Your Data</h2>
+								<p>
+									We use different methods to collect data from and about you including through:
+								</p>
+								<ul className="list-disc pl-6 space-y-2">
+									<li>
+										<strong>Direct interactions.</strong> You may provide us with your Identity and Contact Data by filling in forms or by corresponding with us.
+									</li>
+									<li>
+										<strong>Automated technologies or interactions.</strong> As you interact with our website, we may automatically collect Technical Data about your equipment, browsing actions, and patterns.
+									</li>
+									<li>
+										<strong>Research requests.</strong> When you use our AI research platform, we collect and process the queries you submit and the results that are generated.
+									</li>
+								</ul>
+							</section>
+
+							<section className="space-y-4">
+								<h2 className="text-xl font-semibold text-neutral-900 border-b border-neutral-200 pb-2">4. How We Use Your Data</h2>
+								<p>
+									We will only use your personal data when the law allows us to. Most commonly, we will use your personal data in the following circumstances:
+								</p>
+								<ul className="list-disc pl-6 space-y-2">
+									<li>To provide you with our AI research services</li>
+									<li>To improve our website and services</li>
+									<li>To respond to your inquiries or requests</li>
+									<li>To comply with legal obligations</li>
+									<li>To generate aggregate, non-identifying analytics about how our services are used</li>
+								</ul>
+								<p>
+									All research conducted on e-saliksik is publicly available and visible to all users. Please do not include sensitive or personal information in your research queries.
+								</p>
+							</section>
+
+							<section className="space-y-4">
+								<h2 className="text-xl font-semibold text-neutral-900 border-b border-neutral-200 pb-2">5. Data Sharing and Third Parties</h2>
+								<p>
+									We may share your personal data with the following third parties:
+								</p>
+								<ul className="list-disc pl-6 space-y-2">
+									<li>
+										<strong>Service providers</strong> who provide IT, system administration, and platform services, including:
+										<ul className="list-disc pl-6 mt-2">
+											<li>Cloudflare (hosting and infrastructure)</li>
+											<li>Google (AI services through Gemini API)</li>
+										</ul>
+									</li>
+									<li>
+										<strong>Legal authorities</strong> when we are legally required to do so.
+									</li>
+								</ul>
+							</section>
+
+							<section className="space-y-4">
+								<h2 className="text-xl font-semibold text-neutral-900 border-b border-neutral-200 pb-2">6. Data Security</h2>
+								<p>
+									We have put in place appropriate security measures to prevent your personal data from being accidentally lost, used, or accessed in an unauthorized way, altered, or disclosed.
+									In addition, we limit access to your personal data to those employees, agents, contractors, and other third parties who have a business need to know.
+								</p>
+								<p>
+									However, please note that the transmission of information via the internet is not completely secure. Although we will do our best to protect your personal data, we cannot guarantee the security of your data transmitted to our website; any transmission is at your own risk.
+								</p>
+							</section>
+
+							<section className="space-y-4">
+								<h2 className="text-xl font-semibold text-neutral-900 border-b border-neutral-200 pb-2">7. Data Retention</h2>
+								<p>
+									We will only retain your personal data for as long as necessary to fulfill the purposes we collected it for, including for the purposes of satisfying any legal, accounting, or reporting requirements.
+								</p>
+								<p>
+									Research queries and results are stored indefinitely as part of our public research repository unless specifically requested for deletion.
+								</p>
+							</section>
+
+							<section className="space-y-4">
+								<h2 className="text-xl font-semibold text-neutral-900 border-b border-neutral-200 pb-2">8. Your Legal Rights</h2>
+								<p>
+									Under certain circumstances, you have rights under data protection laws in relation to your personal data, including the right to:
+								</p>
+								<ul className="list-disc pl-6 space-y-2">
+									<li>Request access to your personal data</li>
+									<li>Request correction of your personal data</li>
+									<li>Request erasure of your personal data</li>
+									<li>Object to processing of your personal data</li>
+									<li>Request restriction of processing your personal data</li>
+									<li>Request transfer of your personal data</li>
+									<li>Right to withdraw consent</li>
+								</ul>
+								<p>
+									If you wish to exercise any of these rights, please contact us using the details provided below.
+								</p>
+							</section>
+
+							<section className="space-y-4">
+								<h2 className="text-xl font-semibold text-neutral-900 border-b border-neutral-200 pb-2">9. Cookies</h2>
+								<p>
+									We use cookies and similar tracking technologies to track activity on our website and store certain information. Cookies are files with a small amount of data which may include an anonymous unique identifier.
+								</p>
+								<p>
+									You can instruct your browser to refuse all cookies or to indicate when a cookie is being sent. However, if you do not accept cookies, you may not be able to use some portions of our service.
+								</p>
+							</section>
+
+							<section className="space-y-4">
+								<h2 className="text-xl font-semibold text-neutral-900 border-b border-neutral-200 pb-2">10. Children's Privacy</h2>
+								<p>
+									Our service is not intended for use by children under the age of 16 without parental consent. We do not knowingly collect personally identifiable information from children under 16.
+								</p>
+							</section>
+
+							<section className="space-y-4">
+								<h2 className="text-xl font-semibold text-neutral-900 border-b border-neutral-200 pb-2">11. Changes to the Privacy Policy</h2>
+								<p>
+									We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the "Last Updated" date.
+								</p>
+								<p>
+									You are advised to review this Privacy Policy periodically for any changes. Changes to this Privacy Policy are effective when they are posted on this page.
+								</p>
+							</section>
+
+							<section className="space-y-4">
+								<h2 className="text-xl font-semibold text-neutral-900 border-b border-neutral-200 pb-2">12. Contact Us</h2>
+								<p>
+									If you have any questions about this Privacy Policy, please contact us:
+								</p>
+								<ul className="list-disc pl-6 space-y-2">
+									<li>By email: markllego@gmail.com</li>
+									<li>On Twitter/X: <a href="https://x.com/markllego" class="text-primary-600 hover:text-primary-700">@markllego</a></li>
+								</ul>
+							</section>
+						</div>
+					</div>
+				</div>
+			</div>
+		</Layout>
+	);
+};
+
+export const HowItWorks: FC = (props) => {
+	return (
+		<Layout user={props.user}>
+			<div className="container mx-auto max-w-4xl px-4">
+				<div className="bg-white shadow-md rounded-xl overflow-hidden">
+					<div className="p-6 md:p-8">
+						<div className="flex items-center justify-between mb-6">
+							<h1 className="text-3xl font-bold text-neutral-900">How It Works</h1>
+							<a href="/" className="btn btn-secondary btn-sm flex items-center space-x-1">
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									width="16"
+									height="16"
+									fill="currentColor"
+									viewBox="0 0 16 16"
+								>
+									<path
+										fill-rule="evenodd"
+										d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"
+									/>
+								</svg>
+								<span>Back</span>
+							</a>
+						</div>
+
+						<div className="space-y-8 text-neutral-700">
+							<section className="space-y-4">
+								<h2 className="text-2xl font-semibold text-neutral-900 border-b border-neutral-200 pb-2">Overview</h2>
+								<p>
+									e-saliksik is an advanced AI-powered research platform that leverages cutting-edge technology to conduct in-depth research on virtually any topic. The platform offers two primary research methods: Deep Research and Direct Search, each with its own strengths and use cases.
+								</p>
+								<div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+									<div className="bg-gradient-to-b from-primary-50 to-white border border-primary-100 rounded-lg p-5">
+										<div className="flex items-center mb-3">
+											<svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-primary-700 mr-2" viewBox="0 0 20 20" fill="currentColor">
+												<path d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0014.5 4c-1.255 0-2.443.29-3.5.804V12a1 1 0 11-2 0V4.804z" />
+											</svg>
+											<h3 className="text-lg font-medium text-primary-900">Deep Research</h3>
+										</div>
+										<p className="text-sm text-neutral-700">Our comprehensive research method uses web scraping and detailed analysis to generate thorough reports. This approach takes 5-10 minutes but delivers extensive, in-depth reports with detailed sources and contextual analysis.</p>
+									</div>
+									<div className="bg-gradient-to-b from-blue-50 to-white border border-blue-100 rounded-lg p-5">
+										<div className="flex items-center mb-3">
+											<svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-blue-700 mr-2" viewBox="0 0 20 20" fill="currentColor">
+												<path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd" />
+											</svg>
+											<h3 className="text-lg font-medium text-blue-900">Direct Search</h3>
+										</div>
+										<p className="text-sm text-neutral-700">Our rapid research method uses Google's Search Grounding to deliver results in seconds rather than minutes. While not as comprehensive as Deep Research, it provides quick insights with reliable source attribution.</p>
+									</div>
+								</div>
+							</section>
+
+							<section className="space-y-4">
+								<h2 className="text-2xl font-semibold text-neutral-900 border-b border-neutral-200 pb-2">Technology Stack</h2>
+								<p>
+									e-saliksik is built on a modern, serverless architecture that leverages the latest advancements in cloud computing and artificial intelligence. Here's an overview of the core technologies powering our platform:
+								</p>
+
+								<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
+									<div className="border border-neutral-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+										<div className="flex items-center mb-3">
+											<div className="bg-neutral-100 p-2 rounded-full mr-3">
+												<svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-neutral-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+													<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+												</svg>
+											</div>
+											<h3 className="font-medium text-neutral-900">Cloudflare Workers</h3>
+										</div>
+										<p className="text-sm text-neutral-600">Our serverless runtime environment, providing global distribution, high availability, and exceptional performance.</p>
+									</div>
+
+									<div className="border border-neutral-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+										<div className="flex items-center mb-3">
+											<div className="bg-neutral-100 p-2 rounded-full mr-3">
+												<svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-neutral-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+													<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+												</svg>
+											</div>
+											<h3 className="font-medium text-neutral-900">Cloudflare Workflows</h3>
+										</div>
+										<p className="text-sm text-neutral-600">Manages the research process, ensuring reliable execution and persistence of complex, multi-step research tasks.</p>
+									</div>
+
+									<div className="border border-neutral-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+										<div className="flex items-center mb-3">
+											<div className="bg-neutral-100 p-2 rounded-full mr-3">
+												<svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-neutral-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+													<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" />
+												</svg>
+											</div>
+											<h3 className="font-medium text-neutral-900">Cloudflare D1</h3>
+										</div>
+										<p className="text-sm text-neutral-600">Serverless SQL database to store research data, status, and results with distributed reliability.</p>
+									</div>
+
+									<div className="border border-neutral-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+										<div className="flex items-center mb-3">
+											<div className="bg-neutral-100 p-2 rounded-full mr-3">
+												<svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-neutral-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+													<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+												</svg>
+											</div>
+											<h3 className="font-medium text-neutral-900">Google Gemini 2.0</h3>
+										</div>
+										<p className="text-sm text-neutral-600">Cutting-edge AI language model that powers our research capabilities, providing advanced reasoning and analysis.</p>
+									</div>
+
+									<div className="border border-neutral-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+										<div className="flex items-center mb-3">
+											<div className="bg-neutral-100 p-2 rounded-full mr-3">
+												<svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-neutral-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+													<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+												</svg>
+											</div>
+											<h3 className="font-medium text-neutral-900">Browser Rendering</h3>
+										</div>
+										<p className="text-sm text-neutral-600">For Deep Research, our platform uses Cloudflare's browser rendering service to gather information from the web.</p>
+									</div>
+
+									<div className="border border-neutral-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+										<div className="flex items-center mb-3">
+											<div className="bg-neutral-100 p-2 rounded-full mr-3">
+												<svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-neutral-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+													<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
+												</svg>
+											</div>
+											<h3 className="font-medium text-neutral-900">Hono Framework</h3>
+										</div>
+										<p className="text-sm text-neutral-600">Lightweight web framework used for building the dashboard and API endpoints with JSX support.</p>
+									</div>
+								</div>
+							</section>
+
+							<section className="space-y-4">
+								<h2 className="text-2xl font-semibold text-neutral-900 border-b border-neutral-200 pb-2">How the Research Process Works</h2>
+
+								<div className="space-y-6">
+									<div>
+										<h3 className="text-xl font-medium text-neutral-900 mb-3">Deep Research Process</h3>
+										<ol className="border-l border-primary-200 ml-3 space-y-6 pt-2">
+											<li className="relative pl-8 pb-2">
+												<div className="absolute -left-3 top-0 bg-primary-600 rounded-full w-6 h-6 flex items-center justify-center text-white font-medium text-sm">1</div>
+												<h4 className="text-lg font-medium text-neutral-800">Query Input & Refinement</h4>
+												<p className="text-sm text-neutral-600 mt-1">When you submit a research query, our system generates targeted follow-up questions to better understand your research needs. Your answers help focus the research direction.</p>
+											</li>
+											<li className="relative pl-8 pb-2">
+												<div className="absolute -left-3 top-0 bg-primary-600 rounded-full w-6 h-6 flex items-center justify-center text-white font-medium text-sm">2</div>
+												<h4 className="text-lg font-medium text-neutral-800">Search Query Generation</h4>
+												<p className="text-sm text-neutral-600 mt-1">The system generates multiple search queries based on your research topic and follows up responses. These queries are designed to gather comprehensive, relevant information.</p>
+											</li>
+											<li className="relative pl-8 pb-2">
+												<div className="absolute -left-3 top-0 bg-primary-600 rounded-full w-6 h-6 flex items-center justify-center text-white font-medium text-sm">3</div>
+												<h4 className="text-lg font-medium text-neutral-800">Web Exploration</h4>
+												<p className="text-sm text-neutral-600 mt-1">Using Cloudflare's browser rendering capabilities, the system searches the web and visits multiple webpages to gather information. Content is extracted and processed from each page.</p>
+											</li>
+											<li className="relative pl-8 pb-2">
+												<div className="absolute -left-3 top-0 bg-primary-600 rounded-full w-6 h-6 flex items-center justify-center text-white font-medium text-sm">4</div>
+												<h4 className="text-lg font-medium text-neutral-800">Iterative Research</h4>
+												<p className="text-sm text-neutral-600 mt-1">Based on initial findings, the system identifies knowledge gaps and generates additional search queries. This iterative process continues based on your specified research depth.</p>
+											</li>
+											<li className="relative pl-8 pb-2">
+												<div className="absolute -left-3 top-0 bg-primary-600 rounded-full w-6 h-6 flex items-center justify-center text-white font-medium text-sm">5</div>
+												<h4 className="text-lg font-medium text-neutral-800">Analysis & Synthesis</h4>
+												<p className="text-sm text-neutral-600 mt-1">Gemini 2.0 analyzes all collected information, identifies patterns and relationships, evaluates the reliability of sources, and synthesizes the findings.</p>
+											</li>
+											<li className="relative pl-8">
+												<div className="absolute -left-3 top-0 bg-primary-600 rounded-full w-6 h-6 flex items-center justify-center text-white font-medium text-sm">6</div>
+												<h4 className="text-lg font-medium text-neutral-800">Report Generation</h4>
+												<p className="text-sm text-neutral-600 mt-1">The system generates a comprehensive, well-structured report with proper citations, an executive summary, background information, main analysis, and conclusions.</p>
+											</li>
+										</ol>
+									</div>
+
+									<div>
+										<h3 className="text-xl font-medium text-neutral-900 mb-3">Direct Search Process</h3>
+										<ol className="border-l border-blue-200 ml-3 space-y-6 pt-2">
+											<li className="relative pl-8 pb-2">
+												<div className="absolute -left-3 top-0 bg-blue-600 rounded-full w-6 h-6 flex items-center justify-center text-white font-medium text-sm">1</div>
+												<h4 className="text-lg font-medium text-neutral-800">Simple Query Input</h4>
+												<p className="text-sm text-neutral-600 mt-1">You submit your research topic through a streamlined interface, without the need for follow-up questions or refinement.</p>
+											</li>
+											<li className="relative pl-8 pb-2">
+												<div className="absolute -left-3 top-0 bg-blue-600 rounded-full w-6 h-6 flex items-center justify-center text-white font-medium text-sm">2</div>
+												<h4 className="text-lg font-medium text-neutral-800">Google Search Grounding</h4>
+												<p className="text-sm text-neutral-600 mt-1">The system utilizes Google's Search Grounding technology via Gemini 2.0, which accesses real-time information from Google Search directly through the AI model.</p>
+											</li>
+											<li className="relative pl-8 pb-2">
+												<div className="absolute -left-3 top-0 bg-blue-600 rounded-full w-6 h-6 flex items-center justify-center text-white font-medium text-sm">3</div>
+												<h4 className="text-lg font-medium text-neutral-800">AI-Powered Synthesis</h4>
+												<p className="text-sm text-neutral-600 mt-1">Gemini processes the search results, analyzing and synthesizing the information while maintaining source attribution.</p>
+											</li>
+											<li className="relative pl-8">
+												<div className="absolute -left-3 top-0 bg-blue-600 rounded-full w-6 h-6 flex items-center justify-center text-white font-medium text-sm">4</div>
+												<h4 className="text-lg font-medium text-neutral-800">Immediate Report Delivery</h4>
+												<p className="text-sm text-neutral-600 mt-1">A well-structured report is generated within seconds, complete with proper citations and sources from the web.</p>
+											</li>
+										</ol>
+									</div>
+								</div>
+							</section>
+
+							<section className="space-y-4">
+								<h2 className="text-2xl font-semibold text-neutral-900 border-b border-neutral-200 pb-2">Comparison: Deep Research vs. Direct Search</h2>
+
+								<div className="overflow-x-auto">
+									<table className="min-w-full divide-y divide-neutral-200 mt-4">
+										<thead>
+											<tr>
+												<th className="px-4 py-3 bg-neutral-50 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider border-b">Feature</th>
+												<th className="px-4 py-3 bg-primary-50 text-left text-xs font-medium text-primary-700 uppercase tracking-wider border-b">Deep Research</th>
+												<th className="px-4 py-3 bg-blue-50 text-left text-xs font-medium text-blue-700 uppercase tracking-wider border-b">Direct Search</th>
+											</tr>
+										</thead>
+										<tbody className="divide-y divide-neutral-200">
+											<tr>
+												<td className="px-4 py-3 text-sm text-neutral-700 bg-white">Processing Time</td>
+												<td className="px-4 py-3 text-sm text-neutral-700 bg-white">5-10 minutes</td>
+												<td className="px-4 py-3 text-sm text-neutral-700 bg-white">Seconds to 1 minute</td>
+											</tr>
+											<tr>
+												<td className="px-4 py-3 text-sm text-neutral-700 bg-neutral-50">Depth of Analysis</td>
+												<td className="px-4 py-3 text-sm text-neutral-700 bg-neutral-50">Comprehensive and thorough</td>
+												<td className="px-4 py-3 text-sm text-neutral-700 bg-neutral-50">Good overview, less detailed</td>
+											</tr>
+											<tr>
+												<td className="px-4 py-3 text-sm text-neutral-700 bg-white">User Input Required</td>
+												<td className="px-4 py-3 text-sm text-neutral-700 bg-white">Initial query + follow-up questions</td>
+												<td className="px-4 py-3 text-sm text-neutral-700 bg-white">Simple query only</td>
+											</tr>
+											<tr>
+												<td className="px-4 py-3 text-sm text-neutral-700 bg-neutral-50">Data Gathering Process</td>
+												<td className="px-4 py-3 text-sm text-neutral-700 bg-neutral-50">Web crawling with browser rendering</td>
+												<td className="px-4 py-3 text-sm text-neutral-700 bg-neutral-50">Google Search Grounding</td>
+											</tr>
+											<tr>
+												<td className="px-4 py-3 text-sm text-neutral-700 bg-white">Resource Usage</td>
+												<td className="px-4 py-3 text-sm text-neutral-700 bg-white">High (browser, multiple requests)</td>
+												<td className="px-4 py-3 text-sm text-neutral-700 bg-white">Low (single API call)</td>
+											</tr>
+											<tr>
+												<td className="px-4 py-3 text-sm text-neutral-700 bg-neutral-50">Best Used For</td>
+												<td className="px-4 py-3 text-sm text-neutral-700 bg-neutral-50">Academic research, complex topics, when thoroughness is critical</td>
+												<td className="px-4 py-3 text-sm text-neutral-700 bg-neutral-50">Quick fact-finding, news updates, general knowledge</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</section>
+
+							<section className="space-y-4">
+								<h2 className="text-2xl font-semibold text-neutral-900 border-b border-neutral-200 pb-2">Technical Architecture</h2>
+
+								<div className="bg-neutral-50 p-4 rounded-lg border border-neutral-200">
+									<div className="text-center mb-4">
+										<h3 className="text-lg font-medium text-neutral-900">Simplified System Architecture</h3>
+									</div>
+
+									<div className="flex flex-col items-center">
+										<div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full max-w-3xl">
+											<div className="border border-neutral-200 bg-white rounded-lg p-3 text-center">
+												<div className="font-medium text-neutral-800 mb-1">Frontend</div>
+												<div className="text-xs text-neutral-600">Hono JSX, Tailwind CSS</div>
+											</div>
+											<div className="border border-neutral-200 bg-white rounded-lg p-3 text-center">
+												<div className="font-medium text-neutral-800 mb-1">API Layer</div>
+												<div className="text-xs text-neutral-600">Cloudflare Workers, Workflows</div>
+											</div>
+											<div className="border border-neutral-200 bg-white rounded-lg p-3 text-center">
+												<div className="font-medium text-neutral-800 mb-1">Data Storage</div>
+												<div className="text-xs text-neutral-600">Cloudflare D1 (SQL)</div>
+											</div>
+										</div>
+
+										<div className="my-2">
+											<svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-neutral-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+												<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+											</svg>
+										</div>
+
+										<div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-3xl">
+											<div className="border border-primary-200 bg-primary-50 rounded-lg p-3 text-center">
+												<div className="font-medium text-primary-800 mb-1">Deep Research Engine</div>
+												<div className="text-xs text-primary-700">Browser Rendering, Web Scraping, Gemini 2.0</div>
+											</div>
+											<div className="border border-blue-200 bg-blue-50 rounded-lg p-3 text-center">
+												<div className="font-medium text-blue-800 mb-1">Direct Search Engine</div>
+												<div className="text-xs text-blue-700">Google Search Grounding, Gemini 2.0</div>
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<p className="text-sm text-neutral-600 mt-3">
+									The architecture is designed to be fully serverless, allowing for superior scalability and reliability. All components run on Cloudflare's edge network, providing global distribution and low-latency responses regardless of user location.
+								</p>
+							</section>
+
+							<section className="space-y-4">
+								<h2 className="text-2xl font-semibold text-neutral-900 border-b border-neutral-200 pb-2">Usage Recommendations</h2>
+
+								<div className="space-y-4">
+									<p>Choosing the right research method depends on your specific needs:</p>
+
+									<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+										<div className="bg-primary-50 border border-primary-100 rounded-lg p-5">
+											<h3 className="text-lg font-medium text-primary-900 mb-3">When to use Deep Research</h3>
+											<ul className="space-y-2 text-sm text-neutral-700">
+												<li className="flex">
+													<svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-primary-600 mr-2 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+														<path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+													</svg>
+													Academic or professional research requiring thorough analysis
+												</li>
+												<li className="flex">
+													<svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-primary-600 mr-2 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+														<path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+													</svg>
+													Complex topics with multiple perspectives
+												</li>
+												<li className="flex">
+													<svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-primary-600 mr-2 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+														<path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+													</svg>
+													Situations where you can wait 5-10 minutes for results
+												</li>
+												<li className="flex">
+													<svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-primary-600 mr-2 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+														<path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+													</svg>
+													When you need to explore tangential topics
+												</li>
+												<li className="flex">
+													<svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-primary-600 mr-2 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+														<path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+													</svg>
+													Research for papers, theses, or important reports
+												</li>
+											</ul>
+										</div>
+
+										<div className="bg-blue-50 border border-blue-100 rounded-lg p-5">
+											<h3 className="text-lg font-medium text-blue-900 mb-3">When to use Direct Search</h3>
+											<ul className="space-y-2 text-sm text-neutral-700">
+												<li className="flex">
+													<svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-blue-600 mr-2 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+														<path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+													</svg>
+													Quick fact-checking or information gathering
+												</li>
+												<li className="flex">
+													<svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-blue-600 mr-2 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+														<path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+													</svg>
+													Current events or breaking news research
+												</li>
+												<li className="flex">
+													<svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-blue-600 mr-2 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+														<path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+													</svg>
+													When you need immediate results
+												</li>
+												<li className="flex">
+													<svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-blue-600 mr-2 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+														<path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+													</svg>
+													General knowledge questions with straightforward answers
+												</li>
+												<li className="flex">
+													<svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-blue-600 mr-2 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+														<path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+													</svg>
+													Initial exploratory research before a deeper dive
+												</li>
+											</ul>
+										</div>
+									</div>
+								</div>
+							</section>
+
+							<section className="mt-8">
+								<div className="bg-neutral-100 rounded-lg p-5 border border-neutral-200">
+									<h3 className="text-lg font-medium text-neutral-800 mb-2">Have more questions?</h3>
+									<p className="text-neutral-600 mb-4">Our development team is constantly improving e-saliksik with new features and capabilities. If you have questions about how the platform works or want to provide feedback, please reach out to us.</p>
+									<a href="https://github.com/llegomark/" target="_blank" rel="noopener noreferrer" className="btn btn-primary">
+										<div className="flex items-center">
+											<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-5 h-5 mr-2">
+												<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+											</svg>
+											<span>Visit Our GitHub Repository</span>
+										</div>
+									</a>
+								</div>
+							</section>
+						</div>
+					</div>
+				</div>
+			</div>
+		</Layout>
 	);
 };

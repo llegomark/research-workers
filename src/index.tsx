@@ -12,6 +12,8 @@ import {
 	ResearchDetails,
 	ResearchList,
 	DirectSearch,
+	PrivacyPolicy,
+	HowItWorks,
 } from "./layout/templates";
 import { FOLLOWUP_QUESTIONS_PROMPT } from "./prompts";
 import type { ResearchType, ResearchTypeDB } from "./types";
@@ -505,6 +507,18 @@ app.post("/direct-search/create", async (c) => {
 
 	// Redirect to details page to show progress
 	return c.redirect(`/details/${id}`);
+});
+
+app.get("/privacy", async (c) => {
+	return c.html(
+		<PrivacyPolicy user={c.get("user")} />
+	);
+});
+
+app.get("/how-it-works", async (c) => {
+	return c.html(
+		<HowItWorks user={c.get("user")} />
+	);
 });
 
 export default app;
