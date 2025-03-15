@@ -270,7 +270,7 @@ export class DirectSearchWorkflow extends WorkflowEntrypoint<Env, ResearchType> 
 					prompt: `[DEEP RESEARCH REQUEST] ${query}
 			
 			Using both your knowledge and real-time Google Search:
-			
+
 			<<FORMAT_INSTRUCTIONS>>
 			* Start DIRECTLY with the report title followed by executive summary
 			* Do NOT include phrases like "I will provide" or "Here is a report on"
@@ -319,7 +319,9 @@ export class DirectSearchWorkflow extends WorkflowEntrypoint<Env, ResearchType> 
 					const sourcesSection = `\n\n## Sources\n\n${sources.map((source, i) => {
 						const title = source.title || 'Untitled';
 						const url = source.url || 'No URL provided';
-						return `${i + 1}. [${title}](${url}) - ${url}`;
+
+						// Only showing the URL once as a link
+						return `${i + 1}. **[${title}](${url})**\n`;
 					}).join('\n')}`;
 
 					finalReport += sourcesSection;

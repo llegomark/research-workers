@@ -6,71 +6,71 @@
 	line-height: 1.6;
 	max-width: 60rem;
 	margin: 0 auto;
-  }
+}
   
-  .report h1, 
-  .report h2, 
-  .report h3, 
-  .report h4, 
-  .report h5, 
-  .report h6 {
+.report h1, 
+.report h2, 
+.report h3, 
+.report h4, 
+.report h5, 
+.report h6 {
 	margin-top: 1.5em;
 	margin-bottom: 0.5em;
 	font-weight: 700;
 	line-height: 1.2;
 	color: var(--color-neutral-900);
-  }
+}
   
-  .report h1 {
+.report h1 {
 	font-size: 2rem;
 	border-bottom: 1px solid var(--color-neutral-200);
 	padding-bottom: 0.5em;
 	margin-bottom: 1em;
-  }
+}
   
-  .report h2 {
+.report h2 {
 	font-size: 1.5rem;
 	border-bottom: 1px solid var(--color-neutral-200);
 	padding-bottom: 0.3em;
-  }
+}
   
-  .report h3 {
+.report h3 {
 	font-size: 1.25rem;
-  }
+}
   
-  .report h4 {
+.report h4 {
 	font-size: 1.1rem;
-  }
+}
   
-  .report p {
+.report p {
 	margin-bottom: 1.25em;
 	font-size: 1.05rem;
-  }
+}
   
-  .report a {
+.report a {
 	color: var(--color-primary-600);
 	text-decoration: none;
 	transition: color 0.2s var(--ease-out);
-  }
+}
   
-  .report a:hover {
+.report a:hover {
 	text-decoration: underline;
 	color: var(--color-primary-700);
-  }
+}
   
-  .report a:visited {
+.report a:visited {
 	color: var(--color-primary-800);
-  }
+}
   
-  .report code {
+.report code {
 	font-family: var(--font-mono);
 	font-size: 0.9em;
 	background-color: var(--color-neutral-100);
 	padding: 0.2em 0.4em;
 	border-radius: var(--radius-sm);
-  }
+}
   
-  .report pre {
+.report pre {
 	background-color: var(--color-neutral-100);
 	padding: 1em;
 	border-radius: var(--radius-md);
@@ -78,64 +78,159 @@
 	font-family: var(--font-mono);
 	font-size: 0.9em;
 	margin: 1.5em 0;
-  }
+}
   
-  .report blockquote {
+.report blockquote {
 	border-left: 4px solid var(--color-primary-300);
 	padding-left: 1em;
 	margin-left: 0;
 	margin-right: 0;
 	color: var(--color-neutral-600);
 	font-style: italic;
-  }
+}
   
-  .report ul, 
-  .report ol {
+.report ul, 
+.report ol {
 	padding-left: 1.5em;
 	margin-bottom: 1.25em;
-  }
+}
   
-  .report li {
+.report li {
 	margin-bottom: 0.5em;
-  }
+}
   
-  .report ul li {
+.report ul li {
 	list-style-type: disc;
-  }
+}
   
-  .report ol li {
+.report ol li {
 	list-style-type: decimal;
-  }
+}
   
-  .report table {
+.report table {
 	width: 100%;
 	border-collapse: collapse;
 	margin: 1.5em 0;
-  }
+}
   
-  .report th {
+.report th {
 	background-color: var(--color-neutral-100);
 	font-weight: 600;
 	text-align: left;
 	padding: 0.75em;
 	border: 1px solid var(--color-neutral-300);
-  }
+}
   
-  .report td {
+.report td {
 	padding: 0.75em;
 	border: 1px solid var(--color-neutral-300);
-  }
+}
   
-  .report img {
+.report img {
 	max-width: 100%;
 	height: auto;
 	border-radius: var(--radius-md);
 	margin: 1.5em 0;
-  }
+}
   
-  .report hr {
+.report hr {
 	height: 1px;
 	background-color: var(--color-neutral-200);
 	border: none;
 	margin: 2em 0;
-  }
+}
+
+/* Source citation styling */
+.report h2 + ol {
+    border: 1px solid var(--color-neutral-200);
+    border-radius: var(--radius-md);
+    padding: 0;
+    margin-top: 1.5em;
+    overflow: hidden;
+    counter-reset: source-counter;
+}
+
+.report h2 + ol li {
+    position: relative;
+    list-style-type: none;
+    margin: 0;
+    padding: 1.25em 1.25em 1.25em 3em;
+    border-bottom: 1px solid var(--color-neutral-200);
+}
+
+.report h2 + ol li:last-child {
+    border-bottom: none;
+}
+
+.report h2 + ol li::before {
+    content: counter(source-counter);
+    counter-increment: source-counter;
+    position: absolute;
+    left: 1em;
+    font-weight: 600;
+    color: var(--color-neutral-700);
+}
+
+.report h2 + ol li p {
+    margin: 0;
+}
+
+.report h2 + ol li p strong a {
+    font-weight: 600;
+    color: var(--color-primary-700);
+    display: block;
+    margin-bottom: 0.5em;
+}
+
+.report h2 + ol li p a:last-child {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--color-neutral-600);
+    background-color: var(--color-neutral-50);
+    padding: 0.75em;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--color-neutral-200);
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-all;
+    white-space: pre-wrap;
+    max-width: 100%;
+    max-height: 6em;
+    overflow-y: auto;
+}
+
+/* Style scrollbars for better aesthetics */
+.report h2 + ol li p a::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+.report h2 + ol li p a::-webkit-scrollbar-thumb {
+    background-color: var(--color-neutral-300);
+    border-radius: 3px;
+}
+
+.report h2 + ol li p a::-webkit-scrollbar-track {
+    background-color: var(--color-neutral-100);
+}
+
+/* Responsive adjustments for mobile */
+@media (max-width: 640px) {
+    .report h2 + ol li {
+        padding-left: 2.5em;
+    }
+    
+    .report h2 + ol li::before {
+        left: 0.75em;
+    }
+}
+
+/* Hover effect for better UX */
+.report h2 + ol li:hover {
+    background-color: var(--color-neutral-50);
+}
+
+.report h2 + ol li p a:last-child:hover {
+    background-color: var(--color-neutral-100);
+}

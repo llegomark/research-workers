@@ -429,6 +429,28 @@ export const ResearchDetails: FC = (props) => {
 
 						<div className="p-6 bg-white">
 							<div className="report prose max-w-none">{html(props.research.report_html)}</div>
+							{/* Add this script to make all source links open in new tabs */}
+							<script dangerouslySetInnerHTML={{
+								__html: `
+        document.addEventListener('DOMContentLoaded', () => {
+            // Target all links under the sources section
+            const sourcesHeading = Array.from(document.querySelectorAll('.report h2')).find(h => 
+                h.textContent.toLowerCase().includes('sources'));
+                
+            if (sourcesHeading) {
+                // Get all links after the sources heading
+                const sourcesList = sourcesHeading.nextElementSibling;
+                if (sourcesList && (sourcesList.tagName === 'OL' || sourcesList.tagName === 'UL')) {
+                    const links = sourcesList.querySelectorAll('a');
+                    links.forEach(link => {
+                        link.setAttribute('target', '_blank');
+                        link.setAttribute('rel', 'noopener noreferrer');
+                    });
+                }
+            }
+        });
+    `
+							}}></script>
 						</div>
 					</div>
 				</div>
