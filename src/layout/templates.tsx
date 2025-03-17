@@ -60,14 +60,18 @@ const Footer: FC = () => {
 	return (
 		<footer className="bg-neutral-100 border-t border-neutral-200">
 			<div className="container mx-auto max-w-4xl px-4 py-6">
-				<div className="flex flex-col md:flex-row justify-between items-center">
-					<div className="mb-4 md:mb-0">
+				<div className="flex flex-col md:flex-row md:justify-between md:items-center">
+					{/* Copyright Section */}
+					<div className="text-center md:text-left mb-4 md:mb-0">
 						<p className="text-neutral-600 text-sm">
 							Copyright © {currentYear} Mark Anthony Llego. All rights reserved.
 						</p>
 					</div>
-					<div className="flex flex-col md:flex-row items-center space-y-2 md:space-y-0">
-						<div className="flex items-center space-x-4 md:mr-6">
+
+					{/* Links Section */}
+					<div className="flex flex-col md:flex-row items-center md:items-start gap-4">
+						{/* Text Links */}
+						<nav className="flex flex-wrap justify-center md:justify-start gap-4 md:mr-6">
 							<a href="/how-it-works" className="text-neutral-600 hover:text-primary-700 transition-colors text-sm">
 								How It Works
 							</a>
@@ -77,9 +81,11 @@ const Footer: FC = () => {
 							<a href="/license-terms" className="text-neutral-600 hover:text-primary-700 transition-colors text-sm">
 								License Terms
 							</a>
-						</div>
-						<div className="flex items-center space-x-4">
-							<a href="https://github.com/llegomark" className="text-neutral-600 hover:text-primary-700 transition-colors">
+						</nav>
+
+						{/* Social Icons */}
+						<div className="flex">
+							<a href="https://github.com/llegomark" className="text-neutral-600 hover:text-primary-700 transition-colors p-1">
 								<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
 									<path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z" />
 								</svg>
@@ -172,31 +178,38 @@ export const ResearchList: FC = (props) => {
 			</div>
 
 			<div className="bg-white shadow-md rounded-xl overflow-hidden">
-				<div className="p-6 md:p-8">
-					<div className="flex items-center justify-between mb-6">
-						<h2 className="text-2xl font-bold text-neutral-900">
+				<div className="p-4 md:p-6 lg:p-8">
+					{/* Header Section with Responsive Design */}
+					<div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-4">
+						<h2 className="text-xl sm:text-2xl font-bold text-neutral-900">
 							Community Research Archive
 						</h2>
-						<div className="flex gap-2">
-							<a href="/direct-search" className="btn btn-primary flex items-center space-x-2">
+						<div className="flex flex-col xs:flex-row gap-2 w-full sm:w-auto">
+							<a
+								href="/direct-search"
+								className="btn btn-primary flex items-center justify-center gap-2 px-3 py-2 text-sm md:text-base rounded-lg"
+							>
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
 									fill="none"
 									viewBox="0 0 24 24"
 									stroke="currentColor"
-									className="w-5 h-5"
+									className="w-4 h-4 md:w-5 md:h-5"
 								>
 									<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
 								</svg>
 								<span>Search</span>
 							</a>
-							<a href="/create" className="btn btn-success flex items-center space-x-2">
+							<a
+								href="/create"
+								className="btn btn-success flex items-center justify-center gap-2 px-3 py-2 text-sm md:text-base rounded-lg"
+							>
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
 									fill="none"
 									viewBox="0 0 24 24"
 									stroke="currentColor"
-									className="w-5 h-5"
+									className="w-4 h-4 md:w-5 md:h-5"
 								>
 									<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
 								</svg>
@@ -205,36 +218,37 @@ export const ResearchList: FC = (props) => {
 						</div>
 					</div>
 
-					<div className="overflow-x-auto -mx-6">
+					{/* Table Section */}
+					<div className="overflow-x-auto -mx-4 sm:-mx-6">
 						<table className="w-full">
 							<thead>
 								<tr className="border-b border-neutral-200">
-									<th className="px-6 py-3 text-left font-medium text-neutral-500 text-sm tracking-wider">Query</th>
-									<th className="px-6 py-3 text-left font-medium text-neutral-500 text-sm tracking-wider">Status</th>
-									<th className="px-6 py-3 text-left font-medium text-neutral-500 text-sm tracking-wider">Date Created</th>
-									<th className="px-6 py-3 text-right font-medium text-neutral-500 text-sm tracking-wider">Actions</th>
+									<th className="px-4 sm:px-6 py-3 text-left font-medium text-neutral-500 text-xs sm:text-sm tracking-wider">Query</th>
+									<th className="px-4 sm:px-6 py-3 text-left font-medium text-neutral-500 text-xs sm:text-sm tracking-wider">Status</th>
+									<th className="px-4 sm:px-6 py-3 text-left font-medium text-neutral-500 text-xs sm:text-sm tracking-wider whitespace-nowrap">Date Created</th>
+									<th className="px-4 sm:px-6 py-3 text-right font-medium text-neutral-500 text-xs sm:text-sm tracking-wider">Actions</th>
 								</tr>
 							</thead>
 							<tbody className="divide-y divide-neutral-200">
 								{(props.researches.results as ResearchType[]).map((obj) => (
-									<tr className="hover:bg-neutral-50 transition-colors duration-150">
-										<td className="px-6 py-4">
-											<div className="text-sm text-neutral-800 line-clamp-2">{obj.query}</div>
+									<tr key={obj.id} className="hover:bg-neutral-50 transition-colors duration-150">
+										<td className="px-4 sm:px-6 py-3 sm:py-4">
+											<div className="text-xs sm:text-sm text-neutral-800 line-clamp-2">{obj.query}</div>
 										</td>
-										<td className="px-6 py-4">
+										<td className="px-4 sm:px-6 py-3 sm:py-4">
 											<span
-												className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${obj.status === 1 ? "bg-amber-100 text-amber-800" : "bg-emerald-100 text-emerald-800"}`}
+												className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${obj.status === 1 ? "bg-amber-100 text-amber-800" : "bg-emerald-100 text-emerald-800"}`}
 											>
 												{obj.status === 1 ? (
 													<>
-														<svg className="mr-1.5 h-2 w-2 text-amber-400 animate-pulse" fill="currentColor" viewBox="0 0 8 8">
+														<svg className="mr-1 h-2 w-2 text-amber-400 animate-pulse" fill="currentColor" viewBox="0 0 8 8">
 															<circle cx="4" cy="4" r="3" />
 														</svg>
 														Running
 													</>
 												) : (
 													<>
-														<svg className="mr-1.5 h-2 w-2 text-emerald-500" fill="currentColor" viewBox="0 0 8 8">
+														<svg className="mr-1 h-2 w-2 text-emerald-500" fill="currentColor" viewBox="0 0 8 8">
 															<circle cx="4" cy="4" r="3" />
 														</svg>
 														Complete
@@ -242,15 +256,15 @@ export const ResearchList: FC = (props) => {
 												)}
 											</span>
 										</td>
-										<td className="px-6 py-4">
-											<span className="text-sm text-neutral-500 whitespace-nowrap">
+										<td className="px-4 sm:px-6 py-3 sm:py-4">
+											<span className="text-xs sm:text-sm text-neutral-500 whitespace-nowrap">
 												{formatManilaTime(new Date(obj.created_at))}
 											</span>
 										</td>
-										<td className="px-6 py-4 text-right">
+										<td className="px-4 sm:px-6 py-3 sm:py-4 text-right">
 											<a
 												href={"/details/" + obj.id}
-												className="inline-block text-center px-4 py-1.5 bg-primary-600 hover:bg-primary-700 text-white rounded-md transition-colors text-sm font-medium w-full sm:w-auto"
+												className="inline-flex justify-center items-center px-3 py-1.5 bg-primary-600 hover:bg-primary-700 text-white rounded-md transition-colors text-xs md:text-sm font-medium w-full sm:w-auto"
 											>
 												{obj.status === 1 ? "View" : "Read"}
 											</a>
@@ -259,16 +273,23 @@ export const ResearchList: FC = (props) => {
 								))}
 							</tbody>
 						</table>
+
+						{/* Empty State */}
 						{(props.researches.results as ResearchType[]).length === 0 && (
-							<div className="flex flex-col items-center justify-center py-12 px-6">
-								<div className="bg-neutral-100 rounded-full p-4 mb-4">
-									<svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-neutral-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+							<div className="flex flex-col items-center justify-center py-10 px-4 sm:px-6">
+								<div className="bg-neutral-100 rounded-full p-3 sm:p-4 mb-3 sm:mb-4">
+									<svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 sm:h-8 sm:w-8 text-neutral-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
 										<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
 									</svg>
 								</div>
-								<h3 className="text-lg font-medium text-neutral-900 mb-1">No researches yet</h3>
-								<p className="text-neutral-500 text-center mb-6">Start the first community research by clicking the button above</p>
-								<a href="/create" className="btn btn-primary">Create</a>
+								<h3 className="text-base sm:text-lg font-medium text-neutral-900 mb-1">No researches yet</h3>
+								<p className="text-neutral-500 text-center text-sm sm:text-base mb-4 sm:mb-6">Start the first community research by clicking the button below</p>
+								<a
+									href="/create"
+									className="btn btn-primary inline-flex justify-center items-center gap-2 px-4 py-2 text-sm md:text-base rounded-lg"
+								>
+									Create Research
+								</a>
 							</div>
 						)}
 					</div>
