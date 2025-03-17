@@ -551,7 +551,8 @@ export const CreateResearch: FC = (props) => {
 										min="1"
 										max="5"
 										className="w-20 p-2 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
-										defaultValue={defaultDepth}
+										defaultValue={defaultDepth || 5}
+										placeholder="5"
 										required={true}
 									/>
 									<div className="ml-3 text-sm text-neutral-500">
@@ -572,7 +573,8 @@ export const CreateResearch: FC = (props) => {
 										min="1"
 										max="5"
 										className="w-20 p-2 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
-										defaultValue={defaultBreadth}
+										defaultValue={defaultBreadth || 5}
+										placeholder="5"
 										required={true}
 									/>
 									<div className="ml-3 text-sm text-neutral-500">
