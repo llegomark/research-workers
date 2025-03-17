@@ -74,6 +74,9 @@ const Footer: FC = () => {
 							<a href="/privacy" className="text-neutral-600 hover:text-primary-700 transition-colors text-sm">
 								Privacy Policy
 							</a>
+							<a href="/license-terms" className="text-neutral-600 hover:text-primary-700 transition-colors text-sm">
+								License Terms
+							</a>
 						</div>
 						<div className="flex items-center space-x-4">
 							<a href="https://github.com/llegomark" className="text-neutral-600 hover:text-primary-700 transition-colors">
@@ -1948,5 +1951,179 @@ export const ValidationErrorDisplay: FC = (props) => {
 				</div>
 			</div>
 		</div>
+	);
+};
+
+export const LicenseTerms: FC = (props) => {
+	return (
+		<Layout user={props.user}>
+			<div className="container mx-auto max-w-4xl px-4">
+				<div className="bg-white shadow-md rounded-xl overflow-hidden">
+					<div className="p-6 md:p-8">
+						<div className="flex items-center justify-between mb-6">
+							<h1 className="text-3xl font-bold text-neutral-900">License & Copyright Terms</h1>
+							<a href="/" className="btn btn-secondary btn-sm flex items-center space-x-1">
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									width="16"
+									height="16"
+									fill="currentColor"
+									viewBox="0 0 16 16"
+								>
+									<path
+										fill-rule="evenodd"
+										d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"
+									/>
+								</svg>
+								<span>Back</span>
+							</a>
+						</div>
+
+						<div className="space-y-6 text-neutral-700">
+							<p className="text-sm">Last Updated: March 17, 2025</p>
+
+							<section className="space-y-4">
+								<h2 className="text-xl font-semibold text-neutral-900 border-b border-neutral-200 pb-2">1. Dual Ownership Model</h2>
+								<div className="bg-green-50 border-l-4 border-green-500 p-4 rounded-r-lg">
+									<div className="flex">
+										<div className="flex-shrink-0">
+											<svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-green-500" viewBox="0 0 20 20" fill="currentColor">
+												<path fillRule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+											</svg>
+										</div>
+										<div className="ml-3">
+											<p className="text-green-700">Our license terms respect both user rights and platform needs through a balanced dual ownership approach.</p>
+										</div>
+									</div>
+								</div>
+								<p>
+									When you use Saliksik to generate research reports, ownership and licensing rights are allocated as follows:
+								</p>
+								<p>
+									<strong>You retain ownership</strong> of the content you create using our platform, including all research reports generated through your inputs, queries, and customizations.
+								</p>
+								<p>
+									<strong>Saliksik receives a non-exclusive license</strong> to your generated content for specific limited purposes as outlined below.
+								</p>
+							</section>
+
+							<section className="space-y-4">
+								<h2 className="text-xl font-semibold text-neutral-900 border-b border-neutral-200 pb-2">2. Your Rights</h2>
+								<p>
+									As the generator of research content on Saliksik, you have the following rights:
+								</p>
+								<ul className="list-disc pl-6 space-y-2">
+									<li>The right to use your generated reports for any personal or commercial purpose</li>
+									<li>The right to modify, adapt, or build upon your generated content</li>
+									<li>The right to republish or distribute your generated content in any medium</li>
+									<li>The right to claim authorship of content you've generated through our platform</li>
+								</ul>
+							</section>
+
+							<section className="space-y-4">
+								<h2 className="text-xl font-semibold text-neutral-900 border-b border-neutral-200 pb-2">3. Our License</h2>
+								<p>
+									By using Saliksik to generate research content, you grant us a perpetual, worldwide, non-exclusive, royalty-free license to:
+								</p>
+								<ul className="list-disc pl-6 space-y-2">
+									<li>Display your generated content on our platform</li>
+									<li>Make your research reports available to other users as part of our public research repository</li>
+									<li>Use anonymized data from your research to improve our AI systems</li>
+									<li>Protect ourselves from claims if similar content appears elsewhere</li>
+									<li>The right to delete your content from our platform</li>
+								</ul>
+								<p>
+									We will always attribute the content to your username or identifier as displayed on the platform.
+								</p>
+							</section>
+
+							<section className="space-y-4">
+								<h2 className="text-xl font-semibold text-neutral-900 border-b border-neutral-200 pb-2">4. Copyright Limitations</h2>
+								<div className="bg-amber-50 border-l-4 border-amber-500 p-4 rounded-r-lg">
+									<div className="flex">
+										<div className="flex-shrink-0">
+											<svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-amber-500" viewBox="0 0 20 20" fill="currentColor">
+												<path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+											</svg>
+										</div>
+										<div className="ml-3">
+											<p className="text-amber-700">Be aware that the legal status of AI-generated content is still evolving in many jurisdictions.</p>
+										</div>
+									</div>
+								</div>
+								<p>
+									Please be aware that in some jurisdictions, purely AI-generated content without substantial human creative input may not qualify for full copyright protection. Our license terms are designed to address this legal ambiguity:
+								</p>
+								<ul className="list-disc pl-6 space-y-2">
+									<li>Your original queries, follow-up answers, and research direction contribute human creative input</li>
+									<li>The more specific direction and customization you provide, the stronger your copyright claim may be</li>
+									<li>Our licensing approach focuses on practical usage rights rather than relying solely on copyright law</li>
+								</ul>
+							</section>
+
+							<section className="space-y-4">
+								<h2 className="text-xl font-semibold text-neutral-900 border-b border-neutral-200 pb-2">5. Content Restrictions</h2>
+								<p>
+									While you retain ownership rights to your generated content, you agree not to use our platform to create:
+								</p>
+								<ul className="list-disc pl-6 space-y-2">
+									<li>Content that infringes on others' intellectual property rights</li>
+									<li>Content that violates applicable laws or regulations</li>
+									<li>Content that contains personal data of others without proper authorization</li>
+									<li>Content that is defamatory, abusive, or promotes harmful activities</li>
+								</ul>
+								<p>
+									We reserve the right to remove content that violates these restrictions.
+								</p>
+							</section>
+
+							<section className="space-y-4">
+								<h2 className="text-xl font-semibold text-neutral-900 border-b border-neutral-200 pb-2">6. Academic and Professional Use</h2>
+								<p>
+									When using Saliksik-generated content for academic or professional purposes:
+								</p>
+								<ul className="list-disc pl-6 space-y-2">
+									<li>We recommend disclosing that AI assistance was used in creating the content</li>
+									<li>Verify all factual information through reliable sources before relying on it for critical decisions</li>
+									<li>Follow your institution's or organization's policies regarding AI-generated content</li>
+									<li>Remember that while our AI strives for accuracy, it may occasionally provide incorrect information</li>
+								</ul>
+							</section>
+
+							<section className="space-y-4">
+								<h2 className="text-xl font-semibold text-neutral-900 border-b border-neutral-200 pb-2">7. Changes to License Terms</h2>
+								<p>
+									We may update these license terms from time to time. We will notify users of any substantial changes through our platform or via email when possible. Continued use of Saliksik after such changes constitutes acceptance of the new terms.
+								</p>
+							</section>
+
+							<section className="mt-8 bg-neutral-100 rounded-lg p-5 border border-neutral-200">
+								<h3 className="text-lg font-medium text-neutral-800 mb-2">Questions about licensing?</h3>
+								<p className="text-neutral-600 mb-4">If you have questions about these license terms or how they apply to your specific use case, please contact us.</p>
+								<div className="flex space-x-4">
+									<a href="mailto:markllego@gmail.com" className="btn btn-primary">
+										<div className="flex items-center">
+											<svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+												<path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+												<path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+											</svg>
+											<span>Contact Us</span>
+										</div>
+									</a>
+									<a href="/privacy" className="btn btn-secondary">
+										<div className="flex items-center">
+											<svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+												<path fillRule="evenodd" d="M18 8a6 6 0 01-7.743 5.743L10 14l-1 1-1 1H6v2H2v-4l4.257-4.257A6 6 0 1118 8zm-6-4a1 1 0 100 2 2 2 0 012 2 1 1 0 102 0 4 4 0 00-4-4z" clipRule="evenodd" />
+											</svg>
+											<span>Privacy Policy</span>
+										</div>
+									</a>
+								</div>
+							</section>
+						</div>
+					</div>
+				</div>
+			</div>
+		</Layout>
 	);
 };
