@@ -15,6 +15,7 @@ import {
 	PrivacyPolicy,
 	HowItWorks,
 	ValidationErrorDisplay,
+	LicenseTerms,
 } from "./layout/templates";
 import { FOLLOWUP_QUESTIONS_PROMPT } from "./prompts";
 import type { ResearchType, ResearchTypeDB } from "./types";
@@ -520,6 +521,12 @@ app.get("/privacy", async (c) => {
 app.get("/how-it-works", async (c) => {
 	return c.html(
 		<HowItWorks user={c.get("user")} />
+	);
+});
+
+app.get("/license-terms", async (c) => {
+	return c.html(
+		<LicenseTerms user={c.get("user")} />
 	);
 });
 
