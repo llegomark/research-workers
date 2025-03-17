@@ -450,7 +450,12 @@ export const ResearchDetails: FC = (props) => {
 	);
 };
 
-export const CreateResearch: FC = () => {
+export const CreateResearch: FC = (props) => {
+	// Extract default values from props or use defaults
+	const defaultQuery = props.formData?.query || "";
+	const defaultDepth = props.formData?.depth || "3";
+	const defaultBreadth = props.formData?.breadth || "3";
+
 	return (
 		<div className="container mx-auto max-w-4xl px-4">
 			<div className="bg-blue-50 border-l-4 border-blue-500 p-4 mb-6 rounded-r-lg shadow-sm">
@@ -508,12 +513,13 @@ export const CreateResearch: FC = () => {
 									className="w-full min-h-32 p-3 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
 									required={true}
 									placeholder="Write me a report about..."
+									defaultValue={defaultQuery}
 								></textarea>
 								<div className="group absolute bottom-3 right-3">
 									<button
 										type="button"
 										id="optimize-topic-btn"
-										className="bg-primary-50 text-primary-700 hover:bg-primary-100 transition-colors border border-primary-200 rounded p-2"
+										className="bg-primary-50 text-primary-700 hover:bg-primary-100 transition-colors border border-primary-200 rounded p-2 cursor-pointer"
 										aria-label="Optimize my research topic with AI"
 									>
 										<span id="optimize-icon" className="block">
@@ -558,7 +564,7 @@ export const CreateResearch: FC = () => {
 										min="1"
 										max="5"
 										className="w-20 p-2 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
-										value="3"
+										defaultValue={defaultDepth}
 										required={true}
 									/>
 									<div className="ml-3 text-sm text-neutral-500">
@@ -579,7 +585,7 @@ export const CreateResearch: FC = () => {
 										min="1"
 										max="5"
 										className="w-20 p-2 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
-										value="3"
+										defaultValue={defaultBreadth}
 										required={true}
 									/>
 									<div className="ml-3 text-sm text-neutral-500">
@@ -601,89 +607,89 @@ export const CreateResearch: FC = () => {
 
 			<script dangerouslySetInnerHTML={{
 				__html: `
-					document.addEventListener('DOMContentLoaded', () => {
-						const optimizeBtn = document.getElementById('optimize-topic-btn');
-						const textarea = document.getElementById('research-query');
-						const optimizeIcon = document.getElementById('optimize-icon');
-						const loadingIndicator = document.getElementById('optimize-loading');
-						const statusElement = document.getElementById('optimization-status');
-						
-						if (optimizeBtn && textarea) {
-							optimizeBtn.addEventListener('click', async () => {
-								const currentText = textarea.value.trim();
-								
-								if (!currentText) {
-									statusElement.textContent = 'Please enter a research topic first';
-									statusElement.className = 'text-sm text-amber-600 mt-2';
-									statusElement.classList.remove('hidden');
-									
-									setTimeout(() => {
-										statusElement.classList.add('hidden');
-									}, 3000);
-									return;
-								}
-								
-								// Show loading indicator
-								optimizeIcon.classList.add('hidden');
-								loadingIndicator.classList.remove('hidden');
-								optimizeBtn.disabled = true;
-								
-								statusElement.textContent = 'Optimizing your research topic...';
-								statusElement.className = 'text-sm text-primary-600 mt-2';
-								statusElement.classList.remove('hidden');
-								
-								try {
-									const response = await fetch('/api/optimize-topic', {
-										method: 'POST',
-										headers: {
-											'Content-Type': 'application/json',
-										},
-										body: JSON.stringify({
-											topic: currentText
-										})
-									});
-									
-									if (!response.ok) {
-										throw new Error('Failed to optimize topic');
-									}
-									
-									const data = await response.json();
-									
-									if (data.optimizedTopic) {
-										textarea.value = data.optimizedTopic;
-										
-										statusElement.innerHTML = '<span class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 text-green-600" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>Research topic optimized successfully</span>';
-										statusElement.className = 'text-sm text-green-600 mt-2';
-										
-										// Highlight the textarea briefly
-										textarea.classList.add('ring-2', 'ring-green-500');
-										setTimeout(() => {
-											textarea.classList.remove('ring-2', 'ring-green-500');
-										}, 2000);
-										
-										setTimeout(() => {
-											statusElement.classList.add('hidden');
-										}, 5000);
-									}
-								} catch (error) {
-									console.error('Error optimizing topic:', error);
-									
-									statusElement.textContent = 'Failed to optimize topic. Please try again.';
-									statusElement.className = 'text-sm text-red-600 mt-2';
-									
-									setTimeout(() => {
-										statusElement.classList.add('hidden');
-									}, 4000);
-								} finally {
-									// Hide loading indicator
-									optimizeIcon.classList.remove('hidden');
-									loadingIndicator.classList.add('hidden');
-									optimizeBtn.disabled = false;
-								}
-							});
-						}
+			document.addEventListener('DOMContentLoaded', () => {
+			  const optimizeBtn = document.getElementById('optimize-topic-btn');
+			  const textarea = document.getElementById('research-query');
+			  const optimizeIcon = document.getElementById('optimize-icon');
+			  const loadingIndicator = document.getElementById('optimize-loading');
+			  const statusElement = document.getElementById('optimization-status');
+			  
+			  if (optimizeBtn && textarea) {
+				optimizeBtn.addEventListener('click', async () => {
+				  const currentText = textarea.value.trim();
+				  
+				  if (!currentText) {
+					statusElement.textContent = 'Please enter a research topic first';
+					statusElement.className = 'text-sm text-amber-600 mt-2';
+					statusElement.classList.remove('hidden');
+					
+					setTimeout(() => {
+					  statusElement.classList.add('hidden');
+					}, 3000);
+					return;
+				  }
+				  
+				  // Show loading indicator
+				  optimizeIcon.classList.add('hidden');
+				  loadingIndicator.classList.remove('hidden');
+				  optimizeBtn.disabled = true;
+				  
+				  statusElement.textContent = 'Optimizing your research topic...';
+				  statusElement.className = 'text-sm text-primary-600 mt-2';
+				  statusElement.classList.remove('hidden');
+				  
+				  try {
+					const response = await fetch('/api/optimize-topic', {
+					  method: 'POST',
+					  headers: {
+						'Content-Type': 'application/json',
+					  },
+					  body: JSON.stringify({
+						topic: currentText
+					  })
 					});
-				`
+					
+					if (!response.ok) {
+					  throw new Error('Failed to optimize topic');
+					}
+					
+					const data = await response.json();
+					
+					if (data.optimizedTopic) {
+					  textarea.value = data.optimizedTopic;
+					  
+					  statusElement.innerHTML = '<span class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 text-green-600" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>Research topic optimized successfully</span>';
+					  statusElement.className = 'text-sm text-green-600 mt-2';
+					  
+					  // Highlight the textarea briefly
+					  textarea.classList.add('ring-2', 'ring-green-500');
+					  setTimeout(() => {
+						textarea.classList.remove('ring-2', 'ring-green-500');
+					  }, 2000);
+					  
+					  setTimeout(() => {
+						statusElement.classList.add('hidden');
+					  }, 5000);
+					}
+				  } catch (error) {
+					console.error('Error optimizing topic:', error);
+					
+					statusElement.textContent = 'Failed to optimize topic. Please try again.';
+					statusElement.className = 'text-sm text-red-600 mt-2';
+					
+					setTimeout(() => {
+					  statusElement.classList.add('hidden');
+					}, 4000);
+				  } finally {
+					// Hide loading indicator
+					optimizeIcon.classList.remove('hidden');
+					loadingIndicator.classList.add('hidden');
+					optimizeBtn.disabled = false;
+				  }
+				});
+			  }
+			});
+		  `
 			}}></script>
 		</div>
 	);
@@ -747,7 +753,7 @@ export const NewResearchQuestions: FC = (props) => {
 							<button
 								type="button"
 								id="prefill-all-btn"
-								className="text-sm font-medium bg-primary-100 text-primary-800 hover:bg-primary-200 px-3 py-2 rounded-md flex items-center transition-colors"
+								className="text-sm font-medium bg-primary-100 text-primary-800 hover:bg-primary-200 px-3 py-2 rounded-md flex items-center transition-colors cursor-pointer"
 							>
 								<svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2" viewBox="0 0 20 20" fill="currentColor">
 									<path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
@@ -786,7 +792,7 @@ export const NewResearchQuestions: FC = (props) => {
 										/>
 										<button
 											type="button"
-											className="suggest-btn bg-primary-50 text-primary-700 hover:bg-primary-100 transition-colors border border-primary-200 absolute right-2 top-1/2 -translate-y-1/2 rounded px-2 py-1 text-sm flex items-center"
+											className="suggest-btn bg-primary-50 text-primary-700 hover:bg-primary-100 transition-colors border border-primary-200 absolute right-2 top-1/2 -translate-y-1/2 rounded px-2 py-1 text-sm flex items-center cursor-pointer"
 											data-index={index}
 										>
 											<svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor">
@@ -935,7 +941,10 @@ export const NewResearchQuestions: FC = (props) => {
 	);
 };
 
-export const DirectSearch: FC = () => {
+export const DirectSearch: FC = (props) => {
+	// Extract default value from props or use default
+	const defaultQuery = props.formData?.query || "";
+
 	return (
 		<div className="container mx-auto max-w-4xl px-4">
 			<div className="bg-blue-50 border-l-4 border-blue-500 p-4 mb-6 rounded-r-lg shadow-sm">
@@ -1009,12 +1018,13 @@ export const DirectSearch: FC = () => {
 									className="w-full min-h-32 p-3 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
 									required={true}
 									placeholder="Write me a report about..."
+									defaultValue={defaultQuery}
 								></textarea>
 								<div className="group absolute bottom-3 right-3">
 									<button
 										type="button"
 										id="optimize-topic-btn"
-										className="bg-primary-50 text-primary-700 hover:bg-primary-100 transition-colors border border-primary-200 rounded p-2"
+										className="bg-primary-50 text-primary-700 hover:bg-primary-100 transition-colors border border-primary-200 rounded p-2 cursor-pointer"
 										aria-label="Optimize my research topic with AI"
 									>
 										<span id="optimize-icon" className="block">
@@ -1063,89 +1073,89 @@ export const DirectSearch: FC = () => {
 
 			<script dangerouslySetInnerHTML={{
 				__html: `
-					document.addEventListener('DOMContentLoaded', () => {
-						const optimizeBtn = document.getElementById('optimize-topic-btn');
-						const textarea = document.getElementById('research-query');
-						const optimizeIcon = document.getElementById('optimize-icon');
-						const loadingIndicator = document.getElementById('optimize-loading');
-						const statusElement = document.getElementById('optimization-status');
-						
-						if (optimizeBtn && textarea) {
-							optimizeBtn.addEventListener('click', async () => {
-								const currentText = textarea.value.trim();
-								
-								if (!currentText) {
-									statusElement.textContent = 'Please enter a research topic first';
-									statusElement.className = 'text-sm text-amber-600 mt-2';
-									statusElement.classList.remove('hidden');
-									
-									setTimeout(() => {
-										statusElement.classList.add('hidden');
-									}, 3000);
-									return;
-								}
-								
-								// Show loading indicator
-								optimizeIcon.classList.add('hidden');
-								loadingIndicator.classList.remove('hidden');
-								optimizeBtn.disabled = true;
-								
-								statusElement.textContent = 'Optimizing your research topic...';
-								statusElement.className = 'text-sm text-primary-600 mt-2';
-								statusElement.classList.remove('hidden');
-								
-								try {
-									const response = await fetch('/api/optimize-topic', {
-										method: 'POST',
-										headers: {
-											'Content-Type': 'application/json',
-										},
-										body: JSON.stringify({
-											topic: currentText
-										})
-									});
-									
-									if (!response.ok) {
-										throw new Error('Failed to optimize topic');
-									}
-									
-									const data = await response.json();
-									
-									if (data.optimizedTopic) {
-										textarea.value = data.optimizedTopic;
-										
-										statusElement.innerHTML = '<span class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 text-green-600" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>Research topic optimized successfully</span>';
-										statusElement.className = 'text-sm text-green-600 mt-2';
-										
-										// Highlight the textarea briefly
-										textarea.classList.add('ring-2', 'ring-green-500');
-										setTimeout(() => {
-											textarea.classList.remove('ring-2', 'ring-green-500');
-										}, 2000);
-										
-										setTimeout(() => {
-											statusElement.classList.add('hidden');
-										}, 5000);
-									}
-								} catch (error) {
-									console.error('Error optimizing topic:', error);
-									
-									statusElement.textContent = 'Failed to optimize topic. Please try again.';
-									statusElement.className = 'text-sm text-red-600 mt-2';
-									
-									setTimeout(() => {
-										statusElement.classList.add('hidden');
-									}, 4000);
-								} finally {
-									// Hide loading indicator
-									optimizeIcon.classList.remove('hidden');
-									loadingIndicator.classList.add('hidden');
-									optimizeBtn.disabled = false;
-								}
-							});
-						}
+			document.addEventListener('DOMContentLoaded', () => {
+			  const optimizeBtn = document.getElementById('optimize-topic-btn');
+			  const textarea = document.getElementById('research-query');
+			  const optimizeIcon = document.getElementById('optimize-icon');
+			  const loadingIndicator = document.getElementById('optimize-loading');
+			  const statusElement = document.getElementById('optimization-status');
+			  
+			  if (optimizeBtn && textarea) {
+				optimizeBtn.addEventListener('click', async () => {
+				  const currentText = textarea.value.trim();
+				  
+				  if (!currentText) {
+					statusElement.textContent = 'Please enter a research topic first';
+					statusElement.className = 'text-sm text-amber-600 mt-2';
+					statusElement.classList.remove('hidden');
+					
+					setTimeout(() => {
+					  statusElement.classList.add('hidden');
+					}, 3000);
+					return;
+				  }
+				  
+				  // Show loading indicator
+				  optimizeIcon.classList.add('hidden');
+				  loadingIndicator.classList.remove('hidden');
+				  optimizeBtn.disabled = true;
+				  
+				  statusElement.textContent = 'Optimizing your research topic...';
+				  statusElement.className = 'text-sm text-primary-600 mt-2';
+				  statusElement.classList.remove('hidden');
+				  
+				  try {
+					const response = await fetch('/api/optimize-topic', {
+					  method: 'POST',
+					  headers: {
+						'Content-Type': 'application/json',
+					  },
+					  body: JSON.stringify({
+						topic: currentText
+					  })
 					});
-				`
+					
+					if (!response.ok) {
+					  throw new Error('Failed to optimize topic');
+					}
+					
+					const data = await response.json();
+					
+					if (data.optimizedTopic) {
+					  textarea.value = data.optimizedTopic;
+					  
+					  statusElement.innerHTML = '<span class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 text-green-600" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>Research topic optimized successfully</span>';
+					  statusElement.className = 'text-sm text-green-600 mt-2';
+					  
+					  // Highlight the textarea briefly
+					  textarea.classList.add('ring-2', 'ring-green-500');
+					  setTimeout(() => {
+						textarea.classList.remove('ring-2', 'ring-green-500');
+					  }, 2000);
+					  
+					  setTimeout(() => {
+						statusElement.classList.add('hidden');
+					  }, 5000);
+					}
+				  } catch (error) {
+					console.error('Error optimizing topic:', error);
+					
+					statusElement.textContent = 'Failed to optimize topic. Please try again.';
+					statusElement.className = 'text-sm text-red-600 mt-2';
+					
+					setTimeout(() => {
+					  statusElement.classList.add('hidden');
+					}, 4000);
+				  } finally {
+					// Hide loading indicator
+					optimizeIcon.classList.remove('hidden');
+					loadingIndicator.classList.add('hidden');
+					optimizeBtn.disabled = false;
+				  }
+				});
+			  }
+			});
+		  `
 			}}></script>
 		</div>
 	);
@@ -1742,5 +1752,29 @@ export const HowItWorks: FC = (props) => {
 				</div>
 			</div>
 		</Layout>
+	);
+};
+
+export const ValidationErrorDisplay: FC = (props) => {
+	return (
+		<div className="bg-red-50 border-l-4 border-red-500 p-4 mb-6 rounded-r-lg">
+			<div className="flex">
+				<div className="flex-shrink-0">
+					<svg className="h-5 w-5 text-red-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+						<path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+					</svg>
+				</div>
+				<div className="ml-3">
+					<h3 className="text-sm font-medium text-red-800">Validation Error</h3>
+					<div className="mt-2 text-sm text-red-700">
+						<ul className="list-disc pl-5 space-y-1">
+							{props.errors.map((error, index) => (
+								<li key={index}>{error}</li>
+							))}
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
 	);
 };

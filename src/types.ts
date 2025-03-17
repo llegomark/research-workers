@@ -13,6 +13,7 @@ export type ResearchType = {
 	direct_search?: boolean;
 };
 
+
 export type ResearchTypeDB = {
 	id: string;
 	query: string;

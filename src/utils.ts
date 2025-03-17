@@ -45,11 +45,8 @@ export function getFlashFast(env: Env) {
 export function getSearch(env: Env) {
 	const google = getGoogleProvider(env);
 
-	return google("gemini-2.0-flash-exp", {
+	return google("gemini-2.0-flash", {
 		useSearchGrounding: true,
-		dynamicRetrievalConfig: {
-			mode: 'MODE_UNSPECIFIED'
-		}
 	});
 }
 

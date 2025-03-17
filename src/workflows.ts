@@ -172,6 +172,14 @@ async function writeFinalReport({
 	learnings: string[];
 	visitedUrls: string[];
 }) {
+	// Get current date in a readable format
+	const currentDate = new Date().toLocaleDateString('en-US', {
+		weekday: 'long',
+		year: 'numeric',
+		month: 'long',
+		day: 'numeric'
+	});
+
 	const learningsString = learnings
 		.map((l) => `<learning>\n${l}\n</learning>`)
 		.join("\n");
@@ -179,7 +187,7 @@ async function writeFinalReport({
 	const { text } = await generateText({
 		model: getModelThinking(env),
 		system: RESEARCH_PROMPT(),
-		prompt: `Using the prompt <prompt>${prompt}</prompt>, write a detailed final report (3+ pages) that includes all the following learnings. Output ONLY the report with no introduction or acknowledgment text.
+		prompt: `Using the prompt <prompt>${prompt}</prompt>, write a detailed final report (3+ pages) that includes all the following learnings. Today's date is ${currentDate}. Output ONLY the report with no introduction or acknowledgment text.
             
 <learnings>
 ${learningsString}
@@ -187,7 +195,9 @@ ${learningsString}
 
 <sources>
 ${visitedUrls.map((url, i) => `${i + 1}. ${url}`).join("\n")}
-</sources>`,
+</sources>
+
+When creating the report, consider today's date (${currentDate}) for relevance and timeliness of information.`,
 	});
 
 	// More robust check for any existing sources section using a regular expression 	 	
@@ -258,6 +268,14 @@ export class DirectSearchWorkflow extends WorkflowEntrypoint<Env, ResearchType> 
 
 		const { query, id } = event.payload;
 
+		// Get current date in a readable format
+		const currentDate = new Date().toLocaleDateString('en-US', {
+			weekday: 'long',
+			year: 'numeric',
+			month: 'long',
+			day: 'numeric'
+		});
+
 		try {
 			console.log("Generating report with search grounding");
 			const report = await step.do("generate report with search", async () => {
@@ -265,47 +283,48 @@ export class DirectSearchWorkflow extends WorkflowEntrypoint<Env, ResearchType> 
 
 				const { text, sources, providerMetadata } = await generateText({
 					model,
-					// Add a clear system message to set expectations
-					system: "You are a professional research system that produces direct, formal reports without any acknowledgments, meta-commentary, or self-references. Begin reports immediately with substantive content.",
-					prompt: `[DEEP RESEARCH REQUEST] ${query}
-			
-			Using both your knowledge and real-time Google Search:
-
-			<<FORMAT_INSTRUCTIONS>>
-			* Start DIRECTLY with the report title followed by executive summary
-			* Do NOT include phrases like "I will provide" or "Here is a report on"
-			* Do NOT refer to yourself or the reader in any way
-			* Do NOT acknowledge instructions or explain your approach
-			* Include ONLY the substantive report content
-			* Cite source names in-line when referencing specific information
-			* No introductory or concluding meta-commentary
-			<<END_FORMAT_INSTRUCTIONS>>
-			
-			Research Framework:
-			1. CONDUCT THOROUGH RESEARCH:
-			- Gather comprehensive, current information on this topic
-			- Consider multiple perspectives and sources
-			- Identify key facts, concepts, trends, and developments
-			- Evaluate the reliability and relevance of information
-			- Fill knowledge gaps with current data from search results
-			
-			2. SYNTHESIZE AND ANALYZE:
-			- Integrate information from multiple sources
-			- Identify patterns, relationships, and contradictions
-			- Differentiate between established facts and contested claims
-			- Consider historical context and future implications
-			- Evaluate strengths and limitations of current understanding
-			
-			3. REPORT STRUCTURE:
-			- Title: Clear, descriptive title for the report
-			- Executive Summary: Key findings and conclusions (2-3 paragraphs)
-			- Background: Essential context and historical perspective
-			- Main Analysis: Systematic examination of all relevant aspects
-			- Current Developments: Recent findings, breakthroughs, or changes
-			- Perspectives: Major viewpoints and debates in the field
-			- Implications: Practical significance and future outlook
-			
-			DO NOT include a sources section - this will be added automatically. For each fact or claim from external sources, mention the source name in the text (e.g., "According to Amnesty International...").`,
+					// Add a clear system message to set expectations with current date
+					system: `You are a professional research system that produces direct, formal reports without any acknowledgments, meta-commentary, or self-references. Begin reports immediately with substantive content. Today is ${currentDate}.`,
+					prompt: `[GOOGLE SEARCH REQUEST] ${query}
+		
+		Using both your knowledge and real-time Google Search:
+  
+		<<FORMAT_INSTRUCTIONS>>
+		* Start DIRECTLY with the report title followed by executive summary
+		* Do NOT include phrases like "I will provide" or "Here is a report on"
+		* Do NOT refer to yourself or the reader in any way
+		* Do NOT acknowledge instructions or explain your approach
+		* Include ONLY the substantive report content
+		* Cite source names in-line when referencing specific information
+		* No introductory or concluding meta-commentary
+		<<END_FORMAT_INSTRUCTIONS>>
+		
+		Research Framework:
+		1. CONDUCT THOROUGH RESEARCH:
+		- Gather comprehensive, current information on this topic
+		- Consider multiple perspectives and sources
+		- Identify key facts, concepts, trends, and developments
+		- Evaluate the reliability and relevance of information
+		- Fill knowledge gaps with current data from search results
+		- Keep in mind that today's date is ${currentDate} when evaluating timeliness of information
+		
+		2. SYNTHESIZE AND ANALYZE:
+		- Integrate information from multiple sources
+		- Identify patterns, relationships, and contradictions
+		- Differentiate between established facts and contested claims
+		- Consider historical context and future implications
+		- Evaluate strengths and limitations of current understanding
+		
+		3. REPORT STRUCTURE:
+		- Title: Clear, descriptive title for the report
+		- Executive Summary: Key findings and conclusions (2-3 paragraphs)
+		- Background: Essential context and historical perspective
+		- Main Analysis: Systematic examination of all relevant aspects
+		- Current Developments: Recent findings, breakthroughs, or changes as of ${currentDate}
+		- Perspectives: Major viewpoints and debates in the field
+		- Implications: Practical significance and future outlook
+		
+		DO NOT include a sources section - this will be added automatically. For each fact or claim from external sources, mention the source name in the text (e.g., "According to Amnesty International...").`,
 				});
 
 				// Rest of the code remains the same...
