@@ -985,7 +985,7 @@ export const DirectSearch: FC = (props) => {
 							<div className="ml-3">
 								<h3 className="text-sm font-medium text-amber-800">New Feature: Direct Research</h3>
 								<div className="mt-2 text-sm text-amber-700">
-									<p>This feature uses Google Search Grounding to generate research reports directly. It's faster than deep research but may provide less comprehensive results.</p>
+									<p>This feature uses Google Search Grounding to generate research reports directly. It delivers results more quickly than deep research while providing solid, reliable sources that are vetted through Google's extensive index.</p>
 								</div>
 							</div>
 						</div>
