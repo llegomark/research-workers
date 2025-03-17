@@ -1,0 +1,9 @@
+# robots.txt file for saliksik.net
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /create/
+Disallow: /create/finish
+
+# Sitemap
+Sitemap: https://saliksik.net/sitemap.xml

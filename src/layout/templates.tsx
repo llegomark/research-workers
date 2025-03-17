@@ -89,18 +89,6 @@ const Footer: FC = () => {
 	);
 };
 
-// Inline SVG favicon that will be included directly in the HTML
-// This ensures the favicon works without needing to reference external files
-const InlineFavicon = `
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-  <rect width="512" height="512" fill="#0284c7" rx="64" />
-  <g transform="translate(80, 80) scale(0.7)">
-    <path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z" fill="white"/>
-    <path d="M240 80c0-8.8-7.2-16-16-16s-16 7.2-16 16v60.8c-7.1 4.5-14 9.6-20.9 14.9-5.9-7.7-15.3-7.7-22.7-2.6s-8.9 13.1-3.6 20.2c24.9 33.3 24.9 29.4 44.1 51.8 6.2 7.1 14.3 6.8 21.5 1.1 7.2-5.7 8.5-13.8 4.6-22.1-13.9-25.3-14-24.8-23.4-37.6 20.3-15.2 40.8-22.6 61.5-25.4-.1 0-.1-61.1-.1-61.1z" fill="white"/>
-  </g>
-</svg>
-`;
-
 export const Layout: FC = (props) => {
 	return (
 		<html lang="en">
@@ -112,28 +100,27 @@ export const Layout: FC = (props) => {
 				<link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
 				<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet" />
 
-				{/* Inline SVG favicon - works without external assets */}
-				<link rel="icon" href={`data:image/svg+xml;base64,${btoa(InlineFavicon)}`} type="image/svg+xml" />
-				<link rel="icon" href="data:;base64,iVBORw0KGgo=" /> {/* Empty favicon fallback to prevent 404 */}
-
 				{/* Primary Meta Tags */}
 				<title>{props.title || "Saliksik - Advanced AI Research Assistant"}</title>
 				<meta name="title" content="Saliksik - Advanced AI Research Assistant" />
-				<meta name="description" content="A serverless, Cloudflare Workers-based Deep Research Agent powered by Google Gemini 2.0. Conduct in-depth research on any topic with AI assistance." />
+				<meta name="description" content="An intelligent research assistant powered by Google Gemini 2.0. Conduct comprehensive, in-depth research on any topic with advanced AI assistance." />
 
 				{/* Open Graph / Facebook */}
 				<meta property="og:type" content="website" />
 				<meta property="og:url" content="https://saliksik.net/" />
 				<meta property="og:title" content="Saliksik - Advanced AI Research Assistant" />
-				<meta property="og:description" content="A serverless, Cloudflare Workers-based Deep Research Agent powered by Google Gemini 2.0. Conduct in-depth research on any topic with AI assistance." />
-				<meta property="og:image" content="https://saliksik.net/social-preview.png" />
+				<meta property="og:description" content="An intelligent research assistant powered by Google Gemini 2.0. Conduct comprehensive, in-depth research on any topic with advanced AI assistance." />
+				<meta property="og:image" content="/social-preview.png" />
 
 				{/* Twitter */}
 				<meta property="twitter:card" content="summary_large_image" />
 				<meta property="twitter:url" content="https://saliksik.net/" />
 				<meta property="twitter:title" content="Saliksik - Advanced AI Research Assistant" />
-				<meta property="twitter:description" content="A serverless, Cloudflare Workers-based Deep Research Agent powered by Google Gemini 2.0. Conduct in-depth research on any topic with AI assistance." />
-				<meta property="twitter:image" content="https://saliksik.net/social-preview.png" />
+				<meta property="twitter:description" content="An intelligent research assistant powered by Google Gemini 2.0. Conduct comprehensive, in-depth research on any topic with advanced AI assistance." />
+				<meta property="twitter:image" content="/social-preview.png" />
+
+				{/* Favicon */}
+				<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 			</head>
 			<body className="bg-neutral-50 min-h-screen flex flex-col">
 				<TopBar user={props.user} />
