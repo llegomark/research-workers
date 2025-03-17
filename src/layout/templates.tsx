@@ -1378,11 +1378,27 @@ export const HowItWorks: FC = (props) => {
 							</a>
 						</div>
 
+						<div className="bg-green-50 border-l-4 border-green-500 p-4 mb-6 rounded-r-lg shadow-sm">
+							<div className="flex">
+								<div className="flex-shrink-0">
+									<svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-green-500" viewBox="0 0 20 20" fill="currentColor">
+										<path fillRule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+									</svg>
+								</div>
+								<div className="ml-3">
+									<h3 className="text-sm font-medium text-green-800">Enhanced Research Engine</h3>
+									<div className="mt-2 text-sm text-green-700">
+										<p>We've upgraded our Deep Research process! It now combines traditional web crawling with Google Search Grounding in parallel, providing more comprehensive and diverse research results.</p>
+									</div>
+								</div>
+							</div>
+						</div>
+
 						<div className="space-y-8 text-neutral-700">
 							<section className="space-y-4">
 								<h2 className="text-2xl font-semibold text-neutral-900 border-b border-neutral-200 pb-2">Overview</h2>
 								<p>
-									e-saliksik is an advanced AI-powered research platform that leverages cutting-edge technology to conduct in-depth research on virtually any topic. The platform offers two primary research methods: Deep Research and Direct Search, each with its own strengths and use cases.
+									e-saliksik is an advanced AI-powered research platform that leverages cutting-edge technology to conduct in-depth research on virtually any topic. The platform offers two research approaches: Enhanced Deep Research and Direct Search, each with its own strengths and use cases.
 								</p>
 								<div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
 									<div className="bg-gradient-to-b from-primary-50 to-white border border-primary-100 rounded-lg p-5">
@@ -1390,9 +1406,9 @@ export const HowItWorks: FC = (props) => {
 											<svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-primary-700 mr-2" viewBox="0 0 20 20" fill="currentColor">
 												<path d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0014.5 4c-1.255 0-2.443.29-3.5.804V12a1 1 0 11-2 0V4.804z" />
 											</svg>
-											<h3 className="text-lg font-medium text-primary-900">Deep Research</h3>
+											<h3 className="text-lg font-medium text-primary-900">Enhanced Deep Research</h3>
 										</div>
-										<p className="text-sm text-neutral-700">Our comprehensive research method uses web scraping and detailed analysis to generate thorough reports. This approach takes 5-10 minutes but delivers extensive, in-depth reports with detailed sources and contextual analysis.</p>
+										<p className="text-sm text-neutral-700">Our comprehensive research method now combines traditional web scraping with Google Search Grounding in parallel to generate exceptionally thorough reports. This approach takes 5-10 minutes but delivers extensive, in-depth reports with diverse sources and contextual analysis from multiple research methods.</p>
 									</div>
 									<div className="bg-gradient-to-b from-blue-50 to-white border border-blue-100 rounded-lg p-5">
 										<div className="flex items-center mb-3">
@@ -1401,7 +1417,7 @@ export const HowItWorks: FC = (props) => {
 											</svg>
 											<h3 className="text-lg font-medium text-blue-900">Direct Search</h3>
 										</div>
-										<p className="text-sm text-neutral-700">Our rapid research method uses Google's Search Grounding to deliver results in seconds rather than minutes. While not as comprehensive as Deep Research, it provides quick insights with reliable source attribution.</p>
+										<p className="text-sm text-neutral-700">Our rapid research method uses Google's Search Grounding to deliver results in seconds rather than minutes. While not as comprehensive as Enhanced Deep Research, it provides quick insights with reliable source attribution for time-sensitive inquiries.</p>
 									</div>
 								</div>
 							</section>
@@ -1492,7 +1508,18 @@ export const HowItWorks: FC = (props) => {
 
 								<div className="space-y-6">
 									<div>
-										<h3 className="text-xl font-medium text-neutral-900 mb-3">Deep Research Process</h3>
+										<h3 className="text-xl font-medium text-neutral-900 mb-3">Enhanced Deep Research Process</h3>
+										<div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-4">
+											<div className="flex items-center">
+												<svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-yellow-600 mr-2" viewBox="0 0 20 20" fill="currentColor">
+													<path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+												</svg>
+												<div className="text-sm font-medium text-yellow-800">New Feature: Parallel Research</div>
+											</div>
+											<p className="text-sm text-yellow-700 mt-1">
+												Our Enhanced Deep Research now runs two parallel research processes: traditional web crawling via DuckDuckGo and Google Search Grounding. This dual approach creates more comprehensive, diverse reports by combining insights from both methods.
+											</p>
+										</div>
 										<ol className="border-l border-primary-200 ml-3 space-y-6 pt-2">
 											<li className="relative pl-8 pb-2">
 												<div className="absolute -left-3 top-0 bg-primary-600 rounded-full w-6 h-6 flex items-center justify-center text-white font-medium text-sm">1</div>
@@ -1501,28 +1528,43 @@ export const HowItWorks: FC = (props) => {
 											</li>
 											<li className="relative pl-8 pb-2">
 												<div className="absolute -left-3 top-0 bg-primary-600 rounded-full w-6 h-6 flex items-center justify-center text-white font-medium text-sm">2</div>
-												<h4 className="text-lg font-medium text-neutral-800">Search Query Generation</h4>
-												<p className="text-sm text-neutral-600 mt-1">The system generates multiple search queries based on your research topic and follows up responses. These queries are designed to gather comprehensive, relevant information.</p>
+												<h4 className="text-lg font-medium text-neutral-800">Parallel Research Processes</h4>
+												<p className="text-sm text-neutral-600 mt-1">The system simultaneously launches two research processes:</p>
+												<div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-3">
+													<div className="bg-primary-50 rounded-lg p-3 border border-primary-100">
+														<h5 className="text-sm font-medium text-primary-800 mb-1">Web Crawling Research</h5>
+														<p className="text-xs text-primary-700">Searches DuckDuckGo, visits real webpages, extracts content, and analyzes it in depth using Gemini 2.0.</p>
+													</div>
+													<div className="bg-blue-50 rounded-lg p-3 border border-blue-100">
+														<h5 className="text-sm font-medium text-blue-800 mb-1">Search Grounding</h5>
+														<p className="text-xs text-blue-700">Leverages Google's Search Grounding via Gemini 2.0 to access current information directly from Google Search.</p>
+													</div>
+												</div>
 											</li>
 											<li className="relative pl-8 pb-2">
 												<div className="absolute -left-3 top-0 bg-primary-600 rounded-full w-6 h-6 flex items-center justify-center text-white font-medium text-sm">3</div>
 												<h4 className="text-lg font-medium text-neutral-800">Web Exploration</h4>
-												<p className="text-sm text-neutral-600 mt-1">Using Cloudflare's browser rendering capabilities, the system searches the web and visits multiple webpages to gather information. Content is extracted and processed from each page.</p>
+												<p className="text-sm text-neutral-600 mt-1">For the web crawling process, the system searches DuckDuckGo and visits multiple webpages to gather information. Content is extracted and processed from each page visited.</p>
 											</li>
 											<li className="relative pl-8 pb-2">
 												<div className="absolute -left-3 top-0 bg-primary-600 rounded-full w-6 h-6 flex items-center justify-center text-white font-medium text-sm">4</div>
 												<h4 className="text-lg font-medium text-neutral-800">Iterative Research</h4>
-												<p className="text-sm text-neutral-600 mt-1">Based on initial findings, the system identifies knowledge gaps and generates additional search queries. This iterative process continues based on your specified research depth.</p>
+												<p className="text-sm text-neutral-600 mt-1">Based on initial findings, the web crawling process identifies knowledge gaps and generates additional search queries. This iterative process continues based on your specified research depth.</p>
 											</li>
 											<li className="relative pl-8 pb-2">
 												<div className="absolute -left-3 top-0 bg-primary-600 rounded-full w-6 h-6 flex items-center justify-center text-white font-medium text-sm">5</div>
+												<h4 className="text-lg font-medium text-neutral-800">Results Combination</h4>
+												<p className="text-sm text-neutral-600 mt-1">When both processes complete, the system combines and deduplicates the learnings and sources from both approaches, creating a comprehensive pool of information that leverages both research methods.</p>
+											</li>
+											<li className="relative pl-8 pb-2">
+												<div className="absolute -left-3 top-0 bg-primary-600 rounded-full w-6 h-6 flex items-center justify-center text-white font-medium text-sm">6</div>
 												<h4 className="text-lg font-medium text-neutral-800">Analysis & Synthesis</h4>
-												<p className="text-sm text-neutral-600 mt-1">Gemini 2.0 analyzes all collected information, identifies patterns and relationships, evaluates the reliability of sources, and synthesizes the findings.</p>
+												<p className="text-sm text-neutral-600 mt-1">Gemini 2.0 analyzes all collected information from both processes, identifies patterns and relationships, evaluates the reliability of sources, and synthesizes the findings into a cohesive whole.</p>
 											</li>
 											<li className="relative pl-8">
-												<div className="absolute -left-3 top-0 bg-primary-600 rounded-full w-6 h-6 flex items-center justify-center text-white font-medium text-sm">6</div>
+												<div className="absolute -left-3 top-0 bg-primary-600 rounded-full w-6 h-6 flex items-center justify-center text-white font-medium text-sm">7</div>
 												<h4 className="text-lg font-medium text-neutral-800">Report Generation</h4>
-												<p className="text-sm text-neutral-600 mt-1">The system generates a comprehensive, well-structured report with proper citations, an executive summary, background information, main analysis, and conclusions.</p>
+												<p className="text-sm text-neutral-600 mt-1">The system generates a comprehensive, well-structured report with proper citations, an executive summary, background information, main analysis, and conclusions based on the combined data from both research methods.</p>
 											</li>
 										</ol>
 									</div>
@@ -1556,14 +1598,14 @@ export const HowItWorks: FC = (props) => {
 							</section>
 
 							<section className="space-y-4">
-								<h2 className="text-2xl font-semibold text-neutral-900 border-b border-neutral-200 pb-2">Comparison: Deep Research vs. Direct Search</h2>
+								<h2 className="text-2xl font-semibold text-neutral-900 border-b border-neutral-200 pb-2">Comparison: Research Methods</h2>
 
 								<div className="overflow-x-auto">
 									<table className="min-w-full divide-y divide-neutral-200 mt-4">
 										<thead>
 											<tr>
 												<th className="px-4 py-3 bg-neutral-50 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider border-b">Feature</th>
-												<th className="px-4 py-3 bg-primary-50 text-left text-xs font-medium text-primary-700 uppercase tracking-wider border-b">Deep Research</th>
+												<th className="px-4 py-3 bg-primary-50 text-left text-xs font-medium text-primary-700 uppercase tracking-wider border-b">Enhanced Deep Research</th>
 												<th className="px-4 py-3 bg-blue-50 text-left text-xs font-medium text-blue-700 uppercase tracking-wider border-b">Direct Search</th>
 											</tr>
 										</thead>
@@ -1574,29 +1616,34 @@ export const HowItWorks: FC = (props) => {
 												<td className="px-4 py-3 text-sm text-neutral-700 bg-white">Seconds to 1 minute</td>
 											</tr>
 											<tr>
-												<td className="px-4 py-3 text-sm text-neutral-700 bg-neutral-50">Depth of Analysis</td>
-												<td className="px-4 py-3 text-sm text-neutral-700 bg-neutral-50">Comprehensive and thorough</td>
-												<td className="px-4 py-3 text-sm text-neutral-700 bg-neutral-50">Good overview, less detailed</td>
+												<td className="px-4 py-3 text-sm text-neutral-700 bg-neutral-50">Research Methods</td>
+												<td className="px-4 py-3 text-sm text-neutral-700 bg-neutral-50">Parallel web crawling + Google Search Grounding</td>
+												<td className="px-4 py-3 text-sm text-neutral-700 bg-neutral-50">Google Search Grounding only</td>
 											</tr>
 											<tr>
-												<td className="px-4 py-3 text-sm text-neutral-700 bg-white">User Input Required</td>
-												<td className="px-4 py-3 text-sm text-neutral-700 bg-white">Initial query + follow-up questions</td>
-												<td className="px-4 py-3 text-sm text-neutral-700 bg-white">Simple query only</td>
+												<td className="px-4 py-3 text-sm text-neutral-700 bg-white">Depth of Analysis</td>
+												<td className="px-4 py-3 text-sm text-neutral-700 bg-white">Comprehensive, thorough, with diverse perspectives</td>
+												<td className="px-4 py-3 text-sm text-neutral-700 bg-white">Good overview, less detailed</td>
 											</tr>
 											<tr>
-												<td className="px-4 py-3 text-sm text-neutral-700 bg-neutral-50">Data Gathering Process</td>
-												<td className="px-4 py-3 text-sm text-neutral-700 bg-neutral-50">Web crawling with browser rendering</td>
-												<td className="px-4 py-3 text-sm text-neutral-700 bg-neutral-50">Google Search Grounding</td>
+												<td className="px-4 py-3 text-sm text-neutral-700 bg-neutral-50">User Input Required</td>
+												<td className="px-4 py-3 text-sm text-neutral-700 bg-neutral-50">Initial query + follow-up questions</td>
+												<td className="px-4 py-3 text-sm text-neutral-700 bg-neutral-50">Simple query only</td>
 											</tr>
 											<tr>
-												<td className="px-4 py-3 text-sm text-neutral-700 bg-white">Resource Usage</td>
-												<td className="px-4 py-3 text-sm text-neutral-700 bg-white">High (browser, multiple requests)</td>
-												<td className="px-4 py-3 text-sm text-neutral-700 bg-white">Low (single API call)</td>
+												<td className="px-4 py-3 text-sm text-neutral-700 bg-white">Source Diversity</td>
+												<td className="px-4 py-3 text-sm text-neutral-700 bg-white">High (combines multiple search engines and direct page visits)</td>
+												<td className="px-4 py-3 text-sm text-neutral-700 bg-white">Medium (limited to Google Search results)</td>
 											</tr>
 											<tr>
-												<td className="px-4 py-3 text-sm text-neutral-700 bg-neutral-50">Best Used For</td>
-												<td className="px-4 py-3 text-sm text-neutral-700 bg-neutral-50">Academic research, complex topics, when thoroughness is critical</td>
-												<td className="px-4 py-3 text-sm text-neutral-700 bg-neutral-50">Quick fact-finding, news updates, general knowledge</td>
+												<td className="px-4 py-3 text-sm text-neutral-700 bg-neutral-50">Resource Usage</td>
+												<td className="px-4 py-3 text-sm text-neutral-700 bg-neutral-50">High (browser, multiple requests, parallel processing)</td>
+												<td className="px-4 py-3 text-sm text-neutral-700 bg-neutral-50">Low (single API call)</td>
+											</tr>
+											<tr>
+												<td className="px-4 py-3 text-sm text-neutral-700 bg-white">Best Used For</td>
+												<td className="px-4 py-3 text-sm text-neutral-700 bg-white">Academic research, complex topics, when thoroughness is critical</td>
+												<td className="px-4 py-3 text-sm text-neutral-700 bg-white">Quick fact-finding, news updates, general knowledge</td>
 											</tr>
 										</tbody>
 									</table>
@@ -1633,10 +1680,20 @@ export const HowItWorks: FC = (props) => {
 											</svg>
 										</div>
 
-										<div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-3xl">
-											<div className="border border-primary-200 bg-primary-50 rounded-lg p-3 text-center">
-												<div className="font-medium text-primary-800 mb-1">Deep Research Engine</div>
-												<div className="text-xs text-primary-700">Browser Rendering, Web Scraping, Gemini 2.0</div>
+										<div className="w-full max-w-3xl">
+											<div className="border border-green-200 bg-green-50 rounded-lg p-3 text-center mb-4">
+												<div className="font-medium text-green-800 mb-1">Enhanced Deep Research Engine</div>
+												<div className="text-xs text-green-700">Parallel Processing Architecture</div>
+												<div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-3">
+													<div className="border border-primary-200 bg-primary-50 rounded-lg p-2 text-center">
+														<div className="text-xs font-medium text-primary-800 mb-1">Web Crawling</div>
+														<div className="text-xs text-primary-700">DuckDuckGo, Browser Rendering, Web Scraping</div>
+													</div>
+													<div className="border border-blue-200 bg-blue-50 rounded-lg p-2 text-center">
+														<div className="text-xs font-medium text-blue-800 mb-1">Search Grounding</div>
+														<div className="text-xs text-blue-700">Google Search API, Gemini 2.0</div>
+													</div>
+												</div>
 											</div>
 											<div className="border border-blue-200 bg-blue-50 rounded-lg p-3 text-center">
 												<div className="font-medium text-blue-800 mb-1">Direct Search Engine</div>
@@ -1647,8 +1704,74 @@ export const HowItWorks: FC = (props) => {
 								</div>
 
 								<p className="text-sm text-neutral-600 mt-3">
-									The architecture is designed to be fully serverless, allowing for superior scalability and reliability. All components run on Cloudflare's edge network, providing global distribution and low-latency responses regardless of user location.
+									The architecture is designed to be fully serverless, allowing for superior scalability and reliability. All components run on Cloudflare's edge network, providing global distribution and low-latency responses regardless of user location. The new parallel processing approach maximizes the strengths of both research methods.
 								</p>
+							</section>
+
+							<section className="space-y-4">
+								<h2 className="text-2xl font-semibold text-neutral-900 border-b border-neutral-200 pb-2">Benefits of Parallel Research</h2>
+
+								<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+									<div className="bg-green-50 border border-green-100 rounded-lg p-4">
+										<div className="flex items-center mb-3">
+											<svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-green-600 mr-2" viewBox="0 0 20 20" fill="currentColor">
+												<path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+											</svg>
+											<h3 className="text-sm font-medium text-green-800">Comprehensive Results</h3>
+										</div>
+										<p className="text-xs text-green-700">Combining web crawling with Google Search provides more diverse, comprehensive research with broader perspectives and source variety.</p>
+									</div>
+
+									<div className="bg-green-50 border border-green-100 rounded-lg p-4">
+										<div className="flex items-center mb-3">
+											<svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-green-600 mr-2" viewBox="0 0 20 20" fill="currentColor">
+												<path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+											</svg>
+											<h3 className="text-sm font-medium text-green-800">Source Diversity</h3>
+										</div>
+										<p className="text-xs text-green-700">Greater variety of sources by leveraging multiple search engines and direct web visits alongside Google Search results.</p>
+									</div>
+
+									<div className="bg-green-50 border border-green-100 rounded-lg p-4">
+										<div className="flex items-center mb-3">
+											<svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-green-600 mr-2" viewBox="0 0 20 20" fill="currentColor">
+												<path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+											</svg>
+											<h3 className="text-sm font-medium text-green-800">Redundancy</h3>
+										</div>
+										<p className="text-xs text-green-700">If either research method misses important information, the other can fill in the gaps, ensuring more thorough coverage.</p>
+									</div>
+
+									<div className="bg-green-50 border border-green-100 rounded-lg p-4">
+										<div className="flex items-center mb-3">
+											<svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-green-600 mr-2" viewBox="0 0 20 20" fill="currentColor">
+												<path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+											</svg>
+											<h3 className="text-sm font-medium text-green-800">Balanced Perspective</h3>
+										</div>
+										<p className="text-xs text-green-700">Different search engines may prioritize different sources, giving you a more balanced view of the topic with reduced algorithmic bias.</p>
+									</div>
+
+									<div className="bg-green-50 border border-green-100 rounded-lg p-4">
+										<div className="flex items-center mb-3">
+											<svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-green-600 mr-2" viewBox="0 0 20 20" fill="currentColor">
+												<path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+											</svg>
+											<h3 className="text-sm font-medium text-green-800">Direct Content Access</h3>
+										</div>
+										<p className="text-xs text-green-700">Web crawling accesses the actual content of pages, not just snippets, allowing for deeper analysis of the original material.</p>
+									</div>
+
+									<div className="bg-green-50 border border-green-100 rounded-lg p-4">
+										<div className="flex items-center mb-3">
+											<svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-green-600 mr-2" viewBox="0 0 20 20" fill="currentColor">
+												<path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+											</svg>
+											<h3 className="text-sm font-medium text-green-800">Improved Quality</h3>
+										</div>
+										<p className="text-xs text-green-700">The combined approach leads to higher quality reports with more accurate information, better source attribution, and more nuanced analysis.</p>
+									</div>
+								</div>
 							</section>
 
 							<section className="space-y-4">
@@ -1659,7 +1782,7 @@ export const HowItWorks: FC = (props) => {
 
 									<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 										<div className="bg-primary-50 border border-primary-100 rounded-lg p-5">
-											<h3 className="text-lg font-medium text-primary-900 mb-3">When to use Deep Research</h3>
+											<h3 className="text-lg font-medium text-primary-900 mb-3">When to use Enhanced Deep Research</h3>
 											<ul className="space-y-2 text-sm text-neutral-700">
 												<li className="flex">
 													<svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-primary-600 mr-2 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
@@ -1683,7 +1806,7 @@ export const HowItWorks: FC = (props) => {
 													<svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-primary-600 mr-2 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
 														<path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
 													</svg>
-													When you need to explore tangential topics
+													When source diversity and balanced perspectives are critical
 												</li>
 												<li className="flex">
 													<svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-primary-600 mr-2 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
