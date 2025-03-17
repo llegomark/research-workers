@@ -499,7 +499,7 @@ export const CreateResearch: FC = (props) => {
 									name="query"
 									className="w-full min-h-32 p-3 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
 									required={true}
-									placeholder="Write me a report about..."
+									placeholder="E.g., What impact does ocean acidification have on marine ecosystems? or Analyze the development of quantum computing from 2020-2024"
 									defaultValue={defaultQuery}
 								></textarea>
 								<div className="group absolute bottom-3 right-3">
@@ -1006,7 +1006,7 @@ export const DirectSearch: FC = (props) => {
 									name="query"
 									className="w-full min-h-32 p-3 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
 									required={true}
-									placeholder="Write me a report about..."
+									placeholder="E.g., Analyze the impact of political dynasties on Philippine governance or Examine the evolution of election systems in the Philippines since the 1986 People Power Revolution"
 									defaultValue={defaultQuery}
 								></textarea>
 								<div className="group absolute bottom-3 right-3">
