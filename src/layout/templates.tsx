@@ -13,7 +13,7 @@ const TopBar: FC = (props) => {
 							<svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
 								<path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M13.8 12H3" />
 							</svg>
-							<span>e-saliksik</span>
+							<span>saliksik.net</span>
 						</a>
 					</div>
 					<div className="flex items-center">
@@ -117,23 +117,23 @@ export const Layout: FC = (props) => {
 				<link rel="icon" href="data:;base64,iVBORw0KGgo=" /> {/* Empty favicon fallback to prevent 404 */}
 
 				{/* Primary Meta Tags */}
-				<title>{props.title || "e-saliksik - Advanced AI Research Assistant"}</title>
-				<meta name="title" content="e-saliksik - Advanced AI Research Assistant" />
+				<title>{props.title || "Saliksik - Advanced AI Research Assistant"}</title>
+				<meta name="title" content="Saliksik - Advanced AI Research Assistant" />
 				<meta name="description" content="A serverless, Cloudflare Workers-based Deep Research Agent powered by Google Gemini 2.0. Conduct in-depth research on any topic with AI assistance." />
 
 				{/* Open Graph / Facebook */}
 				<meta property="og:type" content="website" />
-				<meta property="og:url" content="https://e-saliksik.llegomark.com/" />
-				<meta property="og:title" content="e-saliksik - Advanced AI Research Assistant" />
+				<meta property="og:url" content="https://saliksik.net/" />
+				<meta property="og:title" content="Saliksik - Advanced AI Research Assistant" />
 				<meta property="og:description" content="A serverless, Cloudflare Workers-based Deep Research Agent powered by Google Gemini 2.0. Conduct in-depth research on any topic with AI assistance." />
-				<meta property="og:image" content="https://e-saliksik.llegomark.com/social-preview.png" />
+				<meta property="og:image" content="https://saliksik.net/social-preview.png" />
 
 				{/* Twitter */}
 				<meta property="twitter:card" content="summary_large_image" />
-				<meta property="twitter:url" content="https://e-saliksik.llegomark.com/" />
-				<meta property="twitter:title" content="e-saliksik - Advanced AI Research Assistant" />
+				<meta property="twitter:url" content="https://saliksik.net/" />
+				<meta property="twitter:title" content="Saliksik - Advanced AI Research Assistant" />
 				<meta property="twitter:description" content="A serverless, Cloudflare Workers-based Deep Research Agent powered by Google Gemini 2.0. Conduct in-depth research on any topic with AI assistance." />
-				<meta property="twitter:image" content="https://e-saliksik.llegomark.com/social-preview.png" />
+				<meta property="twitter:image" content="https://saliksik.net/social-preview.png" />
 			</head>
 			<body className="bg-neutral-50 min-h-screen flex flex-col">
 				<TopBar user={props.user} />
@@ -159,7 +159,7 @@ export const ResearchList: FC = (props) => {
 					<div className="ml-3">
 						<h3 className="text-sm font-medium text-blue-800">Public Research Repository</h3>
 						<div className="mt-2 text-sm text-blue-700">
-							<p>All research conducted on e-saliksik is publicly available and visible to all users. Please do not include sensitive or personal information in your research queries.</p>
+							<p>All research conducted on saliksik.net is publicly available and visible to all users. Please do not include sensitive or personal information in your research queries.</p>
 						</div>
 					</div>
 				</div>
@@ -453,8 +453,8 @@ export const ResearchDetails: FC = (props) => {
 export const CreateResearch: FC = (props) => {
 	// Extract default values from props or use defaults
 	const defaultQuery = props.formData?.query || "";
-	const defaultDepth = props.formData?.depth || "3";
-	const defaultBreadth = props.formData?.breadth || "3";
+	const defaultDepth = props.formData?.depth || "5";
+	const defaultBreadth = props.formData?.breadth || "5";
 
 	return (
 		<div className="container mx-auto max-w-4xl px-4">
@@ -468,7 +468,7 @@ export const CreateResearch: FC = (props) => {
 					<div className="ml-3">
 						<h3 className="text-sm font-medium text-blue-800">Public Research Notice</h3>
 						<div className="mt-2 text-sm text-blue-700">
-							<p>All research conducted on e-saliksik is publicly available. Please do not include sensitive or personal information in your queries.</p>
+							<p>All research conducted on saliksik.net is publicly available. Please do not include sensitive or personal information in your queries.</p>
 						</div>
 					</div>
 				</div>
@@ -708,7 +708,7 @@ export const NewResearchQuestions: FC = (props) => {
 					<div className="ml-3">
 						<h3 className="text-sm font-medium text-blue-800">Public Research Notice</h3>
 						<div className="mt-2 text-sm text-blue-700">
-							<p>All research conducted on e-saliksik is publicly available. Please do not include sensitive or personal information in your answers.</p>
+							<p>All research conducted on saliksik.net is publicly available. Please do not include sensitive or personal information in your answers.</p>
 						</div>
 					</div>
 				</div>
@@ -957,7 +957,7 @@ export const DirectSearch: FC = (props) => {
 					<div className="ml-3">
 						<h3 className="text-sm font-medium text-blue-800">Public Research Notice</h3>
 						<div className="mt-2 text-sm text-blue-700">
-							<p>All research conducted on e-saliksik is publicly available. Please do not include sensitive or personal information in your queries.</p>
+							<p>All research conducted on saliksik.net is publicly available. Please do not include sensitive or personal information in your queries.</p>
 						</div>
 					</div>
 				</div>
@@ -1178,7 +1178,7 @@ export const PrivacyPolicy: FC = (props) => {
 									viewBox="0 0 16 16"
 								>
 									<path
-										fill-rule="evenodd"
+										fillRule="evenodd"
 										d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"
 									/>
 								</svg>
@@ -1192,11 +1192,14 @@ export const PrivacyPolicy: FC = (props) => {
 							<section className="space-y-4">
 								<h2 className="text-xl font-semibold text-neutral-900 border-b border-neutral-200 pb-2">1. Introduction</h2>
 								<p>
-									Welcome to e-saliksik ("we", "our", or "us"). We respect your privacy and are committed to protecting your personal data.
+									Welcome to Saliksik ("we", "our", or "us"). We respect your privacy and are committed to protecting your personal data.
 									This privacy policy will inform you about how we handle your personal data when you visit our website and inform you about your privacy rights and how the law protects you.
 								</p>
 								<p>
 									This privacy policy applies to all users of our AI-powered research platform. Please read this privacy policy carefully to understand our practices regarding your personal data.
+								</p>
+								<p>
+									This Privacy Policy is compliant with Republic Act No. 10173, also known as the Data Privacy Act of 2012, and its Implementing Rules and Regulations.
 								</p>
 							</section>
 
@@ -1212,6 +1215,9 @@ export const PrivacyPolicy: FC = (props) => {
 									<li><strong>Usage Data</strong> includes information about how you use our website and services, including your search queries and research topics.</li>
 									<li><strong>Research Data</strong> includes all information related to your research queries, results, and any data generated during the research process.</li>
 								</ul>
+								<p>
+									We do not normally collect sensitive personal information as defined under the Data Privacy Act, such as information about your race, ethnic origin, marital status, religious, philosophical or political affiliations, health, sexual life, or criminal record unless you voluntarily provide this information as part of your research queries.
+								</p>
 							</section>
 
 							<section className="space-y-4">
@@ -1243,14 +1249,32 @@ export const PrivacyPolicy: FC = (props) => {
 									<li>To respond to your inquiries or requests</li>
 									<li>To comply with legal obligations</li>
 									<li>To generate aggregate, non-identifying analytics about how our services are used</li>
+									<li>For historical, statistical, or scientific purposes</li>
 								</ul>
 								<p>
-									All research conducted on e-saliksik is publicly available and visible to all users. Please do not include sensitive or personal information in your research queries.
+									All research conducted on Saliksik is publicly available and visible to all users. Please do not include sensitive or personal information in your research queries.
+								</p>
+								<p>
+									In accordance with the Data Privacy Act, we process personal information fairly and lawfully, ensuring it is accurate, relevant, and not excessive in relation to the purposes for which it is collected and processed.
 								</p>
 							</section>
 
 							<section className="space-y-4">
-								<h2 className="text-xl font-semibold text-neutral-900 border-b border-neutral-200 pb-2">5. Data Sharing and Third Parties</h2>
+								<h2 className="text-xl font-semibold text-neutral-900 border-b border-neutral-200 pb-2">5. Criteria for Lawful Processing</h2>
+								<p>
+									The processing of your personal information is permitted under the following conditions:
+								</p>
+								<ul className="list-disc pl-6 space-y-2">
+									<li>When you have given your consent to such processing</li>
+									<li>When processing is necessary to fulfill our contractual obligations to you</li>
+									<li>When processing is necessary to comply with our legal obligations</li>
+									<li>When processing is necessary to protect your vital interests</li>
+									<li>When processing is necessary for the purposes of our legitimate interests or those of a third party to whom the data is disclosed, except where such interests are overridden by your fundamental rights and freedoms</li>
+								</ul>
+							</section>
+
+							<section className="space-y-4">
+								<h2 className="text-xl font-semibold text-neutral-900 border-b border-neutral-200 pb-2">6. Data Sharing and Third Parties</h2>
 								<p>
 									We may share your personal data with the following third parties:
 								</p>
@@ -1266,50 +1290,69 @@ export const PrivacyPolicy: FC = (props) => {
 										<strong>Legal authorities</strong> when we are legally required to do so.
 									</li>
 								</ul>
+								<p>
+									When we share your information with third parties, we ensure proper safeguards are in place to protect the confidentiality of your personal information and prevent its use for unauthorized purposes, in compliance with the Data Privacy Act.
+								</p>
 							</section>
 
 							<section className="space-y-4">
-								<h2 className="text-xl font-semibold text-neutral-900 border-b border-neutral-200 pb-2">6. Data Security</h2>
+								<h2 className="text-xl font-semibold text-neutral-900 border-b border-neutral-200 pb-2">7. Data Security</h2>
 								<p>
 									We have put in place appropriate security measures to prevent your personal data from being accidentally lost, used, or accessed in an unauthorized way, altered, or disclosed.
 									In addition, we limit access to your personal data to those employees, agents, contractors, and other third parties who have a business need to know.
 								</p>
 								<p>
+									Our security measures include:
+								</p>
+								<ul className="list-disc pl-6 space-y-2">
+									<li>Safeguards to protect our computer networks against unauthorized access</li>
+									<li>A comprehensive security policy for processing personal information</li>
+									<li>Regular vulnerability assessments and security monitoring</li>
+									<li>Employee training on data privacy and security protocols</li>
+								</ul>
+								<p>
 									However, please note that the transmission of information via the internet is not completely secure. Although we will do our best to protect your personal data, we cannot guarantee the security of your data transmitted to our website; any transmission is at your own risk.
+								</p>
+								<p>
+									In case of a security breach involving your personal information, we will promptly notify the National Privacy Commission and affected data subjects when sensitive personal information or other information that may enable identity fraud has been acquired by an unauthorized person, and there is a real risk of serious harm to any affected data subject.
 								</p>
 							</section>
 
 							<section className="space-y-4">
-								<h2 className="text-xl font-semibold text-neutral-900 border-b border-neutral-200 pb-2">7. Data Retention</h2>
+								<h2 className="text-xl font-semibold text-neutral-900 border-b border-neutral-200 pb-2">8. Data Retention</h2>
 								<p>
 									We will only retain your personal data for as long as necessary to fulfill the purposes we collected it for, including for the purposes of satisfying any legal, accounting, or reporting requirements.
 								</p>
 								<p>
 									Research queries and results are stored indefinitely as part of our public research repository unless specifically requested for deletion.
 								</p>
+								<p>
+									Personal information will be disposed of securely when it is no longer needed for the purposes for which it was collected, or when retention is no longer necessary for legal or business purposes.
+								</p>
 							</section>
 
 							<section className="space-y-4">
-								<h2 className="text-xl font-semibold text-neutral-900 border-b border-neutral-200 pb-2">8. Your Legal Rights</h2>
+								<h2 className="text-xl font-semibold text-neutral-900 border-b border-neutral-200 pb-2">9. Your Rights as a Data Subject</h2>
 								<p>
-									Under certain circumstances, you have rights under data protection laws in relation to your personal data, including the right to:
+									Under the Data Privacy Act, you have the following rights in relation to your personal data:
 								</p>
 								<ul className="list-disc pl-6 space-y-2">
-									<li>Request access to your personal data</li>
-									<li>Request correction of your personal data</li>
-									<li>Request erasure of your personal data</li>
-									<li>Object to processing of your personal data</li>
-									<li>Request restriction of processing your personal data</li>
-									<li>Request transfer of your personal data</li>
-									<li>Right to withdraw consent</li>
+									<li><strong>Right to be informed</strong> - You have the right to be informed whether personal information pertaining to you is being or has been processed</li>
+									<li><strong>Right to access</strong> - You have the right to reasonable access to your personal information</li>
+									<li><strong>Right to rectification</strong> - You have the right to dispute the inaccuracy or error in your personal information and have us correct it immediately</li>
+									<li><strong>Right to erasure or blocking</strong> - You have the right to suspend, withdraw, or order the blocking, removal, or destruction of your personal information from our filing system</li>
+									<li><strong>Right to damages</strong> - You have the right to be indemnified for damages sustained due to inaccurate, incomplete, outdated, false, unlawfully obtained, or unauthorized use of your personal information</li>
+									<li><strong>Right to data portability</strong> - Where your personal information is processed by electronic means, you have the right to obtain a copy of your data in an electronic or structured format</li>
+									<li><strong>Right to lodge a complaint</strong> - You have the right to lodge a complaint before the National Privacy Commission</li>
+									<li><strong>Right to object</strong> - You have the right to object to the processing of your personal information</li>
 								</ul>
 								<p>
-									If you wish to exercise any of these rights, please contact us using the details provided below.
+									To exercise your rights or if you have any questions about your personal information, please contact our Data Protection Officer using the details provided in the "Contact Us" section.
 								</p>
 							</section>
 
 							<section className="space-y-4">
-								<h2 className="text-xl font-semibold text-neutral-900 border-b border-neutral-200 pb-2">9. Cookies</h2>
+								<h2 className="text-xl font-semibold text-neutral-900 border-b border-neutral-200 pb-2">10. Cookies</h2>
 								<p>
 									We use cookies and similar tracking technologies to track activity on our website and store certain information. Cookies are files with a small amount of data which may include an anonymous unique identifier.
 								</p>
@@ -1319,14 +1362,30 @@ export const PrivacyPolicy: FC = (props) => {
 							</section>
 
 							<section className="space-y-4">
-								<h2 className="text-xl font-semibold text-neutral-900 border-b border-neutral-200 pb-2">10. Children's Privacy</h2>
+								<h2 className="text-xl font-semibold text-neutral-900 border-b border-neutral-200 pb-2">11. Children's Privacy</h2>
 								<p>
 									Our service is not intended for use by children under the age of 16 without parental consent. We do not knowingly collect personally identifiable information from children under 16.
+								</p>
+								<p>
+									If we discover that a child under 16 has provided us with personal information, we will delete such information from our servers immediately.
 								</p>
 							</section>
 
 							<section className="space-y-4">
-								<h2 className="text-xl font-semibold text-neutral-900 border-b border-neutral-200 pb-2">11. Changes to the Privacy Policy</h2>
+								<h2 className="text-xl font-semibold text-neutral-900 border-b border-neutral-200 pb-2">12. Data Protection Officer</h2>
+								<p>
+									We have designated a Data Protection Officer (DPO) who is accountable for ensuring our organization's compliance with the Data Privacy Act. The DPO is responsible for:
+								</p>
+								<ul className="list-disc pl-6 space-y-2">
+									<li>Monitoring our compliance with the Data Privacy Act</li>
+									<li>Ensuring that appropriate safeguards are in place for the protection of your personal information</li>
+									<li>Handling inquiries and complaints related to data privacy</li>
+									<li>Facilitating the exercise of your rights as a data subject</li>
+								</ul>
+							</section>
+
+							<section className="space-y-4">
+								<h2 className="text-xl font-semibold text-neutral-900 border-b border-neutral-200 pb-2">13. Changes to the Privacy Policy</h2>
 								<p>
 									We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the "Last Updated" date.
 								</p>
@@ -1336,13 +1395,14 @@ export const PrivacyPolicy: FC = (props) => {
 							</section>
 
 							<section className="space-y-4">
-								<h2 className="text-xl font-semibold text-neutral-900 border-b border-neutral-200 pb-2">12. Contact Us</h2>
+								<h2 className="text-xl font-semibold text-neutral-900 border-b border-neutral-200 pb-2">14. Contact Us</h2>
 								<p>
-									If you have any questions about this Privacy Policy, please contact us:
+									If you have any questions about this Privacy Policy, or to exercise any of your rights as a data subject, please contact us:
 								</p>
 								<ul className="list-disc pl-6 space-y-2">
 									<li>By email: markllego@gmail.com</li>
-									<li>On Twitter/X: <a href="https://x.com/markllego" class="text-primary-600 hover:text-primary-700">@markllego</a></li>
+									<li>On Twitter/X: <a href="https://x.com/markllego" className="text-primary-600 hover:text-primary-700">@markllego</a></li>
+									<li>Website: <a href="https://saliksik.net" className="text-primary-600 hover:text-primary-700">saliksik.net</a></li>
 								</ul>
 							</section>
 						</div>
@@ -1398,7 +1458,7 @@ export const HowItWorks: FC = (props) => {
 							<section className="space-y-4">
 								<h2 className="text-2xl font-semibold text-neutral-900 border-b border-neutral-200 pb-2">Overview</h2>
 								<p>
-									e-saliksik is an advanced AI-powered research platform that leverages cutting-edge technology to conduct in-depth research on virtually any topic. The platform offers two research approaches: Enhanced Deep Research and Direct Search, each with its own strengths and use cases.
+									Saliksik is an advanced AI-powered research platform that leverages cutting-edge technology to conduct in-depth research on virtually any topic. The platform offers two research approaches: Enhanced Deep Research and Direct Search, each with its own strengths and use cases.
 								</p>
 								<div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
 									<div className="bg-gradient-to-b from-primary-50 to-white border border-primary-100 rounded-lg p-5">
@@ -1425,7 +1485,7 @@ export const HowItWorks: FC = (props) => {
 							<section className="space-y-4">
 								<h2 className="text-2xl font-semibold text-neutral-900 border-b border-neutral-200 pb-2">Technology Stack</h2>
 								<p>
-									e-saliksik is built on a modern, serverless architecture that leverages the latest advancements in cloud computing and artificial intelligence. Here's an overview of the core technologies powering our platform:
+									Saliksik is built on a modern, serverless architecture that leverages the latest advancements in cloud computing and artificial intelligence. Here's an overview of the core technologies powering our platform:
 								</p>
 
 								<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
@@ -1859,7 +1919,7 @@ export const HowItWorks: FC = (props) => {
 							<section className="mt-8">
 								<div className="bg-neutral-100 rounded-lg p-5 border border-neutral-200">
 									<h3 className="text-lg font-medium text-neutral-800 mb-2">Have more questions?</h3>
-									<p className="text-neutral-600 mb-4">Our development team is constantly improving e-saliksik with new features and capabilities. If you have questions about how the platform works or want to provide feedback, please reach out to us.</p>
+									<p className="text-neutral-600 mb-4">Our development team is constantly improving saliksik.net with new features and capabilities. If you have questions about how the platform works or want to provide feedback, please reach out to us.</p>
 									<a href="https://github.com/llegomark/" target="_blank" rel="noopener noreferrer" className="btn btn-primary">
 										<div className="flex items-center">
 											<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-5 h-5 mr-2">
