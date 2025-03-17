@@ -215,7 +215,7 @@ When creating the report, consider today's date (${currentDate}) for relevance a
 
 export class ResearchWorkflow extends WorkflowEntrypoint<Env, ResearchType> {
 	async run(event: WorkflowEvent<ResearchType>, step: WorkflowStep) {
-		console.log("Starting workflow");
+		console.log("Starting enhanced workflow with parallel search");
 
 		const { query, questions, breadth, depth, id } = event.payload;
 		const fullQuery = `Initial Query: ${query}\nFollowup Q&A:\n${questions
@@ -224,41 +224,181 @@ export class ResearchWorkflow extends WorkflowEntrypoint<Env, ResearchType> {
 
 		const browser = await getBrowser(this.env);
 
-		console.log("Starting research...");
-		const researchResult = await step.do("do research", () =>
-			deepResearch({
-				step,
-				env: this.env,
-				browser,
-				query: fullQuery,
-				breadth: Number.parseInt(breadth),
-				depth: Number.parseInt(depth),
-				learnings: [],
-				visitedUrls: [],
-			}),
-		);
+		try {
+			// Run both research processes in parallel
+			console.log("Starting parallel research processes...");
+			const [deepResearchResult, directSearchResult] = await Promise.all([
+				step.do("deep web research", () =>
+					deepResearch({
+						step,
+						env: this.env,
+						browser,
+						query: fullQuery,
+						breadth: Number.parseInt(breadth),
+						depth: Number.parseInt(depth),
+						learnings: [],
+						visitedUrls: [],
+					})
+				),
+				step.do("ai search grounding", () =>
+					this.performDirectSearch(fullQuery, step)
+				)
+			]);
 
-		console.log("Generating report");
-		const report = await step.do("generate report", () =>
-			writeFinalReport({
-				env: this.env,
-				prompt: fullQuery,
-				learnings: researchResult.learnings,
-				visitedUrls: researchResult.visitedUrls,
-			}),
-		);
+			// Combine and deduplicate results from both approaches
+			console.log("Combining research results...");
 
-		const qb = new D1QB(this.env.DB);
-		await qb
-			.update({
-				tableName: "researches",
-				data: { status: 2, result: report },
-				where: { conditions: "id = ?", params: [id] },
-			})
-			.execute();
+			// Deduplicate learnings (simple approach - remove exact duplicates)
+			const uniqueLearnings = Array.from(new Set([
+				...deepResearchResult.learnings,
+				...directSearchResult.learnings
+			]));
 
-		console.log("Workflow finished!");
-		return researchResult;
+			// Deduplicate URLs
+			const uniqueUrls = Array.from(new Set([
+				...deepResearchResult.visitedUrls,
+				...directSearchResult.visitedUrls
+			]));
+
+			console.log(`Combined ${uniqueLearnings.length} unique learnings from ${uniqueUrls.length} sources`);
+
+			// Generate the final report with the combined data
+			console.log("Generating report from combined research sources");
+			const report = await step.do("generate report", () =>
+				writeFinalReport({
+					env: this.env,
+					prompt: fullQuery,
+					learnings: uniqueLearnings,
+					visitedUrls: uniqueUrls,
+				})
+			);
+
+			// Update the database with the completed report
+			const qb = new D1QB(this.env.DB);
+			await qb
+				.update({
+					tableName: "researches",
+					data: { status: 2, result: report },
+					where: { conditions: "id = ?", params: [id] },
+				})
+				.execute();
+
+			console.log("Enhanced workflow finished!");
+			return {
+				learnings: uniqueLearnings,
+				visitedUrls: uniqueUrls
+			};
+		} catch (error) {
+			console.error("Error in enhanced research workflow:", error);
+
+			// Update database with error status
+			const qb = new D1QB(this.env.DB);
+			await qb
+				.update({
+					tableName: "researches",
+					data: {
+						status: 3, // Use status 3 for error
+						result: `## Error Generating Report\n\nThere was an error generating your research report. Please try again later or try modifying your research query.\n\nError details: ${error instanceof Error ? error.message : "Unknown error"}`
+					},
+					where: { conditions: "id = ?", params: [id] },
+				})
+				.execute();
+
+			throw error;
+		}
+	}
+
+	// Method to handle direct search with Google Search Grounding
+	async performDirectSearch(query: string, step: WorkflowStep): Promise<{ learnings: string[], visitedUrls: string[] }> {
+		console.log("Starting direct search with Google Search Grounding");
+
+		const currentDate = new Date().toLocaleDateString('en-US', {
+			weekday: 'long',
+			year: 'numeric',
+			month: 'long',
+			day: 'numeric'
+		});
+
+		try {
+			const model = getSearch(this.env);
+
+			// First, get the information from search grounding
+			const { text, sources, providerMetadata } = await generateText({
+				model,
+				system: `You are a research assistant extracting specific learnings about a topic. Today is ${currentDate}.`,
+				prompt: `[GOOGLE SEARCH REQUEST] ${query}
+				
+				Using real-time Google Search, provide a structured list of key learnings about this topic.
+				
+				RESPONSE FORMAT:
+				- Each learning should be a specific, factual insight about the topic (1-2 sentences)
+				- Include at least 15-20 distinct learnings that cover different aspects of the topic
+				- Each learning should be prefixed with "LEARNING: " to make parsing easier
+				- After all learnings, list all source URLs prefixed with "SOURCE: "
+				
+				Focus on factual information, recent developments, different perspectives, and key concepts.`
+			});
+
+			// Parse learnings from the response
+			const learnings = text
+				.split('\n')
+				.filter(line => line.trim().startsWith('LEARNING:'))
+				.map(line => line.replace('LEARNING:', '').trim());
+
+			// Extract URLs
+			const visitedUrls: string[] = [];
+
+			// First try to get URLs from the AI's formatted response
+			const sourceLines = text
+				.split('\n')
+				.filter(line => line.trim().startsWith('SOURCE:'))
+				.map(line => line.replace('SOURCE:', '').trim());
+
+			if (sourceLines.length > 0) {
+				visitedUrls.push(...sourceLines);
+			}
+
+			// Then add any URLs from the sources metadata
+			if (sources && Array.isArray(sources)) {
+				sources.forEach(source => {
+					if (source.url && !visitedUrls.includes(source.url)) {
+						visitedUrls.push(source.url);
+					}
+				});
+			}
+
+			// Extract metadata for additional source information
+			const extractedMetadata = extractSearchMetadata(providerMetadata);
+			if (extractedMetadata.sources && Array.isArray(extractedMetadata.sources)) {
+				extractedMetadata.sources.forEach(source => {
+					if (source.uri && !visitedUrls.includes(source.uri)) {
+						visitedUrls.push(source.uri);
+					}
+				});
+			}
+
+			// If we didn't get meaningful learnings, extract them from the full text
+			if (learnings.length < 5) {
+				console.log("Using alternative parsing for learnings (not enough LEARNING: prefixes found)");
+				// Alternative parsing approach - split by bullet points or numbered items
+				const alternativeLearnings = text
+					.split(/\n\s*[-•*]\s*|\n\s*\d+\.\s*/)
+					.filter(item => item.trim().length > 20 && !item.trim().toLowerCase().includes('source:'))
+					.map(item => item.trim());
+
+				if (alternativeLearnings.length > learnings.length) {
+					console.log(`Extracted ${alternativeLearnings.length} alternative learnings`);
+					return { learnings: alternativeLearnings, visitedUrls };
+				}
+			}
+
+			console.log(`Direct search completed with ${learnings.length} learnings and ${visitedUrls.length} sources`);
+			return { learnings, visitedUrls };
+		} catch (error) {
+			console.error("Error in direct search:", error);
+			// Return empty results on error, the main workflow will still have the deep research results
+			return { learnings: [], visitedUrls: [] };
+		}
 	}
 }
 
