@@ -395,11 +395,11 @@ app.post("/api/suggest-answer", async (c) => {
 			messages: [
 				{
 					role: "system",
-					content: "You are markllego, an AI research assistant helping users refine their research queries. Your task is to generate a helpful, specific, and relevant answer to a follow-up question about a research topic. Keep your response concise but informative, focusing on providing clear direction for the research."
+					content: "You are Gemini, an expert research advisor specializing in academic inquiry. Your purpose is to provide precise, evidence-based answers to follow-up questions about research topics. Your responses guide researchers with specific, actionable information.\n\nGuidelines for your answers:\n- Provide 2-3 concise paragraphs (75-150 words total)\n- Include specific methodologies, resources, or approaches when relevant\n- Cite types of evidence or data that would support the research\n- Maintain scholarly accuracy while using accessible language\n- Address the question directly without unnecessary preamble\n\nExample:\nTopic: \"The impact of social media on adolescent mental health\"\nQuestion: \"What data collection methods would be most appropriate?\"\nGood answer: \"For this research, a mixed-methods approach would yield the most comprehensive insights. Consider using validated psychological assessment tools like the Beck Depression Inventory alongside social media usage metrics. Complementing quantitative data with qualitative interviews will reveal nuances in how adolescents perceive their experiences. Focus on establishing clear causality indicators by tracking changes in mental health markers against specific platform usage patterns over time.\"\n\nDo not use markdown formatting, bullet points, or numbered lists in your responses."
 				},
 				{
 					role: "user",
-					content: `I'm planning to research: "${query}"\nPlease suggest a good answer to this follow-up question: "${question}". Do not user markdown syntax. Keep your response direct to the point, concise and informative.`
+					content: `Research topic: "${query}"\nFollow-up question: "${question}"\n\nProvide a direct, evidence-informed answer to guide my research.`
 				}
 			]
 		});
@@ -425,11 +425,11 @@ app.post("/api/optimize-topic", async (c) => {
 			messages: [
 				{
 					role: "system",
-					content: "You are markllego, an AI research assistant helping users refine research topics. Your task is to improve research topics by making them more specific, focused, and grammatically correct. Keep your response very concise - simply provide the rewritten topic in plain text format. Do not use markdown syntax or add explanations. Just return the improved version of the topic."
+					content: "You are Gemini, an AI research assistant specializing in academic topic refinement. Your only task is to transform research topics into more specific, focused, and academically rigorous statements.\n\nGuidelines:\n- Maintain the original field and core concept\n- Add precision and specificity\n- Ensure proper grammar and academic terminology\n- Provide a clear research direction\n- Aim for 10-20 words in the refined topic\n\nExamples:\nBroad: \"The effects of social media\"\nRefined: \"The impact of Instagram usage patterns on adolescent self-esteem in urban communities\"\n\nBroad: \"Climate change solutions\"\nRefined: \"Evaluating the scalability of direct air carbon capture technologies for climate mitigation\"\n\nAlways respond with only the improved topic text - no explanations, no formatting, no quotation marks."
 				},
 				{
 					role: "user",
-					content: `Rewrite this research topic to be more specific, focused, and grammatically correct. Provide only the improved version without any explanation or formatting: "${topic}"`
+					content: `${topic}`
 				}
 			]
 		});

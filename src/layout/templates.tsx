@@ -499,7 +499,7 @@ export const CreateResearch: FC = (props) => {
 									name="query"
 									className="w-full min-h-32 p-3 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
 									required={true}
-									placeholder="Write me a report about..."
+									placeholder="E.g., What impact does ocean acidification have on marine ecosystems? or Analyze the development of quantum computing from 2020-2024"
 									defaultValue={defaultQuery}
 								></textarea>
 								<div className="group absolute bottom-3 right-3">
@@ -551,7 +551,8 @@ export const CreateResearch: FC = (props) => {
 										min="1"
 										max="5"
 										className="w-20 p-2 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
-										defaultValue={defaultDepth}
+										defaultValue={defaultDepth || 5}
+										placeholder="5"
 										required={true}
 									/>
 									<div className="ml-3 text-sm text-neutral-500">
@@ -572,7 +573,8 @@ export const CreateResearch: FC = (props) => {
 										min="1"
 										max="5"
 										className="w-20 p-2 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
-										defaultValue={defaultBreadth}
+										defaultValue={defaultBreadth || 5}
+										placeholder="5"
 										required={true}
 									/>
 									<div className="ml-3 text-sm text-neutral-500">
@@ -983,7 +985,7 @@ export const DirectSearch: FC = (props) => {
 							<div className="ml-3">
 								<h3 className="text-sm font-medium text-amber-800">New Feature: Direct Research</h3>
 								<div className="mt-2 text-sm text-amber-700">
-									<p>This feature uses Google Search Grounding to generate research reports directly. It's faster than deep research but may provide less comprehensive results.</p>
+									<p>This feature uses Google Search Grounding to generate research reports directly. It delivers results more quickly than deep research while providing solid, reliable sources that are vetted through Google's extensive index.</p>
 								</div>
 							</div>
 						</div>
@@ -1004,7 +1006,7 @@ export const DirectSearch: FC = (props) => {
 									name="query"
 									className="w-full min-h-32 p-3 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
 									required={true}
-									placeholder="Write me a report about..."
+									placeholder="E.g., Analyze the impact of political dynasties on Philippine governance or Examine the evolution of election systems in the Philippines since the 1986 People Power Revolution"
 									defaultValue={defaultQuery}
 								></textarea>
 								<div className="group absolute bottom-3 right-3">
