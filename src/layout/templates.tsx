@@ -1185,7 +1185,7 @@ export const PrivacyPolicy: FC = (props) => {
 								<h2 className="text-xl font-semibold text-neutral-900 border-b border-neutral-200 pb-2">1. Introduction</h2>
 								<p>
 									Welcome to Saliksik ("we", "our", or "us"). We respect your privacy and are committed to protecting your personal data.
-									This privacy policy will inform you about how we handle your personal data when you visit our website and inform you about your privacy rights and how the law protects you.
+									This privacy policy will inform you about how we handle your personal data when you visit our website (https://saliksik.net/) and inform you about your privacy rights and how the law protects you.
 								</p>
 								<p>
 									This privacy policy applies to all users of our AI-powered research platform. Please read this privacy policy carefully to understand our practices regarding your personal data.
