@@ -16,7 +16,7 @@ import {
 } from "./layout/templates";
 import { FOLLOWUP_QUESTIONS_PROMPT } from "./prompts";
 import type { ContentRequestType, ContentRequestTypeDB } from "./types";
-import { getModel, getModelThinking, getSearch, extractSearchMetadata } from "./utils";
+import { getModel, getFlashFast, getModelThinking, getSearch, extractSearchMetadata } from "./utils";
 import { generateText } from "ai";
 import {
 	initialContentRequestSchema,
@@ -45,6 +45,42 @@ app.get("/", async (c) => {
 			<ContentList content={content.results} />
 		</Layout>,
 	);
+});
+
+// API endpoint for suggesting answers to follow-up questions
+app.post("/api/suggest-answer", async (c) => {
+	try {
+		const body = await c.req.json();
+		const question = body.question;
+		const topic = body.topic;
+
+		if (!question) {
+			return c.json({ error: "Question is required" }, 400);
+		}
+
+		// Use the fast model for quick response
+		const { text } = await generateText({
+			model: getFlashFast(c.env),
+			messages: [
+				{
+					role: "system",
+					content: "You are Gemini, an expert educational content advisor specializing in academic and educational topics. Your purpose is to provide precise, evidence-based answers to follow-up questions about educational content. Your responses help educators with specific, actionable information.\n\nGuidelines for your answers:\n- Provide a concise yet thorough answer (75-150 words)\n- Include specific methodologies, resources, or approaches when relevant\n- Maintain professional language appropriate for educators\n- Address the question directly and specifically\n- Base your answer on established educational research and best practices\n\nDo not use markdown formatting in your responses."
+				},
+				{
+					role: "user",
+					content: `Educational Topic: "${topic}"\nFollow-up question: "${question}"\n\nProvide a direct, evidence-informed answer to guide the educational content creation.`
+				}
+			]
+		});
+
+		return c.json({ answer: text });
+	} catch (error) {
+		console.error("Error generating answer suggestion:", error);
+		return c.json({
+			error: "Failed to generate suggestion",
+			details: error instanceof Error ? error.message : "Unknown error"
+		}, 500);
+	}
 });
 
 app.get("/create", async (c) => {

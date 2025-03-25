@@ -510,47 +510,39 @@ export const ContentQuestions: FC = (props) => {
 			  const suggestAllBtn = document.getElementById('prefill-all-btn');
 			  const allSuggestionsStatus = document.getElementById('all-suggestions-status');
 			  
-			  // Updated function to work with indexed form fields
+			  // Function to get an AI suggestion for a question
 			  async function getAISuggestion(question, index) {
 				try {
-				  // In a real implementation, this would call an API endpoint
-				  // For now, we'll simulate a response after a delay
-				  return new Promise((resolve) => {
-					setTimeout(() => {
-					  const suggestions = {
-						"grade level": "This content is intended for middle school teachers (grades 6-8) who want to enhance student engagement and critical thinking skills.",
-						"specific subject": "While the principles can apply broadly, this is especially relevant for science and social studies classes where project-based approaches are particularly effective.",
-						"learning objectives": "Educators should be able to design effective project-based units, create authentic assessments, facilitate student-led inquiry, and address common implementation challenges.",
-						"experience level": "This content is suitable for both new teachers looking to build their practice and experienced educators wanting to refine their approach to project-based methods.",
-						"implementation challenges": "The key challenges include time constraints, curriculum alignment, assessment design, differentiation for diverse learners, and securing necessary resources.",
-						"assessment": "Both formative and summative assessment strategies will be included, with emphasis on authentic assessment methods that align with project-based learning principles.",
-						"resources": "Educators will need access to planning templates, example projects, evaluation rubrics, and ideally some flexibility in their curriculum implementation timeline.",
-						"technology": "While technology can enhance project-based learning, the strategies will include options for both technology-rich and limited-technology environments.",
-						"best practices": "Key best practices include backward design planning, embedding student choice, authentic problem scenarios, regular reflection opportunities, and community connections."
-					  };
-					  
-					  // Find a suggestion that might match the question
-					  const lowercaseQuestion = question.toLowerCase();
-					  let answer = "";
-					  
-					  for (const [key, value] of Object.entries(suggestions)) {
-						if (lowercaseQuestion.includes(key)) {
-						  answer = value;
-						  break;
-						}
-					  }
-					  
-					  // Default response if no match
-					  if (!answer) {
-						answer = "Based on current research and best practices, a comprehensive approach that includes clear instructional scaffolding, formative assessment, and differentiation strategies would be most effective for this educational context.";
-					  }
-					  
-					  resolve(answer);
-					}, 1000);
+				  const contentTopic = document.querySelector('input[name="topic"]').value;
+				  
+				  // Show loading indication in the UI before making the API call
+				  
+				  // Make an actual API call to get AI-generated suggestion
+				  const response = await fetch('/api/suggest-answer', {
+					method: 'POST',
+					headers: {
+					  'Content-Type': 'application/json',
+					},
+					body: JSON.stringify({
+					  question: question,
+					  topic: contentTopic
+					}),
 				  });
+				  
+				  if (!response.ok) {
+					throw new Error(\`API error: \${response.status}\`);
+				  }
+				  
+				  const data = await response.json();
+				  
+				  if (data.error) {
+					throw new Error(data.error);
+				  }
+				  
+				  return data.answer;
 				} catch (error) {
 				  console.error('Error getting suggestion:', error);
-				  return "Unable to generate a suggestion at this time.";
+				  return "Unable to generate an AI suggestion at this time. Please try again or enter your own response.";
 				}
 			  }
 			  
@@ -589,9 +581,9 @@ export const ContentQuestions: FC = (props) => {
 				});
 			  });
 			  
-			  // Handle suggest all button
-			  if (suggestAllBtn) {
-				suggestAllBtn.addEventListener('click', async function() {
+			  // Handle "Generate All Answers" button
+			  suggestAllBtn.addEventListener('click', async function() {
+				try {
 				  // Show loading state
 				  this.disabled = true;
 				  allSuggestionsStatus.classList.remove('hidden');
@@ -601,6 +593,15 @@ export const ContentQuestions: FC = (props) => {
 				  
 				  // Process each question sequentially
 				  for (let i = 0; i < questionElements.length; i++) {
+					// Update status message to show which question is being processed
+					allSuggestionsStatus.innerHTML = \`<div class="flex items-center">
+					  <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-primary-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+						<circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+						<path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+					  </svg>
+					  Generating answer for question \${i+1} of \${questionElements.length}...
+					</div>\`;
+					
 					const questionElement = questionElements[i];
 					const index = questionElement.id.replace('question-', '').replace('-label', '');
 					const textareaElement = document.getElementById(\`answer-\${index}\`);
@@ -610,21 +611,37 @@ export const ContentQuestions: FC = (props) => {
 					const questionText = questionElement.textContent.trim();
 					const questionWithoutNumber = questionText.substring(questionText.indexOf('. ') + 2);
 					
-					// Get AI suggestion
-					const suggestion = await getAISuggestion(questionWithoutNumber, index);
-					
-					// Update UI
-					if (suggestion) {
-					  textareaElement.value = suggestion;
-					  statusElement.classList.remove('hidden');
+					// Get AI suggestion - real API call
+					try {
+					  const suggestion = await getAISuggestion(questionWithoutNumber, index);
+					  
+					  // Update UI
+					  if (suggestion) {
+						textareaElement.value = suggestion;
+						statusElement.classList.remove('hidden');
+					  }
+					} catch (error) {
+					  console.error(\`Error generating answer for question \${i+1}:\`, error);
+					  // Continue with the next question even if one fails
 					}
 				  }
 				  
-				  // Reset button state
-				  this.disabled = false;
+				  // Success state
 				  allSuggestionsStatus.innerHTML = '<span class="flex items-center text-green-600"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>All answers generated</span>';
-				});
-			  }
+				} catch (error) {
+				  // Error state
+				  console.error('Error generating all answers:', error);
+				  allSuggestionsStatus.innerHTML = \`<span class="flex items-center text-red-600">
+					<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor">
+					  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+					</svg>
+					Error generating answers: \${error.message || 'Unknown error'}
+				  </span>\`;
+				} finally {
+				  // Always re-enable the button
+				  this.disabled = false;
+				}
+			  });
 			});
 		  `
 			}}></script>
