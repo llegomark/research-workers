@@ -1,5 +1,5 @@
 #:schema node_modules/wrangler/config-schema.json
-name = "workers-research"
+name = "edu-synthesis"
 main = "src/index.tsx"
 compatibility_date = "2025-01-28"
 compatibility_flags = [ "nodejs_compat" ]
@@ -16,19 +16,14 @@ watch_dir = "./src"
 directory = "./assets"
 
 [[workflows]]
-name = "workers-reseacher-workflow"
-binding = "RESEARCH_WORKFLOW"
-class_name = "ResearchWorkflow"
-
-[[workflows]]
-name = "workers-direct-search-workflow"
-binding = "DIRECT_SEARCH_WORKFLOW"
-class_name = "DirectSearchWorkflow"
+name = "content-generation-workflow"
+binding = "CONTENT_GENERATION_WORKFLOW"
+class_name = "ContentGenerationWorkflow"
 
 [[d1_databases]]
 binding = "DB"
-database_name = "research-workers"
-database_id = "c8a5fcd1-8acb-49b7-ab5b-1f1dd333b415"
+database_name = "edu-synthesis"
+database_id = "96347da8-8a3d-4ba9-b2f6-9994783b66cc"
 
 [browser]
 binding = "BROWSER"

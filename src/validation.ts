@@ -1,50 +1,41 @@
+// src/validation.ts
 import { z } from "zod";
 
-// Common validation schema for research parameters
-export const researchParamsSchema = z.object({
-    query: z
+// Common validation schema for content request parameters
+export const contentRequestParamsSchema = z.object({
+    topic: z
         .string()
-        .min(3, "Research query must be at least 3 characters long")
-        .max(1000, "Research query cannot exceed 1000 characters"),
-    depth: z
+        .min(3, "Topic must be at least 3 characters long")
+        .max(1000, "Topic cannot exceed 1000 characters"),
+    audience: z
         .string()
-        .refine((val) => !isNaN(Number(val)), "Depth must be a number")
-        .transform(Number)
-        .refine((val) => val >= 1 && val <= 5, {
-            message: "Depth must be between 1 and 5",
-        }),
-    breadth: z
+        .min(3, "Audience must be at least 3 characters long")
+        .max(100, "Audience cannot exceed 100 characters"),
+    format: z
         .string()
-        .refine((val) => !isNaN(Number(val)), "Breadth must be a number")
-        .transform(Number)
-        .refine((val) => val >= 1 && val <= 5, {
-            message: "Breadth must be between 1 and 5",
-        }),
+        .min(3, "Format must be at least 3 characters long")
+        .max(100, "Format cannot exceed 100 characters"),
+    additionalInstructions: z
+        .string()
+        .max(1000, "Additional instructions cannot exceed 1000 characters")
+        .optional(),
 });
 
 // Types derived from the schema
-export type ResearchParams = z.infer<typeof researchParamsSchema>;
+export type ContentRequestParams = z.infer<typeof contentRequestParamsSchema>;
 
-// Initial research creation schema (used in /create endpoint)
-export const initialResearchSchema = researchParamsSchema;
+// Initial content request schema
+export const initialContentRequestSchema = contentRequestParamsSchema;
 
-// Define a strict question-answer schema that matches the ResearchType interface
+// Define a strict question-answer schema
 const questionSchema = z.object({
     question: z.string().min(1, "Question cannot be empty"),
     answer: z.string().min(1, "Answer cannot be empty"),
 });
 
-// Schema for the final research creation (used in /create/finish endpoint)
-export const finalResearchSchema = researchParamsSchema.extend({
+// Schema for the final content request
+export const finalContentRequestSchema = contentRequestParamsSchema.extend({
     questions: z.array(questionSchema),
-});
-
-// Schema for direct search (simpler requirements)
-export const directSearchSchema = z.object({
-    query: z
-        .string()
-        .min(3, "Search query must be at least 3 characters long")
-        .max(1000, "Search query cannot exceed 1000 characters"),
 });
 
 // Export the question schema type to ensure compatibility

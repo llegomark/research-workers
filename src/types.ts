@@ -1,27 +1,28 @@
-export type ResearchType = {
+// src/types.ts
+export type ContentRequestType = {
 	id: string;
-	query: string;
-	depth: string;
-	breadth: string;
-	status: number;
+	topic: string;
+	audience: string;
+	format: string;
+	additionalInstructions?: string;
+	status: number; // 1: In Progress, 2: Completed, 3: Error
 	questions: {
 		question: string;
 		answer: string;
 	}[];
 	result?: string;
 	created_at?: string;
-	direct_search?: boolean;
 };
 
-
-export type ResearchTypeDB = {
+export type ContentRequestTypeDB = {
 	id: string;
-	query: string;
-	depth: string;
-	breadth: string;
+	topic: string;
+	audience: string;
+	format: string;
+	additional_instructions?: string;
 	status: number;
-	questions: string;
+	questions: string; // JSON string
 	result?: string;
 	created_at?: string;
-	direct_search?: boolean;
+	user?: string;
 };

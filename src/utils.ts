@@ -1,6 +1,6 @@
+// src/utils.ts
 import {
 	type GoogleGenerativeAIProvider,
-	type GoogleGenerativeAIProviderMetadata,
 	createGoogleGenerativeAI,
 } from "@ai-sdk/google";
 import type { Env } from "./bindings";
@@ -26,25 +26,21 @@ function getGoogleProvider(env: Env): GoogleGenerativeAIProvider {
 
 export function getModel(env: Env) {
 	const google = getGoogleProvider(env);
-
 	return google("gemini-2.0-flash");
 }
 
 export function getModelThinking(env: Env) {
 	const google = getGoogleProvider(env);
-
 	return google("gemini-2.0-flash-thinking-exp-01-21");
 }
 
 export function getFlashFast(env: Env) {
 	const google = getGoogleProvider(env);
-
 	return google("gemini-2.0-flash-lite");
 }
 
 export function getSearch(env: Env) {
 	const google = getGoogleProvider(env);
-
 	return google("gemini-2.0-flash", {
 		useSearchGrounding: true,
 	});
@@ -62,12 +58,11 @@ export function extractSearchMetadata(providerMetadata?: any): {
 
 	const metadata = providerMetadata.google;
 
-	// Type-safe extraction for properties known to exist in the type
+	// Type-safe extraction for properties
 	const groundingMetadata = metadata.groundingMetadata;
 	const safetyRatings = metadata.safetyRatings;
 
-	// Extract sources using a type assertion or directly from the any-typed object
-	// This works around the TypeScript type definition limitations
+	// Extract sources
 	const sources = (metadata as any).sources;
 
 	return {
@@ -75,6 +70,19 @@ export function extractSearchMetadata(providerMetadata?: any): {
 		safetyRatings,
 		sources
 	};
+}
+
+export function formatDate(date: Date): string {
+	const options: Intl.DateTimeFormatOptions = {
+		year: 'numeric',
+		month: 'short',
+		day: 'numeric',
+		hour: '2-digit',
+		minute: '2-digit',
+		hour12: true
+	};
+
+	return new Intl.DateTimeFormat('en-US', options).format(date);
 }
 
 export function timeAgo(date: Date): string {
@@ -102,19 +110,4 @@ export function timeAgo(date: Date): string {
 
 	count = Math.floor(count);
 	return `${count} ${unit}${count !== 1 ? "s" : ""} ago`;
-}
-
-// Format date to GMT+8 Manila Time
-export function formatManilaTime(date: Date): string {
-	const options: Intl.DateTimeFormatOptions = {
-		year: 'numeric',
-		month: 'short',
-		day: 'numeric',
-		hour: '2-digit',
-		minute: '2-digit',
-		timeZone: 'Asia/Manila',
-		hour12: true
-	};
-
-	return new Intl.DateTimeFormat('en-US', options).format(date);
 }

@@ -1,7 +1,7 @@
 {
-	"name": "workers-research",
+	"name": "edu-synthesis",
 	"version": "0.0.1",
-	"description": "A Cloudflare Workers implementation of OpenAI's Deep Research agent",
+	"description": "AI-powered educational content generator for educators",
 	"main": "./dist/index.js",
 	"module": "./dist/index.mjs",
 	"files": [

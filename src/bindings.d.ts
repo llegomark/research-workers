@@ -1,15 +1,14 @@
+// src/bindings.d.ts
 import type { Context } from "hono";
-import type { ResearchType } from "./types";
+import type { ContentRequestType } from "./types";
 
 export type Env = {
-	RESEARCH_WORKFLOW: Workflow<ResearchType>;
-	DIRECT_SEARCH_WORKFLOW: Workflow<ResearchType>;
+	CONTENT_GENERATION_WORKFLOW: Workflow<ContentRequestType>;
 	DB: D1Database;
 	GOOGLE_API_KEY: string;
 	AI_GATEWAY_NAME?: string;
 	AI_GATEWAY_ACCOUNT_ID?: string;
 	AI_GATEWAY_API_KEY?: string;
-	BROWSER: Fetcher;
 };
 
 export type Variables = {
