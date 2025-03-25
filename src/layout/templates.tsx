@@ -1,7 +1,6 @@
 // src/layout/templates.tsx
 import { html } from "hono/html";
 import type { FC } from "hono/jsx";
-import type { ContentRequestTypeDB } from "../types";
 import { formatDate, timeAgo } from "../utils";
 
 const Header: FC = (props) => {
@@ -164,10 +163,10 @@ export const ContentList: FC = (props) => {
 										<td className="px-4 sm:px-6 py-3 sm:py-4">
 											<span
 												className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${item.status === 1
-														? "bg-amber-100 text-amber-800"
-														: item.status === 2
-															? "bg-emerald-100 text-emerald-800"
-															: "bg-red-100 text-red-800"
+													? "bg-amber-100 text-amber-800"
+													: item.status === 2
+														? "bg-emerald-100 text-emerald-800"
+														: "bg-red-100 text-red-800"
 													}`}
 											>
 												{item.status === 1 ? (
@@ -449,15 +448,16 @@ export const ContentQuestions: FC = (props) => {
 							<input name="additionalInstructions" value={props.contentRequest.additionalInstructions || ""} type="hidden" />
 
 							{props.questions.map((question, index) => (
-								<div className="space-y-2">
+								<div className="space-y-2" key={index}>
 									<label className="block text-sm font-medium text-neutral-700" id={`question-${index}-label`}>
 										{index + 1}. {question}
 									</label>
-									<input name="question" value={question} type="hidden" />
+									{/* Changed to use indexed form field names */}
+									<input name={`question[${index}]`} value={question} type="hidden" />
 									<div className="relative">
 										<textarea
 											id={`answer-${index}`}
-											name="answer"
+											name={`answer[${index}]`}
 											className="w-full p-3 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
 											required
 											placeholder="Your answer..."
@@ -469,13 +469,13 @@ export const ContentQuestions: FC = (props) => {
 											data-index={index}
 										>
 											<svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor">
-												<path fill-rule="evenodd" d="M6.625 2.655A9 9 0 0119 11a1 1 0 11-2 0 7 7 0 00-9.625-6.492 1 1 0 11-.75-1.853zM4.662 4.959A1 1 0 014.75 6.37 6.97 6.97 0 003 11a1 1 0 11-2 0 8.97 8.97 0 012.25-5.953 1 1 0 011.412-.088z" clip-rule="evenodd" />
-												<path fill-rule="evenodd" d="M5 11a5 5 0 1110 0 5 5 0 01-10 0zm5-3a3 3 0 100 6 3 3 0 000-6z" clip-rule="evenodd" />
+												<path fillRule="evenodd" d="M6.625 2.655A9 9 0 0119 11a1 1 0 11-2 0 7 7 0 00-9.625-6.492 1 1 0 11-.75-1.853zM4.662 4.959A1 1 0 014.75 6.37 6.97 6.97 0 003 11a1 1 0 11-2 0 8.97 8.97 0 012.25-5.953 1 1 0 011.412-.088z" clipRule="evenodd" />
+												<path fillRule="evenodd" d="M5 11a5 5 0 1110 0 5 5 0 01-10 0zm5-3a3 3 0 100 6 3 3 0 000-6z" clipRule="evenodd" />
 											</svg>
 											<span>Suggest Answer</span>
 											<span className="loading-indicator hidden ml-1">
 												<svg className="animate-spin h-3 w-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-													<circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+													<circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
 													<path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
 												</svg>
 											</span>
@@ -484,7 +484,7 @@ export const ContentQuestions: FC = (props) => {
 									<div className="suggestion-status text-xs text-neutral-500 hidden">
 										<span className="flex items-center text-green-600">
 											<svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 mr-1" viewBox="0 0 20 20" fill="currentColor">
-												<path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+												<path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
 											</svg>
 											AI-generated answer applied
 										</span>
@@ -504,129 +504,129 @@ export const ContentQuestions: FC = (props) => {
 
 			<script dangerouslySetInnerHTML={{
 				__html: `
-          document.addEventListener('DOMContentLoaded', () => {
-            const form = document.getElementById('content-questions-form');
-            const contentTopic = document.querySelector('input[name="topic"]').value;
-            const suggestAllBtn = document.getElementById('prefill-all-btn');
-            const allSuggestionsStatus = document.getElementById('all-suggestions-status');
-            
-            // Simulate AI suggestion functionality
-            async function getAISuggestion(question) {
-              try {
-                // In a real implementation, this would call an API endpoint
-                // For now, we'll simulate a response after a delay
-                return new Promise((resolve) => {
-                  setTimeout(() => {
-                    const suggestions = {
-                      "grade level": "This content is intended for middle school teachers (grades 6-8) who want to enhance student engagement and critical thinking skills.",
-                      "specific subject": "While the principles can apply broadly, this is especially relevant for science and social studies classes where project-based approaches are particularly effective.",
-                      "learning objectives": "Educators should be able to design effective project-based units, create authentic assessments, facilitate student-led inquiry, and address common implementation challenges.",
-                      "experience level": "This content is suitable for both new teachers looking to build their practice and experienced educators wanting to refine their approach to project-based methods.",
-                      "implementation challenges": "The key challenges include time constraints, curriculum alignment, assessment design, differentiation for diverse learners, and securing necessary resources.",
-                      "assessment": "Both formative and summative assessment strategies will be included, with emphasis on authentic assessment methods that align with project-based learning principles.",
-                      "resources": "Educators will need access to planning templates, example projects, evaluation rubrics, and ideally some flexibility in their curriculum implementation timeline.",
-                      "technology": "While technology can enhance project-based learning, the strategies will include options for both technology-rich and limited-technology environments.",
-                      "best practices": "Key best practices include backward design planning, embedding student choice, authentic problem scenarios, regular reflection opportunities, and community connections."
-                    };
-                    
-                    // Find a suggestion that might match the question
-                    const lowercaseQuestion = question.toLowerCase();
-                    let answer = "";
-                    
-                    for (const [key, value] of Object.entries(suggestions)) {
-                      if (lowercaseQuestion.includes(key)) {
-                        answer = value;
-                        break;
-                      }
-                    }
-                    
-                    // Default response if no match
-                    if (!answer) {
-                      answer = "Based on current research and best practices, a comprehensive approach that includes clear instructional scaffolding, formative assessment, and differentiation strategies would be most effective for this educational context.";
-                    }
-                    
-                    resolve(answer);
-                  }, 1000);
-                });
-              } catch (error) {
-                console.error('Error getting suggestion:', error);
-                return "Unable to generate a suggestion at this time.";
-              }
-            }
-            
-            // Handle individual suggestion buttons
-            document.querySelectorAll('.suggest-btn').forEach(button => {
-              button.addEventListener('click', async function() {
-                // Get elements
-                const index = this.getAttribute('data-index');
-                const questionElement = document.getElementById(\`question-\${index}-label\`);
-                const textareaElement = document.getElementById(\`answer-\${index}\`);
-                const loadingIndicator = this.querySelector('.loading-indicator');
-                const statusElement = this.closest('.space-y-2').querySelector('.suggestion-status');
-                
-                if (!questionElement || !textareaElement) return;
-                
-                // Get question text (remove the number prefix)
-                const questionText = questionElement.textContent.trim();
-                const questionWithoutNumber = questionText.substring(questionText.indexOf('. ') + 2);
-                
-                // Show loading state
-                this.disabled = true;
-                loadingIndicator.classList.remove('hidden');
-                
-                // Get AI suggestion
-                const suggestion = await getAISuggestion(questionWithoutNumber);
-                
-                // Update UI
-                if (suggestion) {
-                  textareaElement.value = suggestion;
-                  statusElement.classList.remove('hidden');
-                }
-                
-                // Reset button state
-                this.disabled = false;
-                loadingIndicator.classList.add('hidden');
-              });
-            });
-            
-            // Handle suggest all button
-            if (suggestAllBtn) {
-              suggestAllBtn.addEventListener('click', async function() {
-                // Show loading state
-                this.disabled = true;
-                allSuggestionsStatus.classList.remove('hidden');
-                
-                // Get all question elements
-                const questionElements = document.querySelectorAll('[id^="question-"][id$="-label"]');
-                
-                // Process each question sequentially
-                for (let i = 0; i < questionElements.length; i++) {
-                  const questionElement = questionElements[i];
-                  const index = questionElement.id.replace('question-', '').replace('-label', '');
-                  const textareaElement = document.getElementById(\`answer-\${index}\`);
-                  const statusElement = textareaElement.closest('.space-y-2').querySelector('.suggestion-status');
-                  
-                  // Get question text (remove the number prefix)
-                  const questionText = questionElement.textContent.trim();
-                  const questionWithoutNumber = questionText.substring(questionText.indexOf('. ') + 2);
-                  
-                  // Get AI suggestion
-                  const suggestion = await getAISuggestion(questionWithoutNumber);
-                  
-                  // Update UI
-                  if (suggestion) {
-                    textareaElement.value = suggestion;
-                    statusElement.classList.remove('hidden');
-                  }
-                }
-                
-                // Reset button state
-                this.disabled = false;
-                allSuggestionsStatus.innerHTML = '<span class="flex items-center text-green-600"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>All answers generated</span>';
-              });
-            }
-          });
-        `
+			document.addEventListener('DOMContentLoaded', () => {
+			  const form = document.getElementById('content-questions-form');
+			  const contentTopic = document.querySelector('input[name="topic"]').value;
+			  const suggestAllBtn = document.getElementById('prefill-all-btn');
+			  const allSuggestionsStatus = document.getElementById('all-suggestions-status');
+			  
+			  // Updated function to work with indexed form fields
+			  async function getAISuggestion(question, index) {
+				try {
+				  // In a real implementation, this would call an API endpoint
+				  // For now, we'll simulate a response after a delay
+				  return new Promise((resolve) => {
+					setTimeout(() => {
+					  const suggestions = {
+						"grade level": "This content is intended for middle school teachers (grades 6-8) who want to enhance student engagement and critical thinking skills.",
+						"specific subject": "While the principles can apply broadly, this is especially relevant for science and social studies classes where project-based approaches are particularly effective.",
+						"learning objectives": "Educators should be able to design effective project-based units, create authentic assessments, facilitate student-led inquiry, and address common implementation challenges.",
+						"experience level": "This content is suitable for both new teachers looking to build their practice and experienced educators wanting to refine their approach to project-based methods.",
+						"implementation challenges": "The key challenges include time constraints, curriculum alignment, assessment design, differentiation for diverse learners, and securing necessary resources.",
+						"assessment": "Both formative and summative assessment strategies will be included, with emphasis on authentic assessment methods that align with project-based learning principles.",
+						"resources": "Educators will need access to planning templates, example projects, evaluation rubrics, and ideally some flexibility in their curriculum implementation timeline.",
+						"technology": "While technology can enhance project-based learning, the strategies will include options for both technology-rich and limited-technology environments.",
+						"best practices": "Key best practices include backward design planning, embedding student choice, authentic problem scenarios, regular reflection opportunities, and community connections."
+					  };
+					  
+					  // Find a suggestion that might match the question
+					  const lowercaseQuestion = question.toLowerCase();
+					  let answer = "";
+					  
+					  for (const [key, value] of Object.entries(suggestions)) {
+						if (lowercaseQuestion.includes(key)) {
+						  answer = value;
+						  break;
+						}
+					  }
+					  
+					  // Default response if no match
+					  if (!answer) {
+						answer = "Based on current research and best practices, a comprehensive approach that includes clear instructional scaffolding, formative assessment, and differentiation strategies would be most effective for this educational context.";
+					  }
+					  
+					  resolve(answer);
+					}, 1000);
+				  });
+				} catch (error) {
+				  console.error('Error getting suggestion:', error);
+				  return "Unable to generate a suggestion at this time.";
+				}
+			  }
+			  
+			  // Handle individual suggestion buttons
+			  document.querySelectorAll('.suggest-btn').forEach(button => {
+				button.addEventListener('click', async function() {
+				  // Get elements
+				  const index = this.getAttribute('data-index');
+				  const questionElement = document.getElementById(\`question-\${index}-label\`);
+				  const textareaElement = document.getElementById(\`answer-\${index}\`);
+				  const loadingIndicator = this.querySelector('.loading-indicator');
+				  const statusElement = this.closest('.space-y-2').querySelector('.suggestion-status');
+				  
+				  if (!questionElement || !textareaElement) return;
+				  
+				  // Get question text (remove the number prefix)
+				  const questionText = questionElement.textContent.trim();
+				  const questionWithoutNumber = questionText.substring(questionText.indexOf('. ') + 2);
+				  
+				  // Show loading state
+				  this.disabled = true;
+				  loadingIndicator.classList.remove('hidden');
+				  
+				  // Get AI suggestion
+				  const suggestion = await getAISuggestion(questionWithoutNumber, index);
+				  
+				  // Update UI
+				  if (suggestion) {
+					textareaElement.value = suggestion;
+					statusElement.classList.remove('hidden');
+				  }
+				  
+				  // Reset button state
+				  this.disabled = false;
+				  loadingIndicator.classList.add('hidden');
+				});
+			  });
+			  
+			  // Handle suggest all button
+			  if (suggestAllBtn) {
+				suggestAllBtn.addEventListener('click', async function() {
+				  // Show loading state
+				  this.disabled = true;
+				  allSuggestionsStatus.classList.remove('hidden');
+				  
+				  // Get all question elements
+				  const questionElements = document.querySelectorAll('[id^="question-"][id$="-label"]');
+				  
+				  // Process each question sequentially
+				  for (let i = 0; i < questionElements.length; i++) {
+					const questionElement = questionElements[i];
+					const index = questionElement.id.replace('question-', '').replace('-label', '');
+					const textareaElement = document.getElementById(\`answer-\${index}\`);
+					const statusElement = textareaElement.closest('.space-y-2').querySelector('.suggestion-status');
+					
+					// Get question text (remove the number prefix)
+					const questionText = questionElement.textContent.trim();
+					const questionWithoutNumber = questionText.substring(questionText.indexOf('. ') + 2);
+					
+					// Get AI suggestion
+					const suggestion = await getAISuggestion(questionWithoutNumber, index);
+					
+					// Update UI
+					if (suggestion) {
+					  textareaElement.value = suggestion;
+					  statusElement.classList.remove('hidden');
+					}
+				  }
+				  
+				  // Reset button state
+				  this.disabled = false;
+				  allSuggestionsStatus.innerHTML = '<span class="flex items-center text-green-600"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>All answers generated</span>';
+				});
+			  }
+			});
+		  `
 			}}></script>
 		</div>
 	);
@@ -724,7 +724,7 @@ export const ContentDetails: FC = (props) => {
 
 							<div className="divide-y divide-neutral-100">
 								{props.content.questions.map((obj) => (
-									<div className="p-4 bg-white">
+									<div className="p-4 bg-white" key={obj.question.substring(0, 20)}>
 										<div className="font-medium text-neutral-800 mb-1">{obj.question}</div>
 										<div className="text-sm text-neutral-600">{obj.answer}</div>
 									</div>
@@ -749,7 +749,12 @@ export const ContentDetails: FC = (props) => {
 							</div>
 
 							<div className="p-6 bg-white">
-								<div className="article prose max-w-none">{html(props.content.content_html)}</div>
+								{/* KEY CHANGE: Conditionally render content based on status */}
+								{props.content.status === 1 ? (
+									<div dangerouslySetInnerHTML={{ __html: props.content.content_html }}></div>
+								) : (
+									<div className="article prose max-w-none">{html(props.content.content_html)}</div>
+								)}
 
 								<div className="mt-8 pt-6 border-t border-neutral-200">
 									<div className="flex items-center justify-between">
@@ -791,54 +796,56 @@ export const ContentDetails: FC = (props) => {
 
 			<script dangerouslySetInnerHTML={{
 				__html: `
-          function copyContent() {
-            const content = document.querySelector('.article').innerText;
-            navigator.clipboard.writeText(content).then(() => {
-              const copyBtn = document.getElementById('copyBtn');
-              const originalText = copyBtn.innerHTML;
-              
-              copyBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg><span>Copied!</span>';
-              
-              setTimeout(() => {
-                copyBtn.innerHTML = originalText;
-              }, 2000);
-            }).catch(err => {
-              console.error('Failed to copy: ', err);
-            });
-          }
-          
-          // Make all source links open in new tabs
-          document.addEventListener('DOMContentLoaded', () => {
-            // Target all links under the sources section
-            const sourcesHeading = Array.from(document.querySelectorAll('.article h2, .article h3')).find(h => 
-              h.textContent.toLowerCase().includes('sources') || 
-              h.textContent.toLowerCase().includes('references'));
-              
-            if (sourcesHeading) {
-              // Get all links after the sources heading
-              const sourcesList = sourcesHeading.nextElementSibling;
-              if (sourcesList && (sourcesList.tagName === 'OL' || sourcesList.tagName === 'UL')) {
-                const links = sourcesList.querySelectorAll('a');
-                links.forEach(link => {
-                  link.setAttribute('target', '_blank');
-                  link.setAttribute('rel', 'noopener noreferrer');
-                });
-              } else {
-                // Look for links in paragraphs after the heading
-                let currentElement = sourcesHeading.nextElementSibling;
-                while (currentElement && 
-                      !(currentElement.tagName === 'H2' || currentElement.tagName === 'H3')) {
-                  const links = currentElement.querySelectorAll('a');
-                  links.forEach(link => {
-                    link.setAttribute('target', '_blank');
-                    link.setAttribute('rel', 'noopener noreferrer');
-                  });
-                  currentElement = currentElement.nextElementSibling;
-                }
-              }
-            }
-          });
-        `
+			function copyContent() {
+			  const content = document.querySelector('.article')?.innerText || document.querySelector('.prose')?.innerText || '';
+			  navigator.clipboard.writeText(content).then(() => {
+				const copyBtn = document.getElementById('copyBtn');
+				if (!copyBtn) return;
+				
+				const originalText = copyBtn.innerHTML;
+				
+				copyBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg><span>Copied!</span>';
+				
+				setTimeout(() => {
+				  copyBtn.innerHTML = originalText;
+				}, 2000);
+			  }).catch(err => {
+				console.error('Failed to copy: ', err);
+			  });
+			}
+			
+			// Make all source links open in new tabs
+			document.addEventListener('DOMContentLoaded', () => {
+			  // Target all links under the sources section
+			  const sourcesHeading = Array.from(document.querySelectorAll('.article h2, .article h3')).find(h => 
+				h.textContent?.toLowerCase().includes('sources') || 
+				h.textContent?.toLowerCase().includes('references'));
+				
+			  if (sourcesHeading) {
+				// Get all links after the sources heading
+				const sourcesList = sourcesHeading.nextElementSibling;
+				if (sourcesList && (sourcesList.tagName === 'OL' || sourcesList.tagName === 'UL')) {
+				  const links = sourcesList.querySelectorAll('a');
+				  links.forEach(link => {
+					link.setAttribute('target', '_blank');
+					link.setAttribute('rel', 'noopener noreferrer');
+				  });
+				} else {
+				  // Look for links in paragraphs after the heading
+				  let currentElement = sourcesHeading.nextElementSibling;
+				  while (currentElement && 
+						!(currentElement.tagName === 'H2' || currentElement.tagName === 'H3')) {
+					const links = currentElement.querySelectorAll('a');
+					links.forEach(link => {
+					  link.setAttribute('target', '_blank');
+					  link.setAttribute('rel', 'noopener noreferrer');
+					});
+					currentElement = currentElement.nextElementSibling;
+				  }
+				}
+			  }
+			});
+		  `
 			}}></script>
 		</div>
 	);
