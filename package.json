@@ -41,7 +41,7 @@
 	},
 	"dependencies": {
 		"@ai-sdk/google": "^1.1.25",
-		"@cloudflare/puppeteer": "^0.0.14",
+		"@cloudflare/puppeteer": "^1.0.4",
 		"ai": "^4.1.61",
 		"hono": "^4.7.4",
 		"marked": "^15.0.7",
